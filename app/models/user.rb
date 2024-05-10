@@ -8,10 +8,10 @@ class User < ApplicationRecord
                     uniqueness: { message: 'このメールアドレスは登録済みです' }
   has_secure_password validations: false
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
-  validates :password, presence: { message: 'パスワード欄は必須です' },
+  validates :password, presence: { message: 'パスワード欄は必須です' }, on: [:create],
                        format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },
                        length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' }
-  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }
+  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }, on: [:create]
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
