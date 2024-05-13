@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         log_in user
         redirect_to forwarding_url || user
       else
-        message  = "アカウントが有効化されていません。 "
+        message  = "アカウントが有効化されていません。"
         message += "有効化のリンクを含んだメールをチェックしてください"
         flash[:warning] = message
         redirect_to root_url
@@ -25,6 +25,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out if logged_in?
-    redirect_to signup_path, status: :see_other
+    redirect_to root_url
   end
 end

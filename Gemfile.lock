@@ -103,6 +103,11 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (2.21.0)
       i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
@@ -281,6 +286,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  factory_bot_rails
   faker (= 2.21.0)
   importmap-rails
   jbuilder
