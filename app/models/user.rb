@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
   validates :name, presence: { message: 'ユーザー名欄は必須です' }, 
                    length: { maximum: 20, message: 'ユーザー名欄は20文字以下で入力してください' }
@@ -9,10 +9,10 @@ class User < ApplicationRecord
                     uniqueness: { message: 'このメールアドレスは登録済みです' }
   has_secure_password validations: false
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
-  validates :password, presence: { message: 'パスワード欄は必須です' }, on: [:create],
+  validates :password, presence: { message: 'パスワード欄は必須です' }, on: [:create, :update], #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
                        format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },
                        length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' }
-  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }, on: [:create]
+  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }, on: [:create, :update] #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
@@ -55,6 +55,22 @@ class User < ApplicationRecord
   def activate
     update_attribute(:activated,    true)
     update_attribute(:activated_at, Time.zone.now)
+  end
+
+  # パスワード再設定の属性を設定する
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+  
+  # パスワード再設定のメールを送信する
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private
