@@ -1,18 +1,22 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
-  validates :name, presence: { message: 'ユーザー名欄は必須です' }, 
-                   length: { maximum: 20, message: 'ユーザー名欄は20文字以下で入力してください' }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: { message: 'メールアドレス欄は必須です' }, 
-                    format: { with: VALID_EMAIL_REGEX, message: 'メールアドレス欄は正しいメールアドレスを入力してください' },
-                    uniqueness: { message: 'このメールアドレスは登録済みです' }
+  has_one_attached :profile_image
   has_secure_password validations: false
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
-  validates :password, presence: { message: 'パスワード欄は必須です' }, on: [:create, :update], #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
-                       format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },
-                       length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' }
-  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }, on: [:create, :update] #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :name,                  presence: { message: 'ユーザー名欄は必須です' }, 
+                                   length: { maximum: 20, message: 'ユーザー名欄は20文字以下で入力してください' }
+  validates :email,                 presence: { message: 'メールアドレス欄は必須です' }, 
+                                    format: { with: VALID_EMAIL_REGEX, message: 'メールアドレス欄は正しいメールアドレスを入力してください' },
+                                    uniqueness: { message: 'このメールアドレスは登録済みです' }
+  validates :password,              presence: { message: 'パスワード欄は必須です' }, on: [:create], #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
+                                    format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },
+                                    length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' }
+  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }, on: [:create] #ユーザープロフィール編集時にパスワードのバリデーションを実行しないため
+  validates :profile_image,         content_type: { in: %w[image/jpeg image/gif image/png], message: "有効なフォーマットではありません" },
+                                    size: { less_than: 5.megabytes, message: "5MB以上の画像は添付できません" }
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)

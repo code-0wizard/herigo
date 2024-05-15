@@ -10,6 +10,9 @@
     <%= f.label :email %>
     <%= f.email_field :email, class: 'form-control' %>
 
+    <%= f.label :profile_image %>
+    <%= f.file_field :profile_image %>
+
     <%= f.submit "Save changes", class: "btn btn-primary" %>
   <% end %>
 </div>
