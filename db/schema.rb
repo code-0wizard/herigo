@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_022705) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_15_063034) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,31 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_022705) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "heritages", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.integer "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_heritages_on_country_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "heritage_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["heritage_id"], name: "index_reviews_on_heritage_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 20, null: false
     t.string "email", null: false
@@ -57,4 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_022705) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "heritages", "countries"
+  add_foreign_key "reviews", "heritages"
+  add_foreign_key "reviews", "users"
 end
