@@ -1,8 +1,8 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
     <ul>
     <% [:name, :email, :password, :password_confirmation].each do |attribute| %>
-      <% @user.errors[attribute].each do |message| %>
+      <% object.errors[attribute].each do |message| %>
         <li><%= message %></li>
       <% end %>
     <% end %>

@@ -1,0 +1,10 @@
+<%= form_with(model: @review) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "口コミ" %>
+    <%= f.label :review_image %>
+    <%= f.file_field :review_image %>
+    <%= hidden_field_tag :heritage_id, @heritage.id %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

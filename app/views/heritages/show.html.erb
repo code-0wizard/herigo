@@ -1,0 +1,12 @@
+<h1><%= @heritage.name %></h1>
+<h2><%= @heritage.content %></h2>
+<p>口コミ</p>
+<% @reviews.each do |review| %>
+  <p><%= review.content %></p>
+  <%= image_tag review.review_image if review.review_image.attached? %>
+
+<% end %>
+<!-- もしログインしてたらフォームを表示する -->
+<% if logged_in? %>
+  <%= render 'shared/review_form', object: @review %>
+<% end %>
