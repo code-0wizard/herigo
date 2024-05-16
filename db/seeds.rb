@@ -24,14 +24,20 @@ Australia = Country.find_by(name: "オーストラリア")
 3.times do
   name = Faker::Lorem.sentence(word_count: 10)
   content = Faker::Lorem.sentence(word_count: 20)
-  Australia.heritages.create!(name: name, content: content)
+  Australia.heritages.create!(
+    name: name, 
+    content: content,
+    image_path: "heritage/nature.png")
 end
 
 Italy = Country.find_by(name: "イタリア")
 3.times do
   name = Faker::Lorem.sentence(word_count: 10)
   content = Faker::Lorem.sentence(word_count: 20)
-  Italy.heritages.create!(name: name, content: content)
+  Italy.heritages.create!(
+    name: name, 
+    content: content, 
+    image_path: "heritage/nature.png")
 end
 
 # reviewsデータ
