@@ -1,12 +1,14 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
-
 <%= will_paginate %>
-
 <ul class="users">
   <% @users.each do |user| %>
     <%= render user %>
   <% end %>
 </ul>
-
 <%= will_paginate %>
+
+<div class="col-md-8">
+  <h1>Micropost Feed</h1>
+  <%= render 'shared/feed' %>
+</div>

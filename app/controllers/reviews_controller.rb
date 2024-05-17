@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :logged_in_user, only: [:create]
+  before_action :logged_in_user
 
   def create
     heritage = Heritage.find(params[:heritage_id])

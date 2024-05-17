@@ -1,12 +1,20 @@
 class User < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+  has_many :active_relationships,  class_name:  "Relationship",
+                                   foreign_key: "follower_id",
+                                   dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
-  has_many :reviews, dependent: :destroy
   has_one_attached :profile_image
   has_secure_password validations: false
+
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
   validates :name,                  presence: { message: 'ユーザー名欄は必須です' }, 
                                     length: { maximum: 20, message: 'ユーザー名欄は20文字以下で入力してください' }
   validates :email,                 presence: { message: 'メールアドレス欄は必須です' }, 
@@ -78,6 +86,23 @@ class User < ApplicationRecord
 
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def feed
+    Review.where("user_id IN (:following_ids) OR user_id = :user_id",
+     following_ids: following_ids, user_id: id)
+  end
+
+  def follow(other_user)
+    following << other_user unless self == other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
   end
 
   private

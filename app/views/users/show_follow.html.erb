@@ -1,0 +1,7 @@
+<% provide(:title, @title) %>
+<p>フォローしてる人をここに表示するよ</p>
+<p>
+<% @users.each do |user| %>
+  <%= link_to user.name, user %>
+<% end %>
+</p>

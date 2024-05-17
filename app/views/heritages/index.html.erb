@@ -1,0 +1,9 @@
+<% provide(:title, 'All heritages') %>
+<h1>All Heritages</h1>
+<%= will_paginate %>
+<ul class="heritagess">
+  <% @heritages.each do |heritage| %>
+    <li><%= link_to heritage.name, heritage %></li>
+  <% end %>
+</ul>
+<%= will_paginate %>

@@ -1,0 +1,7 @@
+<%= will_paginate %>
+<ul class="feeds">
+  <% @feeds.each do |feed| %>
+    <li><%= feed.content %></li>
+  <% end %>
+</ul>
+<%= will_paginate %>
