@@ -3,7 +3,12 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1><%= @user.name %></h1>
-      <%= image_tag @user.profile_image if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image, size:'400x400' if @user.profile_image.attached? %>
+      <p>口コミ</p>
+      <% @reviews.each do |review| %>
+        <p><%= review.content %></p>
+        <%= image_tag review.review_image if review.review_image.attached? %>
+      <% end %>
     </section>
   </aside>
 </div>

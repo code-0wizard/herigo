@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
-  has_many :reiviews
+  has_many :reviews, dependent: :destroy
   has_one_attached :profile_image
   has_secure_password validations: false
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
@@ -13,9 +13,11 @@ class User < ApplicationRecord
                                     format: { with: VALID_EMAIL_REGEX, message: 'メールアドレス欄は正しいメールアドレスを入力してください' },
                                     uniqueness: { message: 'このメールアドレスは登録済みです' }
   validates :password,              presence: { message: 'パスワード欄は必須です' },
-                                    format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },
-                                    length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' }
-  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' }
+                                    format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },                                  
+                                    length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' },
+                                    allow_nil: true
+  validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' },
+                                    allow_nil: true
   validates :profile_image,         content_type: { in: %w[image/jpeg image/gif image/png], message: "有効なフォーマットではありません" },
                                     size: { less_than: 5.megabytes, message: "5MB以上の画像は添付できません" }
 
