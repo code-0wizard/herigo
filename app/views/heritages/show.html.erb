@@ -5,6 +5,9 @@
 <p>口コミ</p>
 <% @reviews.each do |review| %>
   <p><%= review.content %></p>
+  <span>いいね数：</span>
+  <strong id="like_numbers"><%= review.likers.count %></strong>
+  <%= render 'reviews/like_form', review: review %>
   <% if review.review_images.attached? %>
     <% review.review_images.each do |image| %>
       <%= image_tag image, size:'300x200' %>

@@ -1,0 +1,7 @@
+<div id="review_like_form">
+<% if current_user.liked?(review) %>
+  <%= render 'reviews/unlike', review: review %>
+<% else %>
+  <%= render 'reviews/like', review: review %>
+<% end %>
+</div>

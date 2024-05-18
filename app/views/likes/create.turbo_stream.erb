@@ -1,0 +1,6 @@
+<%= turbo_stream.update "review_like_form" do %>
+  <%= render partial: "reviews/unlike" %>
+<% end %>
+<%= turbo_stream.update "like_numbers_#{@review.id}" do %>
+  <%= @review.likers.count %>
+<% end %>
