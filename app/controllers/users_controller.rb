@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page])
-    @feeds = current_user.feed.paginate(page: params[:page])
+    @feeds = current_user.feed.paginate(page: params[:page]) if logged_in?
   end
 
   def new

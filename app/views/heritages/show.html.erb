@@ -1,13 +1,21 @@
 <%= render 'shared/error_messages', object: @review %>
+<span>いいね数：</span>
+<%= @heritage.likers.count %>
+<% if logged_in? %>
+  <%= render 'heritages/like_form' %>
+<% end %>
 <%= image_tag @heritage.image_path, size:'600x400' %>
 <h1><%= @heritage.name %></h1>
 <h2><%= @heritage.content %></h2>
+
 <p>口コミ</p>
 <% @reviews.each do |review| %>
   <p><%= review.content %></p>
   <span>いいね数：</span>
   <strong id="like_numbers"><%= review.likers.count %></strong>
-  <%= render 'reviews/like_form', review: review %>
+  <% if logged_in? %>
+    <%= render 'reviews/like_form', review: review %>
+  <% end %>
   <% if review.review_images.attached? %>
     <% review.review_images.each do |image| %>
       <%= image_tag image, size:'300x200' %>

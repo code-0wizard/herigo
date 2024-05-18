@@ -1,0 +1,6 @@
+<% if current_user.heritage_liked?(@heritage) %>
+  <%= render 'heritages/unlike' %>
+<% else %>
+  <%= render 'heritages/like' %>
+<% end %>
+</div>

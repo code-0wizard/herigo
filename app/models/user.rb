@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_reviews, through: :likes, source: :review
+  has_many :heritage_likes, dependent: :destroy
+  has_many :liking_heritages, through: :heritage_likes, source: :heritage
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
                                    dependent:   :destroy
@@ -108,15 +110,27 @@ class User < ApplicationRecord
   end
 
   def like_review(review)
-    like_reviews << review unless liked?(review)
+    like_reviews << review unless review_liked?(review)
   end
 
   def unlike_review(review)
     like_reviews.delete(review)
   end
 
-  def liked?(review)
+  def review_liked?(review)
     like_reviews.include?(review)
+  end
+
+  def like_heritage(heritage)
+    liking_heritages << heritage unless heritage_liked?(heritage)
+  end
+
+  def unlike_heritage(heritage)
+    liking_heritages.delete(heritage)
+  end
+
+  def heritage_liked?(heritage)
+    liking_heritages.include?(heritage)
   end
 
   private

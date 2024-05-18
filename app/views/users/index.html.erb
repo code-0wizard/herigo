@@ -8,7 +8,9 @@
 </ul>
 <%= will_paginate %>
 
-<div class="col-md-8">
-  <h1>Micropost Feed</h1>
-  <%= render 'shared/feed' %>
-</div>
+<% if logged_in? %>
+  <div class="col-md-8">
+    <h1>Micropost Feed</h1>
+    <%= render 'shared/feed' %>
+  </div>
+<% end %>
