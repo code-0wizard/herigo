@@ -1,40 +1,62 @@
 <% provide(:title, @user.name) %>
+<div class="profile">
+  <div class="grid-container1">
+    <div class="profile-img">
+      <%= image_tag @user.profile_image, size: '200x200', class: 'rounded-image' %>
+    </div>
+    <div class="grid-item">
+        <div class="grid-container-inner">
+            <div class="grid-item">
+                <div class="grid-container-inner">
+                <div class="profile-name"><%= @user.name %></div>
+                <div class="profile-btn">
+                  <% if current_user?(@user) %>
+                    <%= link_to "プロフィール編集", edit_user_url(current_user), class: "button" %>
+                  <% else %>
 
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1><%= @user.name %></h1>
-      <%= image_tag @user.profile_image, size: '100x100', class: 'rounded-image' if @user.profile_image.attached? %>
-
-
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-
-       <%= render 'follow_form' if logged_in? %>
-
-      <p>口コミ</p>
-      <% @reviews.each do |review| %>
-        <p><%= review.content %></p>
-        <% if review.review_images.attached? %>
-          <% review.review_images.each do |image| %>
-            <%= image_tag image, size:'300x200' %>
-          <% end %>
-        <% end %>   
-        <% if current_user?(review.user) %>
-          <%= link_to "delete", review, data: { "turbo-method": :delete, turbo_confirm: "削除しますか？" } %>
-        <% end %>   
+                  <% end %>
+                </div>
+                <div class="follow">
+                  <%= link_to "フォロー #{@user.following.count} 人", following_user_path(@user) %>
+                </div>
+                <div class="follow">
+                  <%= link_to "フォロワー #{@user.followers.count} 人", followers_user_path(@user) %>
+                </div>
+              </div>
+            </div>
+            <div class="profile-content"><%= @user.content %></div>
+        </div>
+    </div>
+  </div>
+  <hr class="custom-hr">
+  <div class="grid-container2">
+    <div class="grid-item">
+      <%= link_to root_url, class: "color" do %>
+        投稿 <%= image_tag "post.png", size: "50x50" %>
       <% end %>
+    </div>
 
-      <p>イイねした口コミ</p>
-      <% @like_reviews.each do |review| %>
-        <p><%= review.content %></p>
-        <% if review.review_images.attached? %>
-          <% review.review_images.each do |image| %>
-            <%= image_tag image, size:'300x200' %>
-          <% end %>
-        <% end %>   
+    <div class="grid-item">
+      <%= link_to root_url, class: "color" do %>
+        保存 <%= image_tag "post.png", size: "50x50" %>
       <% end %>
-    </section>
-  </aside>
+    </div>
+
+    <div class="grid-item">
+      <%= link_to root_url, class: "color" do %>
+        イイねした口コミ <%= image_tag "post.png", size: "50x50" %>
+      <% end %>
+    </div>
+
+  </div>
 </div>
+
+<p>イイねした口コミ</p>
+<% @like_reviews.each do |review| %>
+  <p><%= review.content %></p>
+  <% if review.review_images.attached? %>
+    <% review.review_images.each do |image| %>
+      <%= image_tag image, size:'300x200' %>
+    <% end %>
+  <% end %>   
+<% end %>

@@ -74,3 +74,77 @@ header {
   border-radius: 50%;
   object-fit: cover;
 }
+
+/* profile */
+
+.profile {
+  .grid-container1 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 30vh;
+    width: 50vw;
+    margin: 40px auto;
+  
+    .grid-container-inner {
+      display: grid;
+      grid-template-rows: 5fr 4fr;
+      height: 100%;
+  
+      .grid-container-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .profile-img {
+    margin: auto;
+  }
+
+  .profile-name {
+    margin: auto;
+    font-size: 30px;
+  }
+
+  .profile-btn {
+    margin: auto;
+    .button {
+      color: #0F84FF;
+      font-size: 15px;
+      border: 1px solid #0F84FF;
+      border-radius: 20px;
+      padding: 10px;
+    }
+  }
+  .follow {
+    margin: auto;
+    color: black;
+    font-size: 20px;
+  }
+
+  .profile-content {
+    font-size: 15px;
+    margin-top: 30px;
+  }
+  
+  .custom-hr {
+    width: 50%;
+    border: 0.5px solid #cccaca;
+  }
+  .grid-container2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 50vw;
+    margin: 20px auto;
+
+    .grid-item {
+      margin: 0 auto;
+
+      .color {
+        color: #595959;
+      }
+    }
+  }
+}

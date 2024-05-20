@@ -19,6 +19,8 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
+    default_icon_path = Rails.root.join("app/assets/images/default_icon.png")
+    @user.profile_image.attach(io: File.open(default_icon_path), filename: 'default_icon.png', content_type: 'image/png')
     if @user.save
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."

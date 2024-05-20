@@ -1,0 +1,12 @@
+      <p>口コミ</p>
+      <% @reviews.each do |review| %>
+        <p><%= review.content %></p>
+        <% if review.review_images.attached? %>
+          <% review.review_images.each do |image| %>
+            <%= image_tag image, size:'300x200' %>
+          <% end %>
+        <% end %>   
+        <% if current_user?(review.user) %>
+          <%= link_to "delete", review, data: { "turbo-method": :delete, turbo_confirm: "削除しますか？" } %>
+        <% end %>   
+      <% end %>
