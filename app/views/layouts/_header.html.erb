@@ -1,13 +1,21 @@
 <header>
-  <ul>
-    <% if logged_in? %>
-      <li><%= link_to "Home", root_path %></li>
-      <li><%= link_to "Heritages", heritages_path %></li>
-      <li><%= link_to "Profile", current_user %></li>
-      <li><%= link_to "Log out", logout_path, data: { "turbo-method": :delete } %></li>
-      <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-    <% else %>
-      <li><%= link_to "Log in", login_path %></li>
-    <% end %>
-  </ul>
+<div class="container">
+  <%= link_to image_tag("logo.png", size: "80x60"), root_url, class: "item" %>
+  <%= link_to image_tag("Herigo.png", size: "140x40"), root_url, class: "item second-item" %>
+  <%= form_with(url: users_url, method: :get, local: true, class: "form-inline item") do %>
+    <div class="form-group position-relative">
+      <%= text_field_tag :query, params[:query], placeholder: "エリア", class: "form-control rounded-input" %>
+    </div>
+  <% end %>
+  <% if logged_in? %>
+    <%= link_to "世界遺産", heritages_url, class: "item" %>
+    <%= link_to "ユーザー一覧", users_url, class: "item" %>
+    <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete } %>
+  <% else %>
+    <%= link_to "お気に入り", root_url, class: "item" %>
+    <%= link_to "ログイン", login_url, class: "item" %>
+    <%= link_to "会員登録", signup_url, class: "item btn btn-primary mb-2" %>
+  <% end %>
+
+</div>
 </header>
