@@ -11,6 +11,11 @@
     <%= link_to "世界遺産", heritages_url, class: "item" %>
     <%= link_to "ユーザー一覧", users_url, class: "item" %>
     <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete } %>
+    <%= link_to current_user, class: "item" do %>
+      <%= image_tag current_user.profile_image, size: '60x60', class: 'rounded-image' %>
+    <% end %>
+
+
   <% else %>
     <%= link_to "お気に入り", root_url, class: "item" %>
     <%= link_to "ログイン", login_url, class: "item" %>

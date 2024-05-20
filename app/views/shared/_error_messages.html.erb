@@ -1,5 +1,5 @@
 <% if object.errors.any? %>
-  <div id="error_explanation">
+  <div class="alert alert-danger">
     <ul>
     <% [:name, :email, :password, :password_confirmation].each do |attribute| %>
       <% object.errors[attribute].each do |message| %>
