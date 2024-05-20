@@ -14,8 +14,6 @@
     <%= link_to current_user, class: "item" do %>
       <%= image_tag current_user.profile_image, size: '60x60', class: 'rounded-image' %>
     <% end %>
-
-
   <% else %>
     <%= link_to "お気に入り", root_url, class: "item" %>
     <%= link_to "ログイン", login_url, class: "item" %>
