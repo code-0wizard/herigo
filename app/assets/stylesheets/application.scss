@@ -139,12 +139,21 @@ header {
     width: 50vw;
     margin: 20px auto;
 
+    .display-none {
+      display: none;
+    }
     .grid-item {
       margin: 0 auto;
-
-      .color {
-        color: #595959;
-      }
+      color: #868686;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
     }
+    .color-black {
+      color: #000000;
+    }
+  }
+  .display-none {
+    display: none;
   }
 }

@@ -30,33 +30,85 @@
   </div>
   <hr class="custom-hr">
   <div class="grid-container2">
-    <div class="grid-item">
-      <%= link_to root_url, class: "color" do %>
-        投稿 <%= image_tag "post.png", size: "50x50" %>
-      <% end %>
+    <div class="grid-item post color-black" id="post_btn">
+        投稿 
+        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick"  %>
+        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick display-none" %>
     </div>
 
-    <div class="grid-item">
-      <%= link_to root_url, class: "color" do %>
-        保存 <%= image_tag "post.png", size: "50x50" %>
-      <% end %>
+    <div class="grid-item bookmark" id="bookmark_btn">
+        保存 
+        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick display-none"  %>
+        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick" %>
     </div>
 
-    <div class="grid-item">
-      <%= link_to root_url, class: "color" do %>
-        イイねした口コミ <%= image_tag "post.png", size: "50x50" %>
-      <% end %>
+    <div class="grid-item like" id="like_btn">
+        イイねした口コミ 
+        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick display-none"  %>
+        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick" %>    
     </div>
-
   </div>
+
+  <div class="container">
+
+    <button id="post_btn">投稿</button>
+    <button id="bookmark_btn">保存</button>
+    <button id="like_btn">イイねした口コミ</button>
+
+    <div class="post" id="post_area">
+      <%= render 'shared/post_list' %>
+    </div>
+
+    <div class="bookmark display-none" id="bookmark_area">
+      <%= render 'shared/bookmark_list' %>
+    </div>
+
+    <div class="like display-none" id="like_area">
+      <%= render 'shared/like_list' %>
+    </div>
+  </div>
+
 </div>
 
-<p>イイねした口コミ</p>
-<% @like_reviews.each do |review| %>
-  <p><%= review.content %></p>
-  <% if review.review_images.attached? %>
-    <% review.review_images.each do |image| %>
-      <%= image_tag image, size:'300x200' %>
-    <% end %>
-  <% end %>   
-<% end %>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var postBtn = document.getElementById('post_btn');
+  var bookmarkBtn = document.getElementById('bookmark_btn');
+  var likeBtn = document.getElementById('like_btn');
+
+  var postArea = document.getElementById('post_area');
+  var bookmarkArea = document.getElementById('bookmark_area');
+  var likeArea = document.getElementById('like_area');
+
+  var areas = [postArea, bookmarkArea, likeArea];
+
+
+
+  if (postBtn && bookmarkBtn && likeBtn && postArea && bookmarkArea && likeArea) {
+    postBtn.addEventListener('click', function() {
+      toggleVisibility(postArea);
+    });
+
+    bookmarkBtn.addEventListener('click', function() {
+      toggleVisibility(bookmarkArea);
+    });
+
+    likeBtn.addEventListener('click', function() {
+      toggleVisibility(likeArea);
+    });
+  }
+
+  function toggleVisibility(visibleArea) {
+    console.log("hello");
+    areas.forEach(function(area) {
+      cosole.log(area);
+      if (area === visibleArea) {
+        area.classList.remove('display-none');
+      } else {
+        area.classList.add('display-none');
+      }
+    });
+  }
+});
+
+</script>
