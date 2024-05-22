@@ -1,12 +1,94 @@
-      <p>口コミ</p>
-      <% @reviews.each do |review| %>
-        <p><%= review.content %></p>
-        <% if review.review_images.attached? %>
-          <% review.review_images.each do |image| %>
-            <%= image_tag image, size:'300x200' %>
-          <% end %>
-        <% end %>   
-        <% if current_user?(review.user) %>
-          <%= link_to "delete", review, data: { "turbo-method": :delete, turbo_confirm: "削除しますか？" } %>
-        <% end %>   
-      <% end %>
+<div class="post-grid-container">
+  <% @reviews.each do |review| %>
+    <input type="hidden" id="current-review-id" value="<%= review.id %>"> <!-- Javascriptの処理で使う -->
+    <div>
+      <%= image_tag @user.profile_image, size: '60x60', class: 'rounded-image' %>
+    </div>
+    <div>
+      <div class="user-info">
+        <span class="user-name"><%= @user.name %></span>
+        <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(review) } %>
+      </div>
+      <%= @user.created_at %>
+      <p>
+        <span class="heritage-name"><%= review.heritage.name %></span>
+        <span>[<%= review.heritage.country.name %>]</span>
+      </p>
+      <p class="post-content">
+        <%= review.content %>
+      </p>
+      <% if review.review_images.attached? %>
+        <% review.review_images.each do |image| %>
+          <%= image_tag image, size:'300x200' %>
+        <% end %>
+      <% end %>   
+    </div>
+  <% end %>
+</div>
+
+<div class="more-popup display-none" id="more-popup">
+  <div class="post-delete">
+    <div class="delete-header">
+      <span>この投稿について</span>
+      <%= image_tag "close.png", size: "30x30", class: "close-icon", id: "close-btn" %>
+    </div>
+    <hr>
+    <div class="delete-icon" id="delete-btn">
+      <%= image_tag "delete.png", size: "30x30" %>
+      投稿を削除する
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var body = document.body;
+    var closeBtn = document.getElementById('close-btn');
+    var morePopup = document.getElementById('more-popup');
+    var moreBtns = document.querySelectorAll('.more-icon');
+    var deleteBtn = document.getElementById('delete-btn');
+    var currentReviewId;
+
+    closeBtn.addEventListener('click', function() {
+      morePopup.classList.add('display-none');
+      body.classList.remove('background-gray');
+    });
+
+    moreBtns.forEach(function(moreBtn) {
+      moreBtn.addEventListener('click', function() {
+        morePopup.classList.remove('display-none');
+        body.classList.add('background-gray');
+        // クリックされたmore-iconに対応するレビューのURLを取得
+        currentReviewUrl = this.getAttribute('data-review-path');
+      });
+    });
+
+    deleteBtn.addEventListener('click', function() {
+      var confirmation = confirm('本当に削除しますか？');
+      if (confirmation) {
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch(currentReviewUrl, {
+          method: "DELETE",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            alert('削除に失敗しました');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('削除に失敗しました');
+        });
+      } else {
+        morePopup.classList.add('display-none');
+        body.classList.remove('background-gray');
+      }
+    });
+  });
+</script>

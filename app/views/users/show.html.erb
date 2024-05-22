@@ -1,73 +1,72 @@
 <% provide(:title, @user.name) %>
 <div class="profile">
-  <div class="grid-container1">
+  <div class="profile-grid-container">
     <div class="profile-img">
       <%= image_tag @user.profile_image, size: '200x200', class: 'rounded-image' %>
     </div>
-    <div class="grid-item">
-        <div class="grid-container-inner">
-            <div class="grid-item">
-                <div class="grid-container-inner">
-                <div class="profile-name"><%= @user.name %></div>
-                <div class="profile-btn">
-                  <% if current_user?(@user) %>
-                    <%= link_to "プロフィール編集", edit_user_url(current_user), class: "button" %>
-                  <% else %>
-
-                  <% end %>
-                </div>
-                <div class="follow">
-                  <%= link_to "フォロー #{@user.following.count} 人", following_user_path(@user) %>
-                </div>
-                <div class="follow">
-                  <%= link_to "フォロワー #{@user.followers.count} 人", followers_user_path(@user) %>
-                </div>
-              </div>
-            </div>
-            <div class="profile-content"><%= @user.content %></div>
+    <div class="profile-details">
+      <!-- 1段目 -->
+      <div class="user-name">
+        <div class="name">
+          <%= @user.name %>
         </div>
+        <div>
+          <% if current_user?(@user) %>
+            <%= link_to "プロフィール編集", edit_user_url(current_user), class: "button" %>
+          <% else %>
+            <!-- フォローボタン -->
+          <% end %>
+        </div>
+        <div class="something">
+          <!-- なんか入れる -->
+        </div>
+      </div>
+      <!-- 2段目 -->
+      <div class="follow">
+        <div class="posts"></div>
+        <div class="followers">
+          <%= link_to "フォロワー #{@user.followers.count} 人", followers_user_path(@user) %>
+        </div>
+        <div class="following">
+          <%= link_to "フォロー #{@user.following.count} 人", following_user_path(@user) %>
+        </div>
+      </div>
+      <!-- 3段目 -->
+      <div class="profile-content">
+        <%= @user.content %>
+      </div>
     </div>
+    
   </div>
-  <hr class="custom-hr">
-  <div class="grid-container2">
-    <div class="grid-item post color-black" id="post_btn">
+  <hr class="profile-hr">
+  <div class="main-grid-container">
+    <div class="grid-item color-black" id="post_btn">
         投稿 
-        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick"  %>
-        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick display-none" %>
+        <%= image_tag "post.png", size: "20x20" %>
     </div>
 
-    <div class="grid-item bookmark" id="bookmark_btn">
+    <div class="grid-item" id="bookmark_btn">
         保存 
-        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick display-none"  %>
-        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick" %>
+        <%= image_tag "bookmark.png", size: "20x20" %>
     </div>
 
-    <div class="grid-item like" id="like_btn">
+    <div class="grid-item" id="like_btn">
         イイねした口コミ 
-        <%= image_tag "post_onclick.png", size: "20x20", class:"onclick display-none"  %>
-        <%= image_tag "post_offclick.png", size: "20x20", class: "offclick" %>    
+        <%= image_tag "like.png", size: "20x20" %> 
     </div>
   </div>
 
   <div class="container">
-
-    <button id="post_btn">投稿</button>
-    <button id="bookmark_btn">保存</button>
-    <button id="like_btn">イイねした口コミ</button>
-
-    <div class="post" id="post_area">
+    <div id="post_area">
       <%= render 'shared/post_list' %>
     </div>
-
-    <div class="bookmark display-none" id="bookmark_area">
+    <div class="display-none" id="bookmark_area">
       <%= render 'shared/bookmark_list' %>
     </div>
-
-    <div class="like display-none" id="like_area">
+    <div class="display-none" id="like_area">
       <%= render 'shared/like_list' %>
     </div>
   </div>
-
 </div>
 
 <script>
@@ -75,33 +74,30 @@ document.addEventListener('DOMContentLoaded', function() {
   var postBtn = document.getElementById('post_btn');
   var bookmarkBtn = document.getElementById('bookmark_btn');
   var likeBtn = document.getElementById('like_btn');
+  var btns = [postBtn, bookmarkBtn, likeBtn];
 
   var postArea = document.getElementById('post_area');
   var bookmarkArea = document.getElementById('bookmark_area');
   var likeArea = document.getElementById('like_area');
-
   var areas = [postArea, bookmarkArea, likeArea];
-
-
 
   if (postBtn && bookmarkBtn && likeBtn && postArea && bookmarkArea && likeArea) {
     postBtn.addEventListener('click', function() {
-      toggleVisibility(postArea);
+      toggleVisibleArea(postArea);
+      toggleFontColor(postBtn);
     });
-
     bookmarkBtn.addEventListener('click', function() {
-      toggleVisibility(bookmarkArea);
+      toggleVisibleArea(bookmarkArea);
+      toggleFontColor(bookmarkBtn);
     });
-
     likeBtn.addEventListener('click', function() {
-      toggleVisibility(likeArea);
+      toggleVisibleArea(likeArea);
+      toggleFontColor(likeBtn);
     });
   }
 
-  function toggleVisibility(visibleArea) {
-    console.log("hello");
+  function toggleVisibleArea(visibleArea) {
     areas.forEach(function(area) {
-      cosole.log(area);
       if (area === visibleArea) {
         area.classList.remove('display-none');
       } else {
@@ -109,6 +105,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-});
 
+  function toggleFontColor(colorBlack){
+    btns.forEach(function(btn) {
+      if (btn === colorBlack) {
+        btn.classList.add('color-black')
+      } else {
+        btn.classList.remove('color-black')
+      }
+    });
+  }
+
+  function toggleIcon() {
+
+  }
+});
 </script>

@@ -17,9 +17,10 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review.destroy
+    review = Review.find(params[:id])
+    review.destroy
     flash[:success] = "投稿を削除しました。"
-    redirect_to @review.user, status: :see_other
+    redirect_to review.user, status: :see_other
   end
 
   private
