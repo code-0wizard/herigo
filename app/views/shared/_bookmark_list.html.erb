@@ -1,1 +1,64 @@
-<p>bookmark</p>
+
+
+<div class="post-content">
+  <p class="content">
+    テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+  </p>
+  <button>もっと見る</button>
+</div>
+
+<div class="post-grid-container">
+  <% @reviews.each do |review| %>
+    <input type="hidden" id="current-review-id" value="<%= review.id %>"> <!-- Javascriptの処理で使う -->
+    <div>
+      <%= image_tag @user.profile_image, size: '60x60', class: 'rounded-image' %>
+    </div>
+    <div>
+      <div class="user-info">
+        <span class="user-name"><%= @user.name %></span>
+        <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(review) } %>
+      </div>
+      <span class="formatted-time" data-created-time="<%= review.created_at %>">
+        <%= formatted_post_time(review.created_at) %>
+      </span>
+      <p>
+        <span class="heritage-name"><%= review.heritage.name %></span>
+        <span>[<%= review.heritage.country.name %>]</span>
+      </p>
+      <div class="post-content">
+        <p class="content">
+          <%= simple_format(review.content) %>
+        </p>
+      </div>
+      <% if review.review_images.attached? %>
+        <% review.review_images.each do |image| %>
+          <div class="post-img">
+            <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
+          </div>
+        <% end %>
+      <% end %> 
+      <%= render 'shared/like_and_comment', review: review %>
+      <hr class="post-hr">
+    </div>
+  <% end %>
+</div>
+
+
+<script>
+const moreBtn = document.querySelector('button');
+
+moreBtn.addEventListener('click', () => {
+  const prev = moreBtn.previousElementSibling;
+  if(prev.classList.contains('active') === true) {
+    prev.classList.remove('active');
+    moreBtn.textContent = 'もっと見る';
+  }else{
+    prev.classList.add('active');
+    moreBtn.textContent = '閉じる'; 
+  }
+});
+</script>

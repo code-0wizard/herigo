@@ -10,7 +10,7 @@
 
 <p>口コミ</p>
 <% @reviews.each do |review| %>
-  <p><%= review.content %></p>
+  <p><%= simple_format(review.content) %></p>
   <span>いいね数：</span>
   <strong id="like_numbers"><%= review.likers.count %></strong>
   <% if logged_in? %>

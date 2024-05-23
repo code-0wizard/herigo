@@ -9,19 +9,27 @@
         <span class="user-name"><%= @user.name %></span>
         <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(review) } %>
       </div>
-      <%= @user.created_at %>
+      <span class="formatted-time" data-created-time="<%= review.created_at %>">
+        <%= formatted_post_time(review.created_at) %>
+      </span>
       <p>
         <span class="heritage-name"><%= review.heritage.name %></span>
         <span>[<%= review.heritage.country.name %>]</span>
       </p>
-      <p class="post-content">
-        <%= review.content %>
-      </p>
+      <!-- post-contentとmore-see-btnの変えたらダメ（JSの処理に影響するため） -->
+      <div class="post-content">
+        <p><%= simple_format(review.content) %></p>
+      </div>
+      <button class="more-see-btn">もっと見る</button>
       <% if review.review_images.attached? %>
         <% review.review_images.each do |image| %>
-          <%= image_tag image, size:'300x200' %>
+          <div class="post-img">
+            <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
+          </div>
         <% end %>
-      <% end %>   
+      <% end %> 
+      <%= render 'shared/like_and_comment', review: review %>
+      <hr class="post-hr">
     </div>
   <% end %>
 </div>
@@ -47,17 +55,17 @@
     var morePopup = document.getElementById('more-popup');
     var moreBtns = document.querySelectorAll('.more-icon');
     var deleteBtn = document.getElementById('delete-btn');
-    var currentReviewId;
+    var grayOut = document.getElementById('gray-out');
 
     closeBtn.addEventListener('click', function() {
       morePopup.classList.add('display-none');
-      body.classList.remove('background-gray');
+      grayOut.classList.add('display-none');
     });
 
     moreBtns.forEach(function(moreBtn) {
       moreBtn.addEventListener('click', function() {
         morePopup.classList.remove('display-none');
-        body.classList.add('background-gray');
+        grayOut.classList.remove('display-none');
         // クリックされたmore-iconに対応するレビューのURLを取得
         currentReviewUrl = this.getAttribute('data-review-path');
       });
@@ -90,5 +98,75 @@
         body.classList.remove('background-gray');
       }
     });
+
+    // 「もっと見る」ボタンをクリックした時の処理
+    var moreSeeBtns = document.querySelectorAll('.more-see-btn');
+    moreSeeBtns.forEach(function(moreSeeBtn) {
+      moreSeeBtn.addEventListener('click', function() {
+        var prev = moreSeeBtn.previousElementSibling;
+        if(prev.classList.contains('active') === true) {
+          prev.classList.remove('active');
+          moreSeeBtn.textContent = 'もっと見る';
+        }else{
+          prev.classList.add('active');
+          moreSeeBtn.textContent = '閉じる'; 
+        }
+      });
+    });
+
+    // 投稿のheightがmax-heightに達したら「もっと見る」ボタンを非表示にする
+    var postContents = document.querySelectorAll('.post-content');
+    postContents.forEach(function(postContent) {
+      if (postContent.scrollHeight < 150) {
+        postContent.classList.add('active');
+        var btn = postContent.nextElementSibling;
+        btn.classList.add("display-none");
+      }
+    });    
+
+    // イイねボタン押した時の処理
+    var likeIcons = document.querySelectorAll('.like-icon');
+    var heartRedIcons = document.querySelectorAll('.heart-red-icon');
+
+    likeIcons.forEach(function(likeIcon) {
+      likeIcon.addEventListener('click', function() {
+        var currentReviewId = this.getAttribute('data-review-id');
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch("/likes", {
+          method: "POST",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ review_id: currentReviewId })
+        })
+      });
+    });
+
+    heartRedIcons.forEach(function(heartRedIcon) {
+      heartRedIcon.addEventListener('click', function() {
+        var currentReviewId = this.getAttribute('data-review-id');
+        var currentReviewURL = `/likes/${currentReviewId}`;
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch(currentReviewURL, {
+          method: "DELETE",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ review_id: currentReviewId })
+        })
+      });
+    });
+
+    //マウスオーバー時の例
+    //var helloElement = document.getElementById('hello');
+    //var toolTip = document.getElementById('tooltip');
+
+    //helloElement.addEventListener('mouseover', (event) => {
+    //  console.log(toolTip)
+    //  var timeValue = helloElement.getAttribute('data-time');
+    //  toolTip.classList.remove('display-none');
+    //});
   });
 </script>
