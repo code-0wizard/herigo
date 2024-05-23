@@ -2,8 +2,8 @@
   <!-- current_userがイイね済みかどうかで2つの画像を出しわけてる -->
   <%= image_tag "like.png", size: "20x20", data: { review_id: review.id }, class: "like-icon #{'display-none' if current_user.review_liked?(review)}" %>
   <%= image_tag "heart-red.png", size: "20x20", data: { review_id: review.id }, class: "heart-red-icon #{'display-none' if !current_user.review_liked?(review)}" %>
-
   <%= content_tag :span, review.likers.count, class: "#{'like-color' if current_user.review_liked?(review)}" %>
+  
   <%= image_tag "comment.png", size: "20x20", class: "left-margin" %>
   0
 </div>
