@@ -13,6 +13,8 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "module/*";
+ @import "base/*";
 
 /* shared */
 
@@ -99,7 +101,7 @@ header {
     display: grid;
     grid-template-columns: 2fr 3fr;
     height: 20vh;
-    width: 50vw;
+    width: 60vw;
     margin: 40px auto;
   }
   .profile-details {
@@ -151,7 +153,7 @@ header {
   .main-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 50vw;
+    width: 60vw;
     margin: 20px auto;
 
     .grid-item {
@@ -166,7 +168,7 @@ header {
     }
   }
   .container {
-    width: 50vw;
+    width: 60vw;
     margin: 5vh auto;
     .display-none {
       display: none;
@@ -284,4 +286,16 @@ header {
     cursor: pointer;
     font-size: 20px;
   }
+}
+
+.star {
+  font-size: 3rem;
+  color: #a09a9a;
+  cursor: pointer;
+}
+
+.score {
+  font-size: 3rem;
+  color: #FF9900;
+  padding-left: 10px;
 }

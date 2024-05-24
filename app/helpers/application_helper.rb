@@ -20,4 +20,12 @@ module ApplicationHelper
       created_at.strftime("%Y/%m/%d %H:%M")
     end
   end 
+
+  def calc_average_review_score(heritage_id)
+    heritage = Heritage.find(heritage_id)
+    average = heritage.reviews.where.not(score: nil).average(:score)
+    formatted_average = average.nil? ? 0 : average.round(2)
+    formatted_average  
+  end
+
 end

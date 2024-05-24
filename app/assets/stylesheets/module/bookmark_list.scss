@@ -1,0 +1,12 @@
+.bookmark-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+.bookmark-list:after {
+  content: "";
+  display: block;
+  width: calc(33.333% - 10px);
+  height: 0;
+}
