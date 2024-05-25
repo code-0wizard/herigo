@@ -3,7 +3,7 @@
 
 <div class="heritage-info">
   <div class="heritage-info__heritage-name">
-    <%= @heritage.name %>
+    <%= link_to @heritage.name, @heritage %>
   </div>
   <div class="heritage-country">
     <%= image_tag "location.png", size: "20x20" %>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="post-info">
-  <%= image_tag @review.user.profile_image, size: '60x60', class: 'rounded-image' %>
+  <%= link_to image_tag(@review.user.profile_image, size: "60x60", class: "rounded-image"), @review.user %>
   <div class="post-details">
     <span class="post-details__user-name"><%= @review.user.name %></span>
     <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(@review) } %>
