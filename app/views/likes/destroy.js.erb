@@ -1,0 +1,9 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+console.log("hoge");
+console.log("<%= @review %>");
+$("#like-<%= @review.id %>").html("<%= j(render 'shared/like', review: @review) %>");
+});
+
+</script>

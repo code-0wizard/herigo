@@ -27,8 +27,15 @@
             <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
           </div>
         <% end %>
-      <% end %> 
-      <%= render 'shared/like_and_comment', review: review %>
+      <% end %>
+      <div class="like-and-reply">
+        <div class="like" id="like-<%= review.id %>">
+          <%= render 'shared/like', review: review %>
+        </div>
+        <div class="reply">
+          <%= render 'shared/reply', review: review %>
+        </div>
+      </div>
       <hr class="post-hr">
     </div>
   <% end %>
@@ -134,8 +141,9 @@
     });    
 
     // イイねボタン押した時の処理
-    var likeIcons = document.querySelectorAll('.like-icon');
-    var heartRedIcons = document.querySelectorAll('.heart-red-icon');
+    
+    var likeIcons = document.querySelectorAll('.js-like-icon');
+    var heartRedIcons = document.querySelectorAll('.js-heart-red-icon');
 
     likeIcons.forEach(function(likeIcon) {
       likeIcon.addEventListener('click', function() {
@@ -148,18 +156,8 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ review_id: currentReviewId })
-        })
-        .then(response => {
-          if (response.ok) {
-            window.location.reload();
-          } else {
-            alert('いいねに失敗しました');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('いいねに失敗しました');
         });
+
       });
     });
 

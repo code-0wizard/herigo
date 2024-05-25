@@ -1,0 +1,17 @@
+.like-and-reply {
+  font-size: 15px;
+  margin: 20px 0;
+  .like {
+    display: inline-block;
+    &__count {
+      color: #EF0D0D;
+    }    
+  }
+  .reply {
+    display: inline-block;
+    margin-left: 15px;
+  }
+  img {
+    cursor: pointer;
+  }
+}

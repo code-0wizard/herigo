@@ -1,0 +1,6 @@
+<% if logged_in? && current_user.review_liked?(review) %>
+  <%= image_tag "heart-red.png", size: "20x20", data: { review_id: review.id }, class: "js-heart-red-icon", remote: true %>
+<% else %>
+  <%= image_tag "like.png", size: "20x20", data: { review_id: review.id }, class: "js-like-icon", remote: true %>
+<% end %>
+<%= content_tag :span, review.likers.count, class: "#{'like__count' if current_user.review_liked?(review)}" %>
