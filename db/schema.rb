@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_24_060030) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_25_083235) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -85,6 +85,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_24_060030) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "replies", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id", "created_at"], name: "index_replies_on_review_id_and_created_at"
+    t.index ["review_id"], name: "index_replies_on_review_id"
+    t.index ["user_id", "created_at"], name: "index_replies_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_replies_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "heritage_id", null: false
@@ -117,6 +129,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_24_060030) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "heritages", "countries"
+  add_foreign_key "replies", "reviews"
+  add_foreign_key "replies", "users"
   add_foreign_key "reviews", "heritages"
   add_foreign_key "reviews", "users"
 end

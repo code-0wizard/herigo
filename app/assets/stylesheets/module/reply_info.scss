@@ -1,0 +1,14 @@
+.reply-info {
+  width: 40vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+}
+.reply-detail {
+  &__created-time{
+    padding-top: 10px;
+  } &__user-name{
+    font-weight: bold;
+    font-size: 2rem;
+  }
+}

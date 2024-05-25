@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
+  has_many :replies, dependent: :destroy
   belongs_to :heritage
   belongs_to :user
   has_many_attached :review_images

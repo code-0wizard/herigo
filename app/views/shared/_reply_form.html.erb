@@ -1,0 +1,40 @@
+<div class="reply-form">
+  <%= image_tag current_user.profile_image, size: '60x60', class: 'rounded-image' %>
+  <%= form_with(model: @reply) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+      <%= f.text_area :content, placeholder: "コメントする", class: "reply-form__textarea" %>
+      <%= f.file_field :reply_images, multiple: true, id: "img-input", class: "reply-form__img-input" %>
+      <%= image_tag "image.svg", size: '25x25', id: "img-icon", class: "reply-form__img-icon" %>
+      <span>画像を追加</span>
+      <%= f.hidden_field :review_id, value: @review.id %>
+      <div id="img-preview" class="reply-form__img-preview"></div>
+    <%= f.submit "コメントする", class: "reply-form__submit" %>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var imgBtn = document.getElementById("img-icon");
+    var imgInput = document.getElementById("img-input");
+    var imgPreview = document.getElementById("img-preview");
+
+    imgBtn.addEventListener('click', function() {
+      imgInput.click();
+    });
+    imgInput.addEventListener('change', function() {
+      imgPreview.innerHTML = '';
+      var files = imgInput.files;
+      Array.from(files).forEach(file => {
+        if (file && file.type.startsWith('image/')) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            imgPreview.appendChild(img);
+          }
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  });
+</script>

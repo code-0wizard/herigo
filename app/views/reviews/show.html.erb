@@ -1,0 +1,158 @@
+<!--投稿のmoreボタンのポップアップ-->
+<%= render 'shared/more_popup' %>
+
+<div class="heritage-info">
+  <div class="heritage-info__heritage-name">
+    <%= @heritage.name %>
+  </div>
+  <div class="heritage-country">
+    <%= image_tag "location.png", size: "20x20" %>
+    <span class="heritage-country__name">
+      <%= @heritage.country.name %>
+    </span>
+  </div>
+  <div class="heritage-stats">
+    <div class="heritage-stats__item-name">
+      口コミ数
+    </div>
+    <%= content_tag :span, @heritage.reviews.count, class: "heritage-stats__post-count" %>
+    <div class="heritage-stats__item-name">
+      保存数
+    </div>
+    <%= content_tag :span, @heritage.likers.count, class: "heritage-stats__bookmark-count" %>
+    <div class="heritage-stats__item-name">
+      評価
+    </div>
+    <%= image_tag "review_score/score0.png", size: "100x20", id: "score-img" %>
+    <span class="heritage-stats__review-score" id="review-score" data-score="<%= calc_average_review_score(@heritage.id) %>">
+      <%= calc_average_review_score(@heritage.id) %>
+    </span>
+  </div>
+  <hr class="heritage-info__hr">
+</div>
+
+<div class="post-info">
+  <%= image_tag @review.user.profile_image, size: '60x60', class: 'rounded-image' %>
+  <div class="post-details">
+    <span class="post-details__user-name"><%= @review.user.name %></span>
+    <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(@review) } %>
+    <div class="post-details__post-content">
+      <p><%= simple_format(@review.content) %></p>
+    </div>
+    <% if @review.review_images.attached? %>
+      <% @review.review_images.each do |image| %>
+        <div class="post-img">
+          <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
+        </div>
+      <% end %>
+    <% end %>
+    <span class="post-details__formatted-time" data-created-time="<%= @review.created_at %>">
+      <%= formatted_post_time(@review.created_at) %>
+    </span>
+  </div>
+</div>
+<hr class="post-info__hr">
+
+<div class="like-reply-info">
+  <div class="like-and-reply">
+    <div class="like" id="like-<%= @review.id %>">
+      <%= render 'shared/like', review: @review %>
+    </div>
+    <div class="reply">
+      <%= render 'shared/reply', review: @review %>
+    </div>
+  </div>
+</div>
+<hr class="post-info__hr">
+
+<% if logged_in? %>
+  <%= render 'shared/reply_form', review: @review %>
+<% end %>
+<hr class="post-info__hr">
+
+<% if !@replies.nil? %>
+    <%= render 'shared/reply_list', review: @review %>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // レビュースコア画像の出しわけ
+    var reviewScoreElement = document.getElementById("review-score"); 
+    var score = reviewScoreElement.dataset.score;
+    var imgElement = document.getElementById("score-img");
+    if (score && imgElement) {
+      if (score >= 0.5 && score < 1) {
+          imgElement.src = "/assets/review_score/score05.png";
+      } else if (score >= 1 && score < 1.5) {
+          imgElement.src = "/assets/review_score/score10.png";
+      } else if (score >= 1.5 && score < 2) {
+          imgElement.src = "/assets/review_score/score15.png";
+      } else if (score >= 2 && score < 2.5) {
+          imgElement.src = "/assets/review_score/score20.png";
+      } else if (score >= 2.5 && score < 3) {
+          imgElement.src = "/assets/review_score/score25.png";
+      } else if (score >= 3 && score < 3.5) {
+          imgElement.src = "/assets/review_score/score30.png";
+      } else if (score >= 3.5 && score < 4) {
+          imgElement.src = "/assets/review_score/score35.png";
+      } else if (score >= 4 && score < 4.5) {
+          imgElement.src = "/assets/review_score/score40.png";
+      } else if (score >= 4.5 && score < 5) {
+          imgElement.src = "/assets/review_score/score45.png";
+      } else if (score == 5) {
+          imgElement.src = "/assets/review_score/score50.png";
+      }
+    }
+
+    // more-icon押下時の処理
+    var closeBtn = document.getElementById('close-btn');
+    var morePopup = document.getElementById('more-popup');
+    var moreBtns = document.querySelectorAll('.more-icon');
+    var deleteBtn = document.getElementById('delete-btn');
+    var grayOut = document.getElementById('gray-out');
+
+    // ポップアップの閉じるボタン押下時の処理
+    closeBtn.addEventListener('click', function() {
+      morePopup.classList.add('display-none');
+      grayOut.classList.add('display-none');
+    });
+
+    // 投稿のmoreボタン押下時の処理
+    moreBtns.forEach(function(moreBtn) {
+      moreBtn.addEventListener('click', function() {
+        morePopup.classList.remove('display-none');
+        grayOut.classList.remove('display-none');
+        // クリックされたmore-iconに対応するレビューのURLを取得
+        currentReviewUrl = this.getAttribute('data-review-path');
+      });
+    });
+
+    deleteBtn.addEventListener('click', function() {
+      var confirmation = confirm('本当に削除しますか？');
+      if (confirmation) {
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch(currentReviewUrl, {
+          method: "DELETE",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            alert('削除に失敗しました');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('削除に失敗しました');
+        });
+      } else {
+        morePopup.classList.add('display-none');
+        grayOut.classList.add('display-none');
+      }
+    });
+  });
+</script>

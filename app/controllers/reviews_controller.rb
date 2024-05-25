@@ -16,6 +16,13 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def show
+    @review = Review.find(params[:id])
+    @heritage = @review.heritage
+    @reply = Reply.new
+    @replies = Reply.where(review_id: (params[:id]))
+  end
+
   def destroy
     review = Review.find(params[:id])
     review.destroy

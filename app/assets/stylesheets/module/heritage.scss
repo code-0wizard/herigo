@@ -1,0 +1,29 @@
+.heritage-info {
+  width: 60vw;
+  margin: 0 auto;
+  padding-top: 10vh;
+  &__heritage-name {
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 30px;
+  }
+  &__hr {
+    margin: 5vh 0;
+  }
+}
+.heritage-country {
+  display: inline-block;
+}
+.heritage-stats {
+  display: inline-block;
+  float: right;
+  &__item-name {
+    display: inline-block;
+    margin: 0 10px 0 30px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  &__review-score {
+    padding-left: 10px;
+  }
+}

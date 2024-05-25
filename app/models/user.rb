@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :replies, dependent: :destroy
   has_many :like_reviews, through: :likes, source: :review
   has_many :heritage_likes, dependent: :destroy
   has_many :liking_heritages, through: :heritage_likes, source: :heritage

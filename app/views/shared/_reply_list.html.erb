@@ -1,0 +1,65 @@
+  <% @replies.each do |reply| %>
+  <div class="reply-info">
+    <div>
+      <%= image_tag reply.user.profile_image, size: '60x60', class: 'rounded-image' %>
+    </div>
+    <div class="reply-detail">
+        <span class="reply-detail__user-name"><%= reply.user.name %></span>
+        <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(review) } %>
+      <div class="reply-detail__created-time">
+        <%= formatted_post_time(reply.created_at) %>
+      </div>
+      <!-- post-contentとmore-see-btnの位置関係変えたらダメ（JSの処理に影響するため） -->
+      <div class="post-content">
+        <p><%= simple_format(reply.content) %></p>
+      </div>
+      <button class="more-see-btn">もっと見る</button>
+      <% if reply.reply_images.attached? %>
+        <% reply.reply_images.each do |image| %>
+          <div class="post-img">
+            <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="like-and-reply">
+        <div class="like" id="like-<%= review.id %>">
+          <%= render 'shared/like', review: review %>
+        </div>
+        <div class="reply">
+          <%= render 'shared/reply', review: review %>
+        </div>
+      </div>
+      <hr class="post-hr">
+    </div>
+  </div>
+  <% end %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 「もっと見る」ボタンをクリックした時の処理
+      var moreSeeBtns = document.querySelectorAll('.more-see-btn');
+      moreSeeBtns.forEach(function(moreSeeBtn) {
+        moreSeeBtn.addEventListener('click', function() {
+          var prev = moreSeeBtn.previousElementSibling;
+          if(prev.classList.contains('active') === true) {
+            prev.classList.remove('active');
+            moreSeeBtn.textContent = 'もっと見る';
+          }else{
+            prev.classList.add('active');
+            moreSeeBtn.textContent = '閉じる'; 
+          }
+        });
+      });
+
+      // 投稿のheightがmax-heightに達したら「もっと見る」ボタンを非表示にする
+      var postContents = document.querySelectorAll('.post-content');
+      postContents.forEach(function(postContent) {
+        if (postContent.scrollHeight < 150) {
+          postContent.classList.add('active');
+          var btn = postContent.nextElementSibling;
+          btn.classList.add("display-none");
+        }
+      }); 
+    });
+
+  </script>
