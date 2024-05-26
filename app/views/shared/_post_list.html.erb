@@ -1,47 +1,44 @@
-<div class="post-grid-container">
-  <% @reviews.each do |review| %>
-    <input type="hidden" id="current-review-id" value="<%= review.id %>"> <!-- Javascriptの処理で使う -->
-    <div>
-      <%= image_tag @user.profile_image, size: '60x60', class: 'rounded-image' %>
+<% @reviews.each do |review| %>
+  <div class="user-post-info">
+    <div class="user-post-info__icon">
+      <%= image_tag review.user.profile_image %>
     </div>
-    <div>
-      <div class="user-info">
-        <span class="user-name"><%= @user.name %></span>
-        <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(review) } %>
+    <div class="user-post-details">
+      <div class="user-post-details__user-name">
+        <span><%= review.user.name %></span>
+        <%= image_tag "more.png", size: "20x20", class: "post-action-icon", data: { review_path: review_path(review) } %>
       </div>
-      <span class="formatted-time" data-created-time="<%= review.created_at %>">
+      <div class="user-post-details__created-time">
         <%= formatted_post_time(review.created_at) %>
+      </div>
+      <span class="user-post-details__heritage-name">
+        <%= review.heritage.name %>
       </span>
-      <p>
-        <span class="heritage-name"><%= review.heritage.name %></span>
-        <span>[<%= review.heritage.country.name %>]</span>
-      </p>
-      <!-- post-contentとmore-see-btnの変えたらダメ（JSの処理に影響するため） -->
+      <span class="user-post-details__country-name">
+        [<%= review.heritage.country.name %>]
+      </span>
       <div class="post-content">
         <p><%= simple_format(review.content) %></p>
       </div>
-      <button class="more-see-btn">もっと見る</button>
+      <div class="show-more-btn">もっと見る</div>
       <% if review.review_images.attached? %>
         <% review.review_images.each do |image| %>
-          <div class="post-img">
+          <div class="user-post-details__post-img">
             <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
           </div>
         <% end %>
       <% end %>
-      <div class="like-and-reply">
-        <div class="like" id="like-<%= review.id %>">
-          <%= render 'shared/like', review: review %>
-        </div>
-        <div class="reply">
-          <%= render 'shared/reply', review: review %>
-        </div>
-      </div>
-      <hr class="post-hr">
+      <span class="user-post-details__like" id="like-<%= review.id %>">
+        <%= render 'shared/like', review: review %>
+      </span>
+      <span class="user-post-details__reply">
+        <%= render 'shared/reply', review: review %>
+      </span>
     </div>
-  <% end %>
-</div>
-
-<%= render 'shared/more_popup' %>
+  </div>
+   <hr class="user-post-info__hr">
+<% end %>
+<%= render 'shared/post_action_popup' %>
 
 <div>
   <span class="star" id="1" value="1">★</span>
@@ -54,28 +51,85 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var closeBtn = document.getElementById('close-btn');
-    var morePopup = document.getElementById('more-popup');
-    var moreBtns = document.querySelectorAll('.more-icon');
-    var deleteBtn = document.getElementById('delete-btn');
-    var grayOut = document.getElementById('gray-out');
-
-    // ポップアップの閉じるボタン押下時の処理
-    closeBtn.addEventListener('click', function() {
-      morePopup.classList.add('display-none');
-      grayOut.classList.add('display-none');
-    });
-
-    // 投稿のmoreボタン押下時の処理
-    moreBtns.forEach(function(moreBtn) {
-      moreBtn.addEventListener('click', function() {
-        morePopup.classList.remove('display-none');
-        grayOut.classList.remove('display-none');
-        // クリックされたmore-iconに対応するレビューのURLを取得
-        currentReviewUrl = this.getAttribute('data-review-path');
+    // 「もっと見る」ボタンをクリックした時の処理
+    var showMoreBtns = document.querySelectorAll('.show-more-btn');
+    showMoreBtns.forEach(function(showMoreBtn) {
+      showMoreBtn.addEventListener('click', function() {
+        var prev = showMoreBtn.previousElementSibling;
+        if(prev.classList.contains('active') === true) {
+          prev.classList.remove('active');
+          showMoreBtn.textContent = 'もっと見る';
+        }else{
+          prev.classList.add('active');
+          showMoreBtn.textContent = '閉じる'; 
+        }
       });
     });
 
+    // 投稿のheightがmax-heightに達したら「もっと見る」ボタンを非表示にする
+    var postContents = document.querySelectorAll('.post-content');
+    postContents.forEach(function(postContent) {
+      if (postContent.scrollHeight < 150) {
+        postContent.classList.add('active');
+        var btn = postContent.nextElementSibling;
+        btn.classList.add("display-none");
+      }
+    });
+
+    // イイねボタン押した時の処理
+    var likeIcons = document.querySelectorAll('.js-like-icon');
+    var heartRedIcons = document.querySelectorAll('.js-heart-red-icon');
+    likeIcons.forEach(function(likeIcon) {
+      likeIcon.addEventListener('click', function() {
+        var currentReviewId = this.getAttribute('data-review-id');
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch("/likes", {
+          method: "POST",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ review_id: currentReviewId })
+        });
+      });
+    });
+
+    heartRedIcons.forEach(function(heartRedIcon) {
+      heartRedIcon.addEventListener('click', function() {
+        var currentReviewId = this.getAttribute('data-review-id');
+        var currentReviewURL = `/likes/${currentReviewId}`;
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch(currentReviewURL, {
+          method: "DELETE",
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ review_id: currentReviewId })
+        })
+      });
+    });
+
+    var closeBtn = document.getElementById('close-btn');
+    var postActionPopup = document.getElementById('post-action-popup');
+    var postActionIcons = document.querySelectorAll('.post-action-icon');
+    var deleteBtn = document.getElementById('delete-btn');
+    var grayOut = document.getElementById('gray-out');
+    // 投稿の「・・・」ボタン押下時の処理
+    postActionIcons.forEach(function(postActionIcon) {
+      postActionIcon.addEventListener('click', function() {
+        postActionPopup.classList.remove('display-none');
+        grayOut.classList.remove('display-none');
+        // クリックされたpost-action-iconに対応するレビューのURLを取得
+        currentReviewUrl = this.getAttribute('data-review-path');
+      });
+    });
+    // ポップアップの閉じるボタン押下時の処理
+    closeBtn.addEventListener('click', function() {
+      postActionPopup.classList.add('display-none');
+      grayOut.classList.add('display-none');
+    });
+    // 削除ボタン押下時の処理
     deleteBtn.addEventListener('click', function() {
       var confirmation = confirm('本当に削除しますか？');
       if (confirmation) {
@@ -99,124 +153,52 @@
           alert('削除に失敗しました');
         });
       } else {
-        morePopup.classList.add('display-none');
+        postActionPopup.classList.add('display-none');
         grayOut.classList.add('display-none');
       }
     });
 
-    // 「もっと見る」ボタンをクリックした時の処理
-    var moreSeeBtns = document.querySelectorAll('.more-see-btn');
-    moreSeeBtns.forEach(function(moreSeeBtn) {
-      moreSeeBtn.addEventListener('click', function() {
-        var prev = moreSeeBtn.previousElementSibling;
-        if(prev.classList.contains('active') === true) {
-          prev.classList.remove('active');
-          moreSeeBtn.textContent = 'もっと見る';
-        }else{
-          prev.classList.add('active');
-          moreSeeBtn.textContent = '閉じる'; 
-        }
-      });
-    });
+  // 星評価
+  var stars = document.getElementsByClassName("star");
+  var clicked = false;
+    for (let i = 0; i < stars.length; i++) {
+      stars[i].addEventListener(
+        "mouseover",
+        () => {
+          if (!clicked) {
+            for (let j = 0; j <= i; j++) {
+              stars[j].style.color = "#FF9900";
+            }
+          }
+        },
+        false
+      );
 
-    // 投稿のheightがmax-heightに達したら「もっと見る」ボタンを非表示にする
-    var postContents = document.querySelectorAll('.post-content');
-    postContents.forEach(function(postContent) {
-      if (postContent.scrollHeight < 150) {
-        postContent.classList.add('active');
-        var btn = postContent.nextElementSibling;
-        btn.classList.add("display-none");
-      }
-    });    
+      stars[i].addEventListener(
+        "mouseout",
+        () => {
+          if (!clicked) {
+            for (let j = 0; j < stars.length; j++) {
+              stars[j].style.color = "#a09a9a";
+            }
+          }
+        },
+        false
+      );
 
-    // イイねボタン押した時の処理
-    
-    var likeIcons = document.querySelectorAll('.js-like-icon');
-    var heartRedIcons = document.querySelectorAll('.js-heart-red-icon');
-
-    likeIcons.forEach(function(likeIcon) {
-      likeIcon.addEventListener('click', function() {
-        var currentReviewId = this.getAttribute('data-review-id');
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        fetch("/likes", {
-          method: "POST",
-          headers: {
-            "X-CSRF-Token": csrfToken,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ review_id: currentReviewId })
-        });
-
-      });
-    });
-
-    heartRedIcons.forEach(function(heartRedIcon) {
-      heartRedIcon.addEventListener('click', function() {
-        var currentReviewId = this.getAttribute('data-review-id');
-        var currentReviewURL = `/likes/${currentReviewId}`;
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        fetch(currentReviewURL, {
-          method: "DELETE",
-          headers: {
-            "X-CSRF-Token": csrfToken,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ review_id: currentReviewId })
-        })
-      });
-    });
-
-// 星評価
-var stars = document.getElementsByClassName("star");
-var clicked = false;
-  for (let i = 0; i < stars.length; i++) {
-    stars[i].addEventListener(
-      "mouseover",
-      () => {
-        if (!clicked) {
+      stars[i].addEventListener(
+        "click",
+        () => {
+          clicked = true;
           for (let j = 0; j <= i; j++) {
             stars[j].style.color = "#FF9900";
           }
-        }
-      },
-      false
-    );
-
-    stars[i].addEventListener(
-      "mouseout",
-      () => {
-        if (!clicked) {
-          for (let j = 0; j < stars.length; j++) {
+          for (let j = i + 1; j < stars.length; j++) {
             stars[j].style.color = "#a09a9a";
           }
-        }
-      },
-      false
-    );
-
-    stars[i].addEventListener(
-      "click",
-      () => {
-        clicked = true;
-        for (let j = 0; j <= i; j++) {
-          stars[j].style.color = "#FF9900";
-        }
-        for (let j = i + 1; j < stars.length; j++) {
-          stars[j].style.color = "#a09a9a";
-        }
-      },
-      false
-    );
-};
-
-    //マウスオーバー時の例
-    //var helloElement = document.getElementById('hello');
-    //var toolTip = document.getElementById('tooltip');
-
-    //helloElement.addEventListener('mouseover', (event) => {
-    //  console.log(toolTip)
-    //  var timeValue = helloElement.getAttribute('data-time');
-    //  toolTip.classList.remove('display-none');
-    //});
+        },
+        false
+      );
+    };
   });
 </script>

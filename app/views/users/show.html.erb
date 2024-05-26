@@ -1,62 +1,28 @@
-<% provide(:title, @user.name) %>
-<div class="profile">
-  <div class="profile-grid-container">
-    <div class="profile-img">
-      <%= image_tag @user.profile_image, size: '200x200', class: 'rounded-image' %>
+<div class="user-profile-page">
+  <div class="user-profile">
+    <div class="user-profile__user-icon">
+      <%= image_tag @user.profile_image %>
     </div>
-    <div class="profile-details">
-      <!-- 1段目 -->
-      <div class="user-name">
-        <div class="name">
-          <%= @user.name %>
-        </div>
-        <div>
-          <% if current_user?(@user) %>
-            <%= link_to "プロフィール編集", edit_user_url(current_user), class: "button" %>
-          <% else %>
-            <!-- フォローボタン -->
-          <% end %>
-        </div>
-        <div class="something">
-          <!-- なんか入れる -->
-        </div>
+    <div class="user-profile-details">
+      <div class="user-profile-details__name">
+        <span><%= @user.name %></span>
       </div>
-      <!-- 2段目 -->
-      <div class="follow">
-        <div class="posts"></div>
-        <div class="followers">
-          <%= link_to "フォロワー #{@user.followers.count} 人", followers_user_path(@user) %>
-        </div>
-        <div class="following">
-          <%= link_to "フォロー #{@user.following.count} 人", following_user_path(@user) %>
-        </div>
-      </div>
-      <!-- 3段目 -->
-      <div class="profile-content">
-        <%= @user.content %>
-      </div>
-    </div>
-    
-  </div>
-  <hr class="profile-hr">
-  <div class="main-grid-container">
-    <div class="grid-item color-black" id="post_btn">
-        投稿 
-        <%= image_tag "post.png", size: "20x20" %>
-    </div>
-
-    <div class="grid-item" id="bookmark_btn">
-        保存 
-        <%= image_tag "bookmark.svg", size: "20x20" %>
-    </div>
-
-    <div class="grid-item" id="like_btn">
-        イイねした口コミ 
-        <%= image_tag "like.png", size: "20x20" %> 
+      <%= render 'shared/toggle_user_buttons', user: @user %>
     </div>
   </div>
+  <div class="user-profile-content">
+    <%= @user.content %>
+  </div>
+  <div class="user-profile-items">
+    <span id="post" class="selected-color">投稿</span>
+    <span id="bookmark">保存</span>
+    <span id="like">イイね</span>
+    <span id="follow">フォロー</span>
+    <span id="follower">フォロワー</span>
+  </div>
+   <hr class="user-profile-page__hr">
 
-  <div class="container">
+  <div class="user-content-wrapper">
     <div id="post_area">
       <%= render 'shared/post_list' %>
     </div>
@@ -66,54 +32,35 @@
     <div class="display-none" id="like_area">
       <%= render 'shared/like_list' %>
     </div>
-  </div>
+      <div class="display-none" id="follow_area">
+    </div>
+      <div class="display-none" id="follower_area">
+    </div>
+   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var postBtn = document.getElementById('post_btn');
-  var bookmarkBtn = document.getElementById('bookmark_btn');
-  var likeBtn = document.getElementById('like_btn');
-  var btns = [postBtn, bookmarkBtn, likeBtn];
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.backgroundColor = '#efefef';
+    const tabs = document.querySelectorAll('.user-profile-items span');
+    const areas = document.querySelectorAll('.user-profile-page > div[id$="_area"]');
 
-  var postArea = document.getElementById('post_area');
-  var bookmarkArea = document.getElementById('bookmark_area');
-  var likeArea = document.getElementById('like_area');
-  var areas = [postArea, bookmarkArea, likeArea];
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        // クリックされたタブにselected-colorクラスを追加し、他のタブからはそのクラスを削除
+        tabs.forEach(t => t.classList.remove('selected-color'));
+        this.classList.add('selected-color');
 
-  if (postBtn && bookmarkBtn && likeBtn && postArea && bookmarkArea && likeArea) {
-    postBtn.addEventListener('click', function() {
-      toggleVisibleArea(postArea);
-      toggleFontColor(postBtn);
+        // 対応するエリアを表示し、他のエリアを非表示にする
+        const activeAreaId = this.id + '_area';
+        areas.forEach(area => {
+          if (area.id === activeAreaId) {
+            area.classList.remove('display-none');
+          } else {
+            area.classList.add('display-none');
+          }
+        });
+      });
     });
-    bookmarkBtn.addEventListener('click', function() {
-      toggleVisibleArea(bookmarkArea);
-      toggleFontColor(bookmarkBtn);
-    });
-    likeBtn.addEventListener('click', function() {
-      toggleVisibleArea(likeArea);
-      toggleFontColor(likeBtn);
-    });
-  }
-
-  function toggleVisibleArea(visibleArea) {
-    areas.forEach(function(area) {
-      if (area === visibleArea) {
-        area.classList.remove('display-none');
-      } else {
-        area.classList.add('display-none');
-      }
-    });
-  }
-
-  function toggleFontColor(colorBlack){
-    btns.forEach(function(btn) {
-      if (btn === colorBlack) {
-        btn.classList.add('color-black')
-      } else {
-        btn.classList.remove('color-black')
-      }
-    });
-  }
-});
+  });
 </script>
