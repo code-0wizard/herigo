@@ -1,24 +1,74 @@
 <header>
-<div class="container">
-  <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "item" %>
-  <%= link_to image_tag("Herigo.png", size: "140x40"), root_url, class: "item second-item" %>
-  <%= form_with(url: users_url, method: :get, local: true, class: "form-inline item") do %>
-    <div class="form-group position-relative">
-      <%= text_field_tag :query, params[:query], placeholder: "エリア", class: "form-control rounded-input" %>
+  <div class="pc-header">
+    <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
+    <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
+    <%= link_to "世界遺産", heritages_url, class: "pc-header__heritage-index-link" %>
+    <%= link_to "ユーザー一覧", users_url, class: "pc-header__user-index-link" %>
+    <div class="header-right-block">
+      <% if logged_in? %>
+        <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "header-right-block__logout-link" %>
+        <%= link_to current_user, class: "header-right-block__user-icon" do %>
+          <%= image_tag current_user.profile_image, size: '60x60' %>
+        <% end %>
+      <% else %>
+        <%= link_to "ログイン", login_url, class: "header-right-block__login-link" %>
+        <%= link_to "会員登録", signup_url, class: "header-right-block__singup-link" %>
+      <% end %>
     </div>
-  <% end %>
-  <% if logged_in? %>
-    <%= link_to "世界遺産", heritages_url, class: "item" %>
-    <%= link_to "ユーザー一覧", users_url, class: "item" %>
-    <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete } %>
-    <%= link_to current_user, class: "item" do %>
-      <%= image_tag current_user.profile_image, size: '60x60', class: 'rounded-image' %>
-    <% end %>
-  <% else %>
-    <%= link_to "お気に入り", root_url, class: "item" %>
-    <%= link_to "ログイン", login_url, class: "item" %>
-    <%= link_to "会員登録", signup_url, class: "item btn btn-primary mb-2" %>
-  <% end %>
+  </div>
 
-</div>
+  <div class="mobile-header">
+    <!--デフォルトのヘッダー-->
+    <div class="default-header" id="default_header">
+      <%= image_tag "humberger_menu.svg", size: '40x40', id: "humburger-menu-icon" %>
+      <div class="header-center-block">
+        <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
+        <%= link_to "Herigo", root_url, class: "header-center-block__logo-name" %>
+      </div>
+      <%= image_tag "search.svg", size: '40x40' %>
+    </div>
+    <hr class="mobile-header__hr">
+    <!--ハンバーガーメニュー押下時のヘッダー-->
+    <div class="humberger-menu-header" id="humberger_menu_header">
+      <%= image_tag "close.png", size: '30x30', id: "header-close-icon", class: "humberger-menu-header__close-icon" %>
+      <%= link_to current_user, class: "humberger-menu-header__user-icon" do %>
+        <%= image_tag current_user.profile_image, size: '60x60' %>
+      <% end %>
+      <%= link_to current_user.name, users_url(current_user), class: "humberger-menu-header__user-name" %>
+      <hr>
+      <%= link_to "世界遺産", heritages_url, class: "humberger-menu-header__heritage-index-link" %>
+      <%= link_to "ユーザー一覧", users_url, class: "humberger-menu-header__user-index-link" %>
+      <hr>
+      <% if logged_in? %>
+        <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "humberger-menu-header__logout-link" %>
+      <% else %>
+        <%= link_to "ログイン", login_url, class: "humberger-menu-header__login-link" %>
+        <%= link_to "会員登録", signup_url, class: "humberger-menu-header__singup-link" %>
+      <% end %>
+    </div>
+  </div>
 </header>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
+  var headerCloseIcon = document.getElementById('header-close-icon');
+  var defaultHeaderElement = document.getElementById('default_header');
+  var humbergerHeaderElement = document.getElementById('humberger_menu_header');
+  var grayOutElement = document.getElementById('gray-out');
+  
+  humburgerMenuIcon.addEventListener('click', function() {
+    defaultHeaderElement.style.display = 'none';
+    humbergerHeaderElement.style.display = 'block';
+    grayOutElement.style.display = 'block';
+  });
+
+  headerCloseIcon.addEventListener('click', function() {
+    defaultHeaderElement.style.display = 'flex';
+    humbergerHeaderElement.style.display = 'none';
+    grayOutElement.style.display = 'none';
+  });
+
+
+});
+</script>
