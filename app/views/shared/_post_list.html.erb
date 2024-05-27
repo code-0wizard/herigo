@@ -12,13 +12,13 @@
         <%= formatted_post_time(review.created_at) %>
       </div>
       <span class="user-post-details__heritage-name">
-        <%= review.heritage.name %>
+        <%= link_to review.heritage.name, heritage_path(review.heritage) %>
       </span>
       <span class="user-post-details__country-name">
         [<%= review.heritage.country.name %>]
       </span>
       <div class="post-content">
-        <p><%= simple_format(review.content) %></p>
+        <p><%= link_to simple_format(review.content), review_path(review) %></p>
       </div>
       <div class="show-more-btn">もっと見る</div>
       <% if review.review_images.attached? %>
