@@ -1,10 +1,12 @@
-.bookmark-list {
+.profile-bookmark-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
+  padding: 20px 3vw;
 }
-.bookmark-list:after {
+/*保存数が2,5,7,10...の時にカードが両端に寄ることを防ぐため*/
+.profile-bookmark-list:after {
   content: "";
   display: block;
   width: calc(33.333% - 10px);

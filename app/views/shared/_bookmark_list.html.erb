@@ -1,29 +1,71 @@
-<div class="bookmark-list">
+<div class="profile-bookmark-list">
   <% current_user.liking_heritages.each do |heritage| %>
-    <div class="heritage-card">
-      <div>
-        <%= image_tag heritage.image_path, class: "heritage-card__image" %>
-      </div>
-      <div class="heritage-card__heritage-name">
+    <!--PC版-->
+    <%= link_to heritage_path(heritage), class: "profile-heritage-card" do %>
+      <%= image_tag heritage.image_path, class: "profile-heritage-card__image" %>
+      <div class="profile-heritage-card__heritage-name">
         <%= heritage.name %>
       </div>
-      <div class="heritage-card__country">
+      <div class="profile-heritage-card__country">
         <%= image_tag "location.png", size: "20x20" %>
         <%= heritage.country.name %>
       </div>
-      <div class="review-score">
+      <div class="profile-heritage-card__review-score">
         <%= image_tag "review_score/score0.png", size: "100x20" %>
-        <span class="review-score__score js-score" data-score="<%= calc_average_review_score(heritage.id) %>">
+        <span class="js-score" data-score="<%= calc_average_review_score(heritage.id) %>">
           <%= calc_average_review_score(heritage.id) %>
         </span>
       </div>
-      <div class="heritage-card__bookmark-img">
+      <div class="profile-heritage-card__bookmark-img">
         <%= image_tag "bookmark.svg", size: "30x30" %>
       </div>
-    </div>
+    <% end %>
+  <% end %>
+  <!--スマホ版-->
+  <% current_user.liking_heritages.each do |heritage| %>
+    <%= link_to heritage_path(heritage), class: "profile-heritage-mobile-card" do %>
+      <div class="profile-heritage-mobile-card__image">
+        <%= image_tag heritage.image_path %>
+      </div>
+      <div class="heritage-mobile-card-details">
+        <div class="heritage-mobile-card-details__heritage-name">
+          <%= heritage.name %>
+        </div>
+        <div class="heritage-mobile-card-details__country">
+          <%= image_tag "location.png", size: "20x20" %>
+          <%= heritage.country.name %>
+        </div>
+        <div class="heritage-mobile-card-details__review-score">
+          <%= image_tag "review_score/score0.png", size: "100x20" %>
+          <span class="js-score" data-score="<%= calc_average_review_score(heritage.id) %>">
+            <%= calc_average_review_score(heritage.id) %>
+          </span>
+        </div>
+        <div class="heritage-card-tags-wrapper">
+          <div class="heritage-tag-card">
+            <%= image_tag "tag.svg", size: "20x20" %>
+            <span class="heritage-tag-card__tag-name">寺院</span>
+          </div>
+          <div class="heritage-tag-card">
+            <%= image_tag "tag.svg", size: "20x20" %>
+            <span class="heritage-tag-card__tag-name">自然</span>
+          </div>
+          <div class="heritage-tag-card">
+            <%= image_tag "tag.svg", size: "20x20" %>
+            <span class="heritage-tag-card__tag-name">入場料無料</span>
+          </div>
+          <div class="heritage-tag-card">
+            <%= image_tag "tag.svg", size: "20x20" %>
+            <span class="heritage-tag-card__tag-name">美術館</span>
+          </div>
+        </div>
+        <div class="heritage-mobile-card-details__bookmark-img">
+          <%= image_tag "bookmark.svg", size: "30x30" %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

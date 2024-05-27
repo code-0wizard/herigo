@@ -23,18 +23,18 @@
    <hr class="user-profile-page__hr">
 
   <div class="user-content-wrapper">
-    <div id="post_area">
+    <div id="user-content-wrapper__post-area">
       <%= render 'shared/post_list' %>
     </div>
-    <div class="display-none" id="bookmark_area">
+    <div class="display-none" id="user-content-wrapper__bookmark-area">
       <%= render 'shared/bookmark_list' %>
     </div>
-    <div class="display-none" id="like_area">
+    <div class="display-none" id="user-content-wrapper__like-area">
       <%= render 'shared/like_list' %>
     </div>
-      <div class="display-none" id="follow_area">
+      <div class="display-none" id="user-content-wrapper__follow-area">
     </div>
-      <div class="display-none" id="follower_area">
+      <div class="display-none" id="user-content-wrapper__follower-area">
     </div>
    </div>
 </div>
@@ -43,16 +43,15 @@
   document.addEventListener('DOMContentLoaded', function() {
     document.body.style.backgroundColor = '#efefef';
     const tabs = document.querySelectorAll('.user-profile-items span');
-    const areas = document.querySelectorAll('.user-profile-page > div[id$="_area"]');
-
+    const areas = document.querySelectorAll('[id^="user-content-wrapper__"][id$="-area"]');
     tabs.forEach(tab => {
       tab.addEventListener('click', function() {
-        // クリックされたタブにselected-colorクラスを追加し、他のタブからはそのクラスを削除
+        // クリックされたタブにselected-colorクラスを追加し、文字を変える処理
         tabs.forEach(t => t.classList.remove('selected-color'));
         this.classList.add('selected-color');
 
         // 対応するエリアを表示し、他のエリアを非表示にする
-        const activeAreaId = this.id + '_area';
+        const activeAreaId = 'user-content-wrapper__' + this.id + '-area';
         areas.forEach(area => {
           if (area.id === activeAreaId) {
             area.classList.remove('display-none');

@@ -1,0 +1,103 @@
+.profile-heritage-card {
+  display: block;
+  width: calc(33.333% - 10px);
+  aspect-ratio: 4 / 5;  
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px #b1b1b1;
+  &__image {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    border-radius: 10px 10px 0 0;
+  }
+  &__heritage-name {
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 20px 10px 10px 10px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  &__country {
+    padding-left: 10px;
+    font-size: 1.5rem;
+    color: #888888;
+  }
+  &__bookmark-img {
+    text-align: right;
+    padding: 20px 10px 10px 10px;
+  }
+  &__review-score {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 20px;
+    & span {
+      padding-left: 10px;
+      font-size: 1.5rem;
+      color: #FF9900;
+    }
+  }
+}
+.profile-heritage-card:hover {
+  text-decoration: none;
+}
+
+.profile-heritage-mobile-card {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .profile-heritage-card {
+    display: none;
+  }
+  .profile-heritage-mobile-card {
+    display: flex;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px #b1b1b1;
+    width: 100%;
+    padding: 15px;
+    &__image {
+      flex: 3;
+      & img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+      }
+    }
+  }
+  .heritage-mobile-card-details {
+    flex: 7;
+    padding-left: 10px;
+    &__heritage-name {
+      font-weight: bold;
+      font-size: 1.5rem;
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis; 
+    }
+    &__country {
+      padding-top: 5px;
+      font-size: 1rem;
+      color: #888888;
+      & img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+    &__bookmark-img {
+      text-align: right;
+      padding: 20px 10px 10px 10px;
+    }
+    &__review-score {
+      display: flex;
+      align-items: center;
+      padding-top: 5px;
+      & span {
+        padding-left: 10px;
+        font-size: 1.5rem;
+        color: #FF9900;
+      }
+    }
+  }
+}
+
