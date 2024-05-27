@@ -1,0 +1,28 @@
+.heritage-stats-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  &__item-name {
+    display: inline-block;
+    margin: 0 10px 0 30px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  &__post-count, &__bookmark-count, &__review-score {
+    padding: 0 5px;
+    background-color: #efefef;
+  }
+}
+
+@media (max-width: 767px) {
+  .heritage-stats-wrapper {
+    margin-top: 20px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    &__item-name {
+      display: inline-block;
+      font-size: 1.3rem;
+      margin: 0;
+    }
+  }
+}

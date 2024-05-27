@@ -1,81 +1,76 @@
-<!--投稿のmoreボタンのポップアップ-->
-<%= render 'shared/more_popup' %>
+<!--投稿の「・・・」ボタン押下時に表示されるポップアップ-->
+<%= render 'shared/post_action_popup' %>
+<div class="heritage-detail-page-wrapper">
+  <div class="heritage-info-wrapper">
+    <div class="heritage-info-wrapper__heritage-name">
+      <%= link_to @heritage.name, @heritage %>
+    </div>
+    <div class="heritage-country">
+      <%= image_tag "location.png", size: "20x20" %>
+      <span class="heritage-country__name">
+        <%= @heritage.country.name %>
+      </span>
+    </div>
+    <div class="heritage-stats-wrapper">
+      <div class="heritage-stats-wrapper__item-name">
+        口コミ数
+      </div>
+      <%= content_tag :span, @heritage.reviews.count, class: "heritage-stats-wrapper__post-count" %>
+      <div class="heritage-stats-wrapper__item-name">
+        保存数
+      </div>
+      <%= content_tag :span, @heritage.likers.count, class: "heritage-stats-wrapper__bookmark-count" %>
+      <div class="heritage-stats-wrapper__item-name">
+        評価
+      </div>
+      <%= image_tag "review_score/score0.png", size: "80x16", id: "score-img" %>
+      <span class="heritage-stats-wrapper__review-score" id="review-score" data-score="<%= calc_average_review_score(@heritage.id) %>">
+        <%= calc_average_review_score(@heritage.id) %>
+      </span>
+    </div>
+    <hr class="heritage-info-wrapper__hr">
+  </div>
 
-<div class="heritage-info">
-  <div class="heritage-info__heritage-name">
-    <%= link_to @heritage.name, @heritage %>
-  </div>
-  <div class="heritage-country">
-    <%= image_tag "location.png", size: "20x20" %>
-    <span class="heritage-country__name">
-      <%= @heritage.country.name %>
-    </span>
-  </div>
-  <div class="heritage-stats">
-    <div class="heritage-stats__item-name">
-      口コミ数
-    </div>
-    <%= content_tag :span, @heritage.reviews.count, class: "heritage-stats__post-count" %>
-    <div class="heritage-stats__item-name">
-      保存数
-    </div>
-    <%= content_tag :span, @heritage.likers.count, class: "heritage-stats__bookmark-count" %>
-    <div class="heritage-stats__item-name">
-      評価
-    </div>
-    <%= image_tag "review_score/score0.png", size: "100x20", id: "score-img" %>
-    <span class="heritage-stats__review-score" id="review-score" data-score="<%= calc_average_review_score(@heritage.id) %>">
-      <%= calc_average_review_score(@heritage.id) %>
-    </span>
-  </div>
-  <hr class="heritage-info__hr">
-</div>
-
-<div class="post-info">
-  <%= link_to image_tag(@review.user.profile_image, size: "60x60", class: "rounded-image"), @review.user %>
-  <div class="post-details">
-    <span class="post-details__user-name"><%= @review.user.name %></span>
-    <%= image_tag "more.png", size: "20x20", class: "more-icon", data: { review_path: review_path(@review) } %>
-    <div class="post-details__post-content">
-      <p><%= simple_format(@review.content) %></p>
-    </div>
-    <% if @review.review_images.attached? %>
-      <% @review.review_images.each do |image| %>
-        <div class="post-img">
-          <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
-        </div>
+  <div class="post-info-wrapper">
+    <%= link_to image_tag(@review.user.profile_image, size: "60x60", class: "post-info-wrapper__user-icon"), @review.user %>
+    <div class="post-details-wrapper">
+      <span class="post-details-wrapper__user-name">
+      <%= @review.user.name %>
+      </span>
+      <%= image_tag "more.png", size: "20x20", class: "post-action-icon", data: { review_path: review_path(@review) } %>
+      <div class="post-details-wrapper__formatted-time">
+        <%= formatted_post_time(@review.created_at) %>
+      </div>
+      <div class="post-details-wrapper__post-content">
+        <p><%= simple_format(@review.content) %></p>
+      </div>
+      <% if @review.review_images.attached? %>
+        <% @review.review_images.each do |image| %>
+          <%= image_tag image.variant(resize_to_limit: [300, 300]), class: "post-details-wrapper__post-img" %>
+        <% end %>
       <% end %>
-    <% end %>
-    <span class="post-details__formatted-time" data-created-time="<%= @review.created_at %>">
-      <%= formatted_post_time(@review.created_at) %>
-    </span>
-  </div>
-</div>
-<hr class="post-info__hr">
-
-<div class="like-reply-info">
-  <div class="like-and-reply">
-    <div class="like" id="like-<%= @review.id %>">
-      <%= render 'shared/like', review: @review %>
-    </div>
-    <div class="reply">
-      <%= render 'shared/reply', review: @review %>
+      <div class="post-details-wrapper__like-container" id="like-<%= @review.id %>">
+        <%= render 'shared/like', review: @review %>
+      </div>
+      <div class="post-details-wrapper__reply-container">
+        <%= render 'shared/reply', review: @review %>
+      </div>
     </div>
   </div>
-</div>
-<hr class="post-info__hr">
 
-<% if logged_in? %>
-  <%= render 'shared/reply_form', review: @review %>
-<% end %>
-<hr class="post-info__hr">
+  <% if logged_in? %>
+    <%= render 'shared/reply_form', review: @review %>
+  <% end %>
 
-<% if !@replies.nil? %>
+  <% if !@replies.nil? %>
+    <hr class="post-info-wrapper__hr">
     <%= render 'shared/reply_list', review: @review %>
-<% end %>
-
+  <% end %>
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.backgroundColor = '#efefef';
+
     // レビュースコア画像の出しわけ
     var reviewScoreElement = document.getElementById("review-score"); 
     var score = reviewScoreElement.dataset.score;
