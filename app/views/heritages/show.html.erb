@@ -1,10 +1,56 @@
-<%= render 'shared/error_messages', object: @review %>
+<div class="heritage-img-area">
+  <%= image_tag "heritage/マチュピチュ/2.png", class: "heritage-img-area__main-img" %>
+  <div class="heritage-img-right-area">
+    <%= image_tag "heritage/マチュピチュ/2.png" %>
+    <%= image_tag "heritage/マチュピチュ/3.png" %>
+    <%= image_tag "heritage/マチュピチュ/4.png" %>
+    <%= image_tag "heritage/マチュピチュ/5.png" %>
+  </div>
+</div>
+
+<div class="heritage-detail-info">
+  <div class="heritage-detail-info__heritage-name">
+    <%= @heritage.name %>
+  </div>
+  <div class="heritage-detail-info__country-name">
+    <%= image_tag "location.png", size: "20x20" %>
+    <%= @heritage.country.name %>
+  </div>
+  <div class="heritage-detail-info-inner">
+    <%= image_tag "review_score/score0.png", size: "150x30", class: "heritage-detail-info-inner__score-img" %>
+    <span class="js-score" data-score="<%= calc_average_review_score(@heritage.id) %>">
+      <%= calc_average_review_score(@heritage.id) %>
+    </span>
+    <div class="heritage-detail-btn-block">
+      <button class="heritage-detail-btn-block__bookmark-btn">
+        <%= image_tag "bookmark_blue.svg", size: "20x20" %>
+        保存する 
+        <%= @heritage.likers.count %>
+      </button>
+      <button class="heritage-detail-btn-block__post-btn">
+        <%= image_tag "post_add_white.svg", size: "20x20" %>
+        投稿する
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="heritage-link-group">
+  <ul>
+    <li>基本情報</li>
+    <li>口コミ</li>
+    <li>人気ポイント</li>
+    <li>アクセス</li>
+    <li>ツアー</li>
+  </ul>
+</nav>
+
+<div></div>
 <span>いいね数：</span>
 <%= @heritage.likers.count %>
 <% if logged_in? %>
   <%= render 'heritages/like_form' %>
 <% end %>
-<%= image_tag @heritage.image_path, size:'600x400' %>
 <h1><%= @heritage.name %></h1>
 <h2><%= @heritage.content %></h2>
 
@@ -26,3 +72,45 @@
 <% if logged_in? %>
   <%= render 'shared/review_form', object: @review %>
 <% end %>
+
+<%= render 'shared/error_messages', object: @review %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var scoreElements = document.querySelectorAll('.js-score'); 
+    scoreElements.forEach(function(scoreElement) {
+      var score = scoreElement.dataset.score;
+      var imgElement = scoreElement.previousElementSibling;
+      if (score && imgElement) {
+        if (score >= 0.5 && score < 1) {
+            imgElement.src = "/assets/review_score/score05.png";
+        } else if (score >= 1 && score < 1.5) {
+            imgElement.src = "/assets/review_score/score10.png";
+        } else if (score >= 1.5 && score < 2) {
+            imgElement.src = "/assets/review_score/score15.png";
+        } else if (score >= 2 && score < 2.5) {
+            imgElement.src = "/assets/review_score/score20.png";
+        } else if (score >= 2.5 && score < 3) {
+            imgElement.src = "/assets/review_score/score25.png";
+        } else if (score >= 3 && score < 3.5) {
+            imgElement.src = "/assets/review_score/score30.png";
+        } else if (score >= 3.5 && score < 4) {
+            imgElement.src = "/assets/review_score/score35.png";
+        } else if (score >= 4 && score < 4.5) {
+            imgElement.src = "/assets/review_score/score40.png";
+        } else if (score >= 4.5 && score < 5) {
+            imgElement.src = "/assets/review_score/score45.png";
+        } else if (score == 5) {
+            imgElement.src = "/assets/review_score/score50.png";
+        }
+      }
+    });
+    var navItems = document.querySelectorAll('.heritage-link-group li');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        navItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+</script>

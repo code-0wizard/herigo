@@ -1,0 +1,45 @@
+.heritage-link-group {
+  position: relative;
+  padding-top: 20px;
+  width: 60vw;
+  margin: 0 auto;
+  font-size: 2rem;
+  & ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+  }
+  & li {
+    cursor: pointer;
+    position: relative;
+    border-bottom: 5px solid #fff;
+  }
+  & li:hover {
+    font-weight: bold;
+  }
+  .active {
+    border-bottom: 5px solid #0f84ff;
+    font-weight: bold;
+  }
+}
+.heritage-link-group::after {
+  width: 100vw;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  box-shadow: 0 2px 5px #aaaaaa;
+}
+
+
+@media (max-width: 767px) {
+  .heritage-link-group {
+    padding-left: 20px;
+    width: 100vw;
+    font-size: 1.5rem;
+    & ul {
+      gap: 10px;
+    }
+  }
+}
