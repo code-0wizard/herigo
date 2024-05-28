@@ -39,6 +39,9 @@
   .post-info-wrapper {
     width: 100%;
     margin: 0 auto;
+    &__hr {
+      width: 100vw;
+    }
   }
   .post-details-wrapper {
     &__post-content {

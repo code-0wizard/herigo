@@ -1,14 +1,69 @@
 .reply-info {
-  width: 40vw;
+  width: 60%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 9fr;
-}
-.reply-detail {
-  &__created-time{
+  padding: 20px 0;
+  &__reply-content {
     padding-top: 10px;
-  } &__user-name{
-    font-weight: bold;
     font-size: 2rem;
+  }
+}
+.reply-count-wrapper {
+  margin: 20px 0;
+  &__reply-count {
+    font-size: 2rem;
+    padding-left: 10px;
+  }
+}
+.reply-details-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  &__user-icon {
+    flex: 1;
+    & img {
+      border-radius: 50%;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+.reply-details-inner {
+  flex: 9;
+  padding-left: 10px;
+    &__user-name{
+      font-weight: bold;
+      font-size: 2rem;
+    }
+}
+.reply-detail-block {
+  display: inline-block;
+  width: 80%;
+  &__created-time {
+    color: #AAAAAA;
+  }
+}
+
+@media (max-width: 767px) {
+  .reply-info {
+    width: 100vw;
+    padding: 20px;
+    &__reply-content {
+      font-size: 1.5rem;
+    }
+  }
+  .reply-count-wrapper {
+    margin-top: 0;
+    &__reply-count {
+      font-size: 1.5rem;
+    }
+  }
+  .reply-details-inner {
+      &__user-name{
+        font-size: 1.5rem;
+      }
+  }
+  .reply-detail-block {
+    &__created-time {
+      font-size: 1rem;
+    }
   }
 }
