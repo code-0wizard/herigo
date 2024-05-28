@@ -1,4 +1,0 @@
-<%= form_with(model: current_user.heritage_likes.find_by(heritage_id: @heritage.id), html: { method: :delete }) do |f| %>
-  <%= hidden_field_tag :heritage_id, @heritage.id %>
-  <%= f.submit "unlike" %>
-<% end %>

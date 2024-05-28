@@ -1,4 +1,0 @@
-<%= form_with(model: current_user.heritage_likes.build) do |f| %>
-  <%= hidden_field_tag :heritage_id, @heritage.id %>
-  <%= f.submit "like" %>
-<% end %>

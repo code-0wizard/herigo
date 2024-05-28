@@ -1,0 +1,30 @@
+.heritage-bookmark-btn {
+  font-size: 1.5rem;
+  background-color: #fff;
+  border: 1px solid #0f84ff;
+  border-radius: 5px;
+  color: #0f84ff;
+  padding: 5px;
+}
+.heritage-bookmark-remove-btn {
+  font-size: 1.5rem;
+  background-color: #0957dd;
+  border: 1px solid #0957dd;
+  border-radius: 5px;
+  color: #fff;
+  padding: 5px;
+}
+.review-create-btn {
+  font-size: 1.5rem;
+  background-color: #0f1622;
+  border: 1px solid #0f1622;
+  border-radius: 5px;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+@media (max-width: 767px) {
+  .heritage-bookmark-btn, .heritage-bookmark-remove-btn, .review-create-btn {
+    font-size: 1.2rem;
+  }
+}

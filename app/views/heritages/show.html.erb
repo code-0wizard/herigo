@@ -21,38 +21,26 @@
     <span class="js-score" data-score="<%= calc_average_review_score(@heritage.id) %>">
       <%= calc_average_review_score(@heritage.id) %>
     </span>
-    <div class="heritage-detail-btn-block">
-      <button class="heritage-detail-btn-block__bookmark-btn">
-        <%= image_tag "bookmark_blue.svg", size: "20x20" %>
-        保存する 
-        <%= @heritage.likers.count %>
-      </button>
-      <button class="heritage-detail-btn-block__post-btn">
-        <%= image_tag "post_add_white.svg", size: "20x20" %>
-        投稿する
-      </button>
-    </div>
+    <% if logged_in? %>
+      <div class="heritage-detail-btn-block">
+        <%= render 'heritages/like_form' %>
+        <%= render 'shared/review_create' %>
+      </div>
+    <% end %>
   </div>
 </div>
 
-<nav class="heritage-link-group">
-  <ul>
+<nav class="heritage-link-group" id="nav-link">
+  <ul id="link-list">
     <li>基本情報</li>
     <li>口コミ</li>
     <li>人気ポイント</li>
     <li>アクセス</li>
     <li>ツアー</li>
   </ul>
+  <%= image_tag "arrow_foward.svg", size: "20x20", class: "heritage-link-group__arrow-img", id:"arrow-img" %>
 </nav>
 
-<div></div>
-<span>いいね数：</span>
-<%= @heritage.likers.count %>
-<% if logged_in? %>
-  <%= render 'heritages/like_form' %>
-<% end %>
-<h1><%= @heritage.name %></h1>
-<h2><%= @heritage.content %></h2>
 
 <p>口コミ</p>
 <% @reviews.each do |review| %>
@@ -105,12 +93,30 @@
         }
       }
     });
+
+    // タップされた要素にクラスを追加
     var navItems = document.querySelectorAll('.heritage-link-group li');
     navItems.forEach(item => {
       item.addEventListener('click', function() {
         navItems.forEach(i => i.classList.remove('active'));
         this.classList.add('active');
       });
+    });
+
+    // ul要素の横幅がnav要素を超えた場合にスクロールできるようにする
+    var navElement = document.getElementById("nav-link");
+    var ulElement = document.getElementById("link-list");
+    var arrowImgElement = document.getElementById("arrow-img");
+    function checkOverflow() {
+      if (ulElement.scrollWidth > navElement.clientWidth) {
+        navElement.classList.add('scrollable');
+        arrowImgElement.classList.add('show');
+      }
+    }
+    // 初回チェック
+    checkOverflow();
+    navElement.addEventListener('scroll', function() {
+      arrowImgElement.classList.remove('show');
     });
   });
 </script>

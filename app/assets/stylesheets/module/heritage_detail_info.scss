@@ -23,21 +23,8 @@
 
 .heritage-detail-btn-block {
   margin-left: auto;
-  &__bookmark-btn {
-    font-size: 1.5rem;
-    background-color: #fff;
-    border: 1px solid #0f84ff;
-    border-radius: 5px;
-    color: #0f84ff;
-    padding: 5px;
-  }
-  &__post-btn {
-    font-size: 1.5rem;
-    background-color: #0957dd;
-    border: 1px solid #0957dd;
-    border-radius: 5px;
-    color: #fff;
-    padding: 5px 10px;
+  & form {
+    display: inline-block;
   }
 }
 

@@ -4,9 +4,9 @@
   width: 60vw;
   margin: 0 auto;
   font-size: 2rem;
+  white-space: nowrap;
   & ul {
     display: flex;
-    flex-wrap: nowrap;
     gap: 30px;
   }
   & li {
@@ -21,6 +21,28 @@
     border-bottom: 5px solid #0f84ff;
     font-weight: bold;
   }
+  &__arrow-img {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: moveLeftRight 1s infinite;
+  }
+}
+@keyframes moveLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.scrollable {
+  overflow-x: auto;
 }
 .heritage-link-group::after {
   width: 100vw;
@@ -32,14 +54,10 @@
   box-shadow: 0 2px 5px #aaaaaa;
 }
 
-
 @media (max-width: 767px) {
   .heritage-link-group {
     padding-left: 20px;
     width: 100vw;
     font-size: 1.5rem;
-    & ul {
-      gap: 10px;
-    }
   }
 }
