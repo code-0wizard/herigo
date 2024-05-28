@@ -53,19 +53,16 @@
 document.addEventListener("DOMContentLoaded", function() {
   var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
   var headerCloseIcon = document.getElementById('header-close-icon');
-  var defaultHeaderElement = document.getElementById('default_header');
   var humbergerHeaderElement = document.getElementById('humberger_menu_header');
   var grayOutElement = document.getElementById('gray-out');
   
   humburgerMenuIcon.addEventListener('click', function() {
-    defaultHeaderElement.style.display = 'none';
-    humbergerHeaderElement.style.display = 'block';
+    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
     grayOutElement.style.display = 'block';
   });
 
   headerCloseIcon.addEventListener('click', function() {
-    defaultHeaderElement.style.display = 'flex';
-    humbergerHeaderElement.style.display = 'none';
+    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
     grayOutElement.style.display = 'none';
   });
 

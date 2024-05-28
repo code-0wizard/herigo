@@ -27,10 +27,10 @@
     }
   }
   .humberger-menu-header {
-    display: none;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -100%;
+    transition: all 0.5s;
     width: 80vw;
     height: 100vh;
     background-color: #fff;
@@ -61,5 +61,8 @@
       font-size: 1.5rem;
       color: #3d3a3a;
     }
+  }
+ .humberger-menu-header-open {
+    left: 0;
   }
 }
