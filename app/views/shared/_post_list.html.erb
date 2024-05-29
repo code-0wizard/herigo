@@ -38,16 +38,7 @@
   </div>
    <hr class="user-post-info__hr">
 <% end %>
-<%= render 'shared/post_action_popup' %>
-
-<div>
-  <span class="star" id="1" value="1">★</span>
-  <span class="star" id="2" value="2">★</span>
-  <span class="star" id="3" value="3">★</span>
-  <span class="star" id="4" value="4">★</span>
-  <span class="star" id="5" value="5">★</span>
-  <span class="score" id="review-score">0</span>
-</div>
+<%= render 'popup/post_action_popup' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -157,48 +148,5 @@
         grayOut.classList.add('display-none');
       }
     });
-
-  // 星評価
-  var stars = document.getElementsByClassName("star");
-  var clicked = false;
-    for (let i = 0; i < stars.length; i++) {
-      stars[i].addEventListener(
-        "mouseover",
-        () => {
-          if (!clicked) {
-            for (let j = 0; j <= i; j++) {
-              stars[j].style.color = "#FF9900";
-            }
-          }
-        },
-        false
-      );
-
-      stars[i].addEventListener(
-        "mouseout",
-        () => {
-          if (!clicked) {
-            for (let j = 0; j < stars.length; j++) {
-              stars[j].style.color = "#a09a9a";
-            }
-          }
-        },
-        false
-      );
-
-      stars[i].addEventListener(
-        "click",
-        () => {
-          clicked = true;
-          for (let j = 0; j <= i; j++) {
-            stars[j].style.color = "#FF9900";
-          }
-          for (let j = i + 1; j < stars.length; j++) {
-            stars[j].style.color = "#a09a9a";
-          }
-        },
-        false
-      );
-    };
   });
 </script>

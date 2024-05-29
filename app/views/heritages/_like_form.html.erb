@@ -1,18 +1,18 @@
 <% if current_user.heritage_liked?(@heritage) %>
-  <%= form_with(model: current_user.heritage_likes.build) do |f| %>
-    <%= hidden_field_tag :heritage_id, @heritage.id %>
-    <%= f.button :submit, class: "heritage-bookmark-btn" do %>
-      <%= image_tag "bookmark_blue.svg", size: "20x20" %>
-      保存する 
-      <%= @heritage.likers.count %>
-    <% end %>
-  <% end %>
-<% else %>
   <%= form_with(model: current_user.heritage_likes.find_by(heritage_id: @heritage.id), html: { method: :delete }) do |f| %>
     <%= hidden_field_tag :heritage_id, @heritage.id %>
     <%= f.button :submit, class: "heritage-bookmark-remove-btn" do %>
       <%= image_tag "bookmark_white.svg", size: "20x20" %>
       保存済み 
+      <%= @heritage.likers.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_with(model: current_user.heritage_likes.build) do |f| %>
+    <%= hidden_field_tag :heritage_id, @heritage.id %>
+    <%= f.button :submit, class: "heritage-bookmark-btn" do %>
+      <%= image_tag "bookmark_blue.svg", size: "20x20" %>
+      保存する 
       <%= @heritage.likers.count %>
     <% end %>
   <% end %>

@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0 0 20px;
-    & span {
+    & .score-value {
       padding-left: 10px;
       font-size: 1.5rem;
       color: #FF9900;
@@ -92,12 +92,10 @@
       display: flex;
       align-items: center;
       padding-top: 5px;
-      & span {
+      & .score-value {
         padding-left: 10px;
         font-size: 1.5rem;
-        color: #FF9900;
       }
     }
   }
 }
-

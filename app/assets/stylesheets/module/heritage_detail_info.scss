@@ -15,9 +15,13 @@
   display: flex;
   align-items: center;
   padding-left: 10px;
-  & span {
+  & .score-value {
     font-size: 2rem;
     padding-left: 10px;
+  }
+  & .score-img {
+    width: 150px;
+    height: 30px;
   }
 }
 
@@ -41,7 +45,7 @@
     }
   }
   .heritage-detail-info-inner {
-    &__score-img {
+    & .score-img {
       width: 100px;
       height: 20px;
     }

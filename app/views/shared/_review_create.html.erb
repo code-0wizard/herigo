@@ -1,4 +1,95 @@
-<button class="review-create-btn">
+<button class="review-create-btn" id="create-review-btn">
   <%= image_tag "post_add_white.svg", size: "20x20" %>
   投稿する
 </button>
+
+<div class="review-create-popup hide" id="create-review-popup">
+  <div class="review-popup-header">
+    <%= image_tag "close.png", size: "30x30", class: "review-popup-header__close-icon", id: "popup-close-btn" %>
+    <div class="review-popup-header__heritage-name">
+      <%= @heritage.name %>
+    </div>
+  </div>
+  <hr>
+  <div class="review-create-form">
+    <%= image_tag current_user.profile_image, size: "40x40", class: "review-create-form__user-icon" %>
+    <%= form_with(model: @review) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+        <%= f.text_area :content, placeholder: "口コミを書く", class: "review-create-form__textarea" %>
+        <%= render 'shared/review_score_form' %>
+        <%= f.hidden_field :score, id: 'review-score-field' %>
+        <%= f.file_field :review_images, multiple: true, id: "hide-img-input", class: "review-create-form__hide-img-input" %>
+        <hr>
+        <div class="visible-img-btn">
+          <%= image_tag "photo.svg", size: '25x25', id: "img-icon", class: "visible-img-btn__img-icon" %>
+          <span>画像を追加</span>
+        </div>
+        <div id="img-preview" class="review-create-form__img-preview"></div>
+        <%= hidden_field_tag :heritage_id, @heritage.id %>
+      <%= f.submit class: "hide", id: "hide-submit-btn"  %>
+    <% end %>
+  </div>
+  <button class="review-form-submit-btn" id="visible-submit-btn">投稿する</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function toggleGrayOut() {
+      var grayOutElement = document.getElementById('gray-out');
+      grayOutElement.classList.toggle("hide");
+    }
+    var createReviewBtn = document.getElementById("create-review-btn");
+    var createReviewPopup = document.getElementById("create-review-popup");
+    // 投稿ボタン押下時にポップアップが表示される処理
+    createReviewBtn.addEventListener('click', function() {
+      createReviewPopup.classList.toggle("hide");
+      toggleGrayOut();
+    });
+    var popupCloseBtn = document.getElementById("popup-close-btn");
+    popupCloseBtn.addEventListener('click', function() {
+      createReviewPopup.classList.toggle("hide");
+      toggleGrayOut();
+    });
+
+    var imgBtn = document.getElementById("img-icon");
+    var imgInput = document.getElementById("hide-img-input");
+    var imgPreview = document.getElementById("img-preview");
+    // 画像アイコン押下時の処理
+    imgBtn.addEventListener('click', function() {
+      imgInput.click();
+    });
+    imgInput.addEventListener('change', function() {
+      imgPreview.innerHTML = '';
+      var files = imgInput.files;
+      Array.from(files).forEach(file => {
+        if (file && file.type.startsWith('image/')) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var postImgWrapper = document.createElement('div');
+            postImgWrapper.className = 'post-img-wrapper';
+
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = "post-img-wrapper__post-img"
+
+            var closeIcon = document.createElement('img');
+            closeIcon.src = '<%= asset_path("close_photo.svg") %>';
+            closeIcon.className = "post-img-wrapper__close-icon"
+
+            postImgWrapper.appendChild(img);
+            postImgWrapper.appendChild(closeIcon);
+            imgPreview.appendChild(postImgWrapper);
+          }
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+
+    // 投稿ボタン押下時の処理
+    var visibleSubmitBtn = document.getElementById("visible-submit-btn");
+    var hiddenSubmitBtn = document.getElementById("hide-submit-btn");
+    visibleSubmitBtn.addEventListener('click', function() {
+      hiddenSubmitBtn.click();
+    });
+  });
+</script>

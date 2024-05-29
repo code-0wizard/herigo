@@ -1,0 +1,16 @@
+.post-img-wrapper {
+  width: 30%;
+  position: relative;
+  &__close-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  &__post-img {
+    width: 100%;
+    height: auto;
+  }
+}
