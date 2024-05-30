@@ -1,0 +1,17 @@
+.heritage-score-info {
+  display: flex;
+  align-items: center;
+  &__score-value {
+    color: #FF9900;
+    padding-left: 10px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .heritage-score-info {
+    &__score-value {
+      font-size: 1.5rem;
+    }
+  }
+}

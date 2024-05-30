@@ -31,10 +31,10 @@
     display: flex;
     align-items: center;
     padding: 10px 0 0 20px;
-    & .score-value {
-      padding-left: 10px;
-      font-size: 1.5rem;
-      color: #FF9900;
+    & .heritage-score-info{
+      &__score-value {
+        font-size: 1.5rem;
+      }
     }
   }
 }
@@ -92,9 +92,10 @@
       display: flex;
       align-items: center;
       padding-top: 5px;
-      & .score-value {
-        padding-left: 10px;
-        font-size: 1.5rem;
+      & .heritage-score-info{
+        &__score-value {
+          font-size: 1.5rem;
+        }
       }
     }
   }

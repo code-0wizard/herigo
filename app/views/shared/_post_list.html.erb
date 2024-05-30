@@ -1,25 +1,44 @@
 <% @reviews.each do |review| %>
   <div class="user-post-info">
-    <div class="user-post-info__icon">
-      <%= image_tag review.user.profile_image %>
-    </div>
+    <% if review.user && review.user.profile_image.attached? %>
+      <div class="user-post-info__icon">
+        <%= image_tag review.user.profile_image %>
+      </div>
+    <% end %>
     <div class="user-post-details">
       <div class="user-post-details__user-name">
-        <span><%= review.user.name %></span>
-        <%= image_tag "more.png", size: "20x20", class: "post-action-icon", data: { review_path: review_path(review) } %>
+        <span><%= review.user ? review.user.name : "Unknown User" %></span>
+        <% if review.persisted? %>
+          <%= image_tag "more.png", size: "20x20", class: "post-action-icon", data: { review_path: review_path(review) } %>
+        <% end %>
       </div>
       <div class="user-post-details__created-time">
-        <%= formatted_post_time(review.created_at) %>
+        <% if review.created_at %>
+          <%= formatted_post_time(review.created_at) %>
+        <% else %>
+          <span>日時不明</span>
+        <% end %>
       </div>
+      <% if review.persisted? %>
       <span class="user-post-details__heritage-name">
         <%= link_to review.heritage.name, heritage_path(review.heritage) %>
       </span>
+      <% end %>
       <span class="user-post-details__country-name">
         [<%= review.heritage.country.name %>]
       </span>
-      <div class="post-content">
-        <p><%= link_to simple_format(review.content), review_path(review) %></p>
-      </div>
+      <% if !review.score.nil? %>
+        <div class="review-score-container">
+          <%= render 'shared/review_score', review: review %>
+        </div>
+      <% end %>
+      <% if review.persisted? %>
+        <div class="post-content">
+          <p><%= link_to simple_format(review.content), review_path(review) %></p>
+        </div>
+      <% else %>
+        <p><%= simple_format(review.content) %></p>
+      <% end %>
       <div class="show-more-btn">もっと見る</div>
       <% if review.review_images.attached? %>
         <% review.review_images.each do |image| %>

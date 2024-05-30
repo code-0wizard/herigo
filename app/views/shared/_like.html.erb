@@ -3,4 +3,4 @@
 <% else %>
   <%= image_tag "like.png", size: "20x20", data: { review_id: review.id }, class: "js-like-icon", remote: true %>
 <% end %>
-<%= content_tag :span, review.likers.count, class: "#{'like__count' if current_user.review_liked?(review)}" %>
+<%= content_tag :span, review.likers.count, class: "#{'like__count--color-red' if logged_in? && current_user.review_liked?(review)}" %>

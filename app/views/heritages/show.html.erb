@@ -38,27 +38,7 @@
   <%= image_tag "arrow_foward.svg", size: "20x20", class: "heritage-link-group__arrow-img", id:"arrow-img" %>
 </nav>
 
-
-<p>口コミ</p>
-<% @reviews.each do |review| %>
-  <p><%= simple_format(review.content) %></p>
-  <span>いいね数：</span>
-  <strong id="like_numbers"><%= review.likers.count %></strong>
-  <% if logged_in? %>
-    <%= render 'reviews/like_form', review: review %>
-  <% end %>
-  <% if review.review_images.attached? %>
-    <% review.review_images.each do |image| %>
-      <%= image_tag image, size:'300x200' %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% if logged_in? %>
-  <%= render 'shared/review_form', object: @review %>
-<% end %>
-
-<%= render 'shared/error_messages', object: @review %>
+<%= render 'shared/post_list' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

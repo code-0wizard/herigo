@@ -1,15 +1,11 @@
-<div class="heritage-score-info">
-	<%= image_tag "review_score/score0.png", size: "100x20", class: "heritage-score-info__score-img", id: "score-img-#{heritage.id}" %>
-  <span class="heritage-score-info__score-value" id="score-value-<%= heritage.id %>" data-score="<%= calc_average_review_score(heritage.id) %>">
-  	<%= calc_average_review_score(heritage.id) %>
-  </span>
+<div class="review-score-info">
+	<%= image_tag "review_score/score0.png", size: "100x20", class: "review-score-info__score-img", id: "score-img-#{review.id}" %>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var scoreElement = document.getElementById("score-value-<%= heritage.id %>");
-    var imgElement = document.getElementById("score-img-<%= heritage.id %>");
-    var score = scoreElement.dataset.score;    
+    var imgElement = document.getElementById("score-img-<%= review.id %>");
+    var score = "<%= review.score %>";  
     if (score && imgElement) {
       if (score >= 0.5 && score < 1) {
           imgElement.src = "/assets/review_score/score05.png";

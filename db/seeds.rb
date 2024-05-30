@@ -3,13 +3,18 @@
   name  = "hoge-#{n+1}"
   email = "hoge-#{n+1}@railstutorial.org"
   password = "password123"
-  User.create!(name:  name,
+  default_icon_path = Rails.root.join("app/assets/images/default_icon.png")
+  user = User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password,
                admin:     true,
                activated: true,
                activated_at: Time.zone.now)
+  user.profile_image.attach(
+    io: File.open(default_icon_path),
+    filename: 'default_icon.png',
+    content_type: 'image/png')
 end
 
 # countriesデータ

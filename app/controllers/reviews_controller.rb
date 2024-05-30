@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def create
-    @heritage = Heritage.find(params[:heritage_id])
+  @heritage = Heritage.find(params[:heritage_id])
     @review = @heritage.reviews.build(review_params)
     @review.user = current_user
     #@review.review_images.attach(params[:review][:review_images]) これがあると同じ画像を2枚保存しちゃう

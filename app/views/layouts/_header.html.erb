@@ -31,10 +31,12 @@
     <!--ハンバーガーメニュー押下時のヘッダー-->
     <div class="humberger-menu-header" id="humberger_menu_header">
       <%= image_tag "close.png", size: '30x30', id: "header-close-icon", class: "humberger-menu-header__close-icon" %>
-      <%= link_to current_user, class: "humberger-menu-header__user-icon" do %>
-        <%= image_tag current_user.profile_image, size: '60x60' %>
+      <% if logged_in? %>
+        <%= link_to current_user, class: "humberger-menu-header__user-icon" do %>
+          <%= image_tag current_user.profile_image, size: '60x60' %>
+        <% end %>
+        <%= link_to current_user.name, users_url(current_user), class: "humberger-menu-header__user-name" %>
       <% end %>
-      <%= link_to current_user.name, users_url(current_user), class: "humberger-menu-header__user-name" %>
       <hr>
       <%= link_to "世界遺産", heritages_url, class: "humberger-menu-header__heritage-index-link" %>
       <%= link_to "ユーザー一覧", users_url, class: "humberger-menu-header__user-index-link" %>
