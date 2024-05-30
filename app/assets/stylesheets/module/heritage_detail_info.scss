@@ -41,9 +41,11 @@
     }
   }
   .heritage-detail-info-inner {
-    & .score-img {
-      width: 100px;
-      height: 20px;
+    & .heritage-score-info {
+      &__score-img {
+        width: 100px;
+        height: 20px;
+      }
     }
   }
   .heritage-detail-btn-block {

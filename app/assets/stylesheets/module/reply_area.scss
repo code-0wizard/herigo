@@ -1,0 +1,12 @@
+.reply-area {
+  padding: 10px 0;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .reply-area {
+    & span {
+      font-size: 1.3rem;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.like-area {
+  padding: 10px 0;
+  display: inline-block;
+  &__count--color-red {
+    color: #EF0D0D;
+  }
+}
+
+@media (max-width: 767px) {
+  .like-area {
+    & span {
+      font-size: 1.3rem;
+    }
+  }
+}

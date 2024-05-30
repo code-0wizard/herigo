@@ -6,10 +6,11 @@
   }
   &__heritage-name {
     color: #0957dd;
-    font: bold;
     font-size: 2rem;
-    display: inline-block;
     padding: 10px 0;
+  }
+  &__created-time {
+    color: #aaaaaa;
   }
   &__post-img {
     margin: 30px 0;

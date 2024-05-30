@@ -1,0 +1,22 @@
+.user-post-heritage-block {
+  padding: 10px 0;
+  &__heritage-name {
+    color: #0957dd;
+    font-size: 2rem;
+  }
+  &__country-name {
+    color: #aaaaaa;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .user-post-heritage-block {
+    &__heritage-name {
+      font-size: 1.5rem;
+    }
+    &__country-name {
+      font-size: 1rem;
+    }
+  }
+}

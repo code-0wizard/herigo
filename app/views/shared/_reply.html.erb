@@ -1,2 +1,4 @@
-<%= image_tag "comment.png", size: "20x20", class: "left-margin" %>
-<%= count_replies_for_review(review.id) %>
+<div class="reply-area">
+  <%= image_tag "comment.png", size: "20x20" %>
+  <%=content_tag :span, count_replies_for_review(review.id) %>
+</div>

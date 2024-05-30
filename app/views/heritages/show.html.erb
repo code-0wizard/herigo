@@ -29,7 +29,7 @@
 
 <nav class="heritage-link-group" id="nav-link">
   <ul id="link-list">
-    <li>基本情報</li>
+    <li class="active">基本情報</li>
     <li>口コミ</li>
     <li>人気ポイント</li>
     <li>アクセス</li>
@@ -38,7 +38,9 @@
   <%= image_tag "arrow_foward.svg", size: "20x20", class: "heritage-link-group__arrow-img", id:"arrow-img" %>
 </nav>
 
-<%= render 'shared/post_list' %>
+<div class="heritage-review-block">
+  <%= render 'shared/post_list' %>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

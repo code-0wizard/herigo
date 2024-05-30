@@ -1,0 +1,14 @@
+.heritage-review-block {
+  padding: 20px 0;
+  width: 60vw;
+  margin: 0 auto;
+  & .user-post-heritage-block {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .heritage-review-block {
+    width: 100vw;
+  }
+}

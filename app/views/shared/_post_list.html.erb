@@ -1,9 +1,9 @@
 <% @reviews.each do |review| %>
   <div class="user-post-info">
     <% if review.user && review.user.profile_image.attached? %>
-      <div class="user-post-info__icon">
+      <%= link_to review.user, class: "user-post-info__icon" do %>
         <%= image_tag review.user.profile_image %>
-      </div>
+      <% end %>
     <% end %>
     <div class="user-post-details">
       <div class="user-post-details__user-name">
@@ -19,23 +19,23 @@
           <span>日時不明</span>
         <% end %>
       </div>
-      <% if review.persisted? %>
-      <span class="user-post-details__heritage-name">
-        <%= link_to review.heritage.name, heritage_path(review.heritage) %>
-      </span>
-      <% end %>
-      <span class="user-post-details__country-name">
-        [<%= review.heritage.country.name %>]
-      </span>
+      <div class="user-post-heritage-block">
+        <%= link_to review.heritage.name, heritage_path(review.heritage), class: "user-post-heritage-block__heritage-name" %>
+        <span class="user-post-heritage-block__country-name">
+          [<%= review.heritage.country.name %>]
+        </span>
+      </div>        
       <% if !review.score.nil? %>
         <div class="review-score-container">
           <%= render 'shared/review_score', review: review %>
         </div>
       <% end %>
       <% if review.persisted? %>
-        <div class="post-content">
-          <p><%= link_to simple_format(review.content), review_path(review) %></p>
-        </div>
+        <!--<%= link_to review_path(review), class: 'post-content' do %>-->
+          <div class="post-content">
+            <p><%= simple_format(review.content) %></p>
+          </div>
+        <!--<% end %>-->
       <% else %>
         <p><%= simple_format(review.content) %></p>
       <% end %>
@@ -62,6 +62,20 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // 「もっと見る」ボタンをクリックした時の処理
+    // var reviewIdInput = document.getElementById('review-id-input');
+    // var reviewId = reviewIdInput.value;
+    // console.log(reviewIdInput.value);
+    // console.log(showMoreBtn);
+    // var showMoreBtn = document.getElementById(`show-more-btn-${reviewId}`);
+    // var postContent = document.getElementById(`post-content-${reviewId}`);
+    // showMoreBtn.addEventListener('click', function() {
+    //   postContent.classList.toggle('active');
+    //   if (postContent.classList.contains('active')) {
+    //     showMoreBtn.textContent = '閉じる';
+    //   } else {
+    //     showMoreBtn.textContent = 'もっと見る';
+    //   }
+    // });
     var showMoreBtns = document.querySelectorAll('.show-more-btn');
     showMoreBtns.forEach(function(showMoreBtn) {
       showMoreBtn.addEventListener('click', function() {
