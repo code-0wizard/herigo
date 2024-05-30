@@ -23,3 +23,11 @@
 .score-value {
   color: #FF9900;
 }
+.flash-msg {
+  position: fixed;
+  top: 0;
+  z-index: 200;
+}
+
+@media (max-width: 767px) {
+}
