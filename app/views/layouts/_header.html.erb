@@ -60,14 +60,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
   humburgerMenuIcon.addEventListener('click', function() {
     humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-    grayOutElement.style.display = 'block';
+    grayOutElement.classList.toggle("hide");
   });
 
   headerCloseIcon.addEventListener('click', function() {
     humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-    grayOutElement.style.display = 'none';
+    grayOutElement.classList.toggle("hide");
   });
-
-
 });
 </script>
