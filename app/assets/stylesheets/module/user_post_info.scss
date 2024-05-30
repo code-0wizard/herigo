@@ -1,10 +1,10 @@
 .user-post-info {
   display: flex;
-  padding: 0 7vw;
+  padding: 0 5vw;
   &__icon {
-    flex: 1;
     & img {
-      width: 60%;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
     }
   }

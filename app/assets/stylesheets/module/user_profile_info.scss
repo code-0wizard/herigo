@@ -9,16 +9,16 @@
 }
 
 .user-profile {
-  padding: 3vh 5vw;
+  padding: 60px 5vw 30px 5vw;
   display: flex;
   &__user-icon {
-    flex: 2;
+    width: 20%;
+    max-width: 120px;
     display: flex;
     align-items: center;  
-    padding-right: 2vw;
     & img {
       width: 100%;
-      height: auto;
+      aspect-ratio: 1 / 1;
       border-radius: 50%;
     }
   }
@@ -30,7 +30,7 @@
 }
 
 .user-profile-details {
-  flex: 7;
+  padding-left: 20px;
   &__name {
     height: 50%;
     display: flex;
@@ -52,7 +52,10 @@
     margin-top: 0;
   }
   .user-profile {
-    padding: 0 5vw;
+    padding: 10px 5vw 0 5vw;
+    &__user-icon {
+      max-width: 70px;
+    }
   }
   .user-profile-content {
     font-size: 1.5rem;

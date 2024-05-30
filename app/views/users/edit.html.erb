@@ -1,18 +1,28 @@
-<% provide(:title, 'Edit') %>
-<h1>Update your profile</h1>
-<div class="row">
+<% provide(:title, 'プロフィール編集') %>
+<div class="profile-edit-form">
+  <div class="profile-edit-form__form-title">プロフィール編集</div>
   <%= form_with(model: @user) do |f| %>
     <%= render 'shared/error_messages', object: @user %>
-
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-
-    <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
-
-    <%= f.label :profile_image %>
-    <%= f.file_field :profile_image %>
-
-    <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <%= f.file_field :profile_image, id: "hidden-file-input", class: "hide" %>
+    <div class="user-icon-area" >
+      <%= image_tag current_user.profile_image, size: '100x100', class: "user-icon-area__user-icon" %>
+      <%= image_tag "camera.png", size: '30x30', class: "user-icon-area__camera-icon", id: "icon-edit-btn" %>
+    </div>
+    <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'profile-edit-form__user-name' %>
+    <%= f.email_field :email, placeholder: "メールアドレス", class: 'profile-edit-form__email' %>
+    <%= f.text_area :content, placeholder: "自己紹介", class: 'profile-edit-form__content' %>
+    <%= f.submit "更新", class: "profile-edit-form__submit" %>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var body = document.body;
+    document.body.style.backgroundColor = '#efefef';
+    var hiddenFileInput = document.getElementById("hidden-file-input");
+    var iconEditBtn = document.getElementById("icon-edit-btn");
+    iconEditBtn.addEventListener('click', function() {
+      hiddenFileInput.click();
+    });
+  });
+</script>
