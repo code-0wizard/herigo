@@ -35,21 +35,21 @@ class User < ApplicationRecord
                                     size: { less_than: 5.megabytes, message: "5MB以上の画像は添付できません" }
 
   # 渡された文字列のハッシュ値を返す
-  def User.digest(string)
+  def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
   # ランダムなトークンを返す
-  def User.new_token
+  def self.new_token
     SecureRandom.urlsafe_base64
   end
 
   # 永続的セッションのためにユーザーをデータベースに記憶する
   def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    self.remember_token = self.new_token
+    update_attribute(:remember_digest, self.digest(remember_token))
   end
 
   def session_token
@@ -79,8 +79,8 @@ class User < ApplicationRecord
 
   # パスワード再設定の属性を設定する
   def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
+    self.reset_token = user.new_token
+    update_attribute(:reset_digest,  user.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
   end
   
@@ -95,7 +95,7 @@ class User < ApplicationRecord
 
   def feed
     Review.where("user_id IN (:following_ids) OR user_id = :user_id",
-     following_ids: following_ids, user_id: id)
+     following_ids: , user_id: id)
   end
 
   def follow(other_user)
@@ -138,7 +138,7 @@ class User < ApplicationRecord
 
   # 有効化トークンとダイジェストを作成および代入する
   def create_activation_digest
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
+    self.activation_token  = self.new_token
+    self.activation_digest = self.digest(activation_token)
   end
 end
