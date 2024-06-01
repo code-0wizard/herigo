@@ -1,9 +1,16 @@
 .pc-header {
-  height: 10vh;
-  padding: 30px 40px 0 40px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 200;
+  height: 90px;
+  width: 70vw;
+  margin: 0 auto;
+  padding: 30px;
   display: flex;
   align-items: center;
-
+  background-color: #fff;
   &__logo-name {
     font-size: 3rem;
     font-weight: bold;

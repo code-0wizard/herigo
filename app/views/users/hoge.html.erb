@@ -1,23 +1,78 @@
-<header>
-<div class="container">
-  <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "item" %>
-  <%= link_to image_tag("Herigo.png", size: "140x40"), root_url, class: "item second-item" %>
-  <%= form_with(url: users_url, method: :get, local: true, class: "form-inline item") do %>
-    <div class="form-group position-relative">
-      <%= text_field_tag :query, params[:query], placeholder: "エリア", class: "form-control rounded-input" %>
-    </div>
-  <% end %>
-  <% if logged_in? %>
-    <%= link_to "ユーザー一覧", users_url, class: "item" %>
-    <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete } %>
-    <%= link_to current_user, class: "item" do %>
-      <%= image_tag current_user.profile_image, size: '60x60', class: 'rounded-image' %>
-    <% end %>
-  <% else %>
-    <%= link_to "お気に入り", root_url, class: "item" %>
-    <%= link_to "ログイン", login_url, class: "item" %>
-    <%= link_to "会員登録", signup_url, class: "item btn btn-primary mb-2" %>
-  <% end %>
+.heritage-img-area {
+  margin: 180px auto 20px auto;
+  width: 70vw;
+  aspect-ratio: 8 / 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  &__main-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+  }
+}
+.heritage-img-right-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+  &__second-img, &__third-img, &__fourth-img, &__fifth-img {
+    width: 100%;
+    height: 100%;
+  }
+  &__third-img {
+    border-radius: 0 20px 0 0;
+  }
+  &__fifth-img {
+    border-radius: 0 0 20px 0;
+  }
+}
 
-</div>
-</header>
+@media (max-width: 767px) {
+  .heritage-img-area {
+    display: block;
+    margin-top: 140px;
+    width: 90%;
+    &__main-img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+  }
+  .heritage-img-right-area {
+    display: none;
+  }
+}
+
+
+.heritage-img-area {
+  margin: 180px auto 20px auto;
+  width: 70vw;
+  aspect-ratio: 8 / 3;
+  :first-child, :nth-child(2), :nth-child(3), :nth-child(4) {
+    display: inline-block;
+  }
+  :first-child {
+    width: calc(50%);
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+  }
+  :nth-child(2) {
+    width: calc(25%);
+    height: calc(50%);
+  }
+  :nth-child(3) {
+    width: calc(20%);
+    height: calc(40%);
+    border-radius: 0 20px 0 0;
+  }
+  :nth-child(4) {
+    width: calc(20%);
+    height: calc(40%);
+  }
+  :nth-child(5) {
+    width: calc(20%);
+    height: calc(40%);
+    border-radius: 0 0 20px 0;
+  }
+}

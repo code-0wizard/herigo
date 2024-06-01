@@ -1,12 +1,16 @@
 .mobile-header {
   display: none;
   background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 @media (max-width: 767px) {
   .mobile-header {
     display: block;
     width: 100vw;
+    height: 60px;
     &__hr {
       margin: 0;
       border: 0.5px solid #cccaca;

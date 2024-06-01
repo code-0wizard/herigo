@@ -2,7 +2,7 @@
   <% current_user.liking_heritages.each do |heritage| %>
     <!--PC版-->
     <%= link_to heritage_path(heritage), class: "profile-heritage-card" do %>
-      <%= image_tag heritage.image_path, class: "profile-heritage-card__image" %>
+      <%= image_tag "heritage/nature.png", class: "profile-heritage-card__image" %>
       <div class="profile-heritage-card__heritage-name">
         <%= heritage.name %>
       </div>
@@ -22,7 +22,7 @@
   <% current_user.liking_heritages.each do |heritage| %>
     <%= link_to heritage_path(heritage), class: "profile-heritage-mobile-card" do %>
       <div class="profile-heritage-mobile-card__image">
-        <%= image_tag heritage.image_path %>
+        <%= image_tag "heritage/nature.png" %>
       </div>
       <div class="heritage-mobile-card-details">
         <div class="heritage-mobile-card-details__heritage-name">
