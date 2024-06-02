@@ -25,6 +25,16 @@
   top: 0;
   z-index: 200;
 }
+header {
+  width: 100vw;
+  height: 90px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 200;
+}
 
 @media (max-width: 767px) {
 }

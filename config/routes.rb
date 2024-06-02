@@ -9,12 +9,16 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end  
-  resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :heritages,           only: [:new, :create, :show, :index]
-  resources :reviews,             only: [:create, :destroy, :show]
-  resources :relationships,       only: [:create, :destroy]
-  resources :likes,               only: [:create, :destroy]
-  resources :heritage_likes,      only: [:create, :destroy]
-  resources :replies,             only: [:create, :destroy]
+  resources :account_activations,    only: [:edit]
+  resources :password_resets,        only: [:new, :create, :edit, :update]
+  resources :heritages,              only: [:new, :create, :edit, :update, :show, :index]
+  resources :heritage_first_charms,  only: [:new, :create, :edit, :update]
+  resources :heritage_second_charms, only: [:new, :create, :edit, :update]
+  resources :heritage_third_charms,  only: [:new, :create, :edit, :update]
+  resources :heritage_fourth_charms, only: [:new, :create, :edit, :update]
+  resources :reviews,                only: [:create, :destroy, :show]
+  resources :relationships,          only: [:create, :destroy]
+  resources :likes,                  only: [:create, :destroy]
+  resources :heritage_likes,         only: [:create, :destroy]
+  resources :replies,                only: [:create, :destroy]
 end

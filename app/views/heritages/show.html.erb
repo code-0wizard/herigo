@@ -11,16 +11,22 @@
         見どころ
       </li>
       <li>
-        <%= image_tag "review.svg", size: "25x25" %>
-        口コミ
+        <%= link_to "#review-area" do %>
+          <%= image_tag "review.svg", size: "25x25" %>
+          口コミ
+        <% end %>
       </li>
       <li>
-        <%= image_tag "tour.svg", size: "25x25" %>
-        ツアー
+        <%= link_to "#tour-area" do %>
+          <%= image_tag "tour.svg", size: "25x25" %>
+          ツアー
+        <% end %>
       </li>
       <li>
-        <%= image_tag "photo.svg", size: "25x25" %>
-        写真
+        <%= link_to "#photo-area" do %>
+          <%= image_tag "photo.svg", size: "25x25" %>
+          写真
+        <% end %>
       </li>
     </ul>
     <%= image_tag "arrow_foward.svg", size: "20x20", class: "heritage-header-block__arrow-img", id:"arrow-img" %>
@@ -60,10 +66,100 @@
   </div>
 </div>
 
+<div class="heritage-charm-block" id="charm-area">
+  <p class="heritage-charm-block__title">見どころ</p>
+  <p class="heritage-charm-block__content"><%= @heritage.content %></p>
+  <p class="heritage-charm-block__sub-title">見どころ一覧</p>
+  <div class="charm-img-block">
+    <div class="charm-img-block__charm-link">
+      <%= link_to image_tag(@heritage_first_charm.image), "#first-charm-area" %>
+      <span><%= @heritage_first_charm.main_title %></span>
+    </div>
+    <div class="charm-img-block__charm-link">
+      <%= link_to image_tag(@heritage_second_charm.image), "#second-charm-area" %>
+      <span><%= @heritage_second_charm.main_title %></span>
+    </div>
+    <div class="charm-img-block__charm-link">
+      <%= link_to image_tag(@heritage_third_charm.image), "#third-charm-area" %>
+      <span><%= @heritage_third_charm.main_title %></span>
+    </div>
+    <div class="charm-img-block__charm-link">
+      <%= link_to image_tag(@heritage_fourth_charm.image), "#fourth-charm-area" %>
+      <span><%= @heritage_fourth_charm.main_title %></span>
+    </div>
+  </div>
+
+  <div id="first-charm-area" class="charm-detail-block">
+    <div class="charm-img-wrapper">
+      <%= image_tag(@heritage_first_charm.image) %>
+      <span><%= @heritage_first_charm.main_title %></span>
+    </div>
+    <div class="charm-describe-wrapper">
+      <strong class="charm-describe-wrapper__sub-title">
+        <%= @heritage_first_charm.sub_title %>
+      </strong>
+      <span class="charm-describe-wrapper__detail">
+        <%= @heritage_first_charm.detail %>
+      </span>
+    </div>
+  </div>
+
+  <div id="second-charm-area" class="charm-detail-block">
+    <div class="charm-img-container">
+      <%= image_tag(@heritage_second_charm.image) %>
+      <span><%= @heritage_second_charm.main_title %></span>
+    </div>
+    <div class="charm-describe-container">
+      <strong class="charm-describe-wrapper__sub-title">
+        <%= @heritage_second_charm.sub_title %>
+      </strong>
+      <span class="charm-describe-wrapper__detail">
+        <%= @heritage_second_charm.detail %>
+      </span>
+    </div>
+  </div>
+
+  <div id="third-charm-area" class="charm-detail-block">
+    <div class="charm-img-wrapper">
+      <%= image_tag(@heritage_third_charm.image) %>
+      <span><%= @heritage_third_charm.main_title %></span>
+    </div>
+    <div class="charm-describe-wrapper">
+      <strong class="charm-describe-wrapper__sub-title">
+        <%= @heritage_third_charm.sub_title %>
+      </strong>
+      <span class="charm-describe-wrapper__detail">
+        <%= @heritage_third_charm.detail %>
+      </span>
+    </div>
+  </div>
+
+  <div id="fourth-charm-area" class="charm-detail-block">
+    <div class="charm-img-container">
+      <%= image_tag(@heritage_fourth_charm.image) %>
+      <span><%= @heritage_fourth_charm.main_title %></span>
+    </div>
+    <div class="charm-describe-container">
+      <strong class="charm-describe-wrapper__sub-title">
+        <%= @heritage_fourth_charm.sub_title %>
+      </strong>
+      <span class="charm-describe-wrapper__detail">
+        <%= @heritage_fourth_charm.detail %>
+      </span>
+    </div>
+  </div>
+</div>
 
 
-<div class="heritage-review-block">
-  <%= render 'shared/post_list' %>
+
+
+<div class="heritage-review-block" id="review-area">
+</div>
+
+<div class="heritage-tour-block" id="tour-area">
+</div>
+
+<div class="heritage-photo-block" id="photo-area">
 </div>
 
 <script>

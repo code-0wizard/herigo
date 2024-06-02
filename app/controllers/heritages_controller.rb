@@ -10,6 +10,10 @@ class HeritagesController < ApplicationController
     @heritage = Heritage.find(params[:id])
     @reviews = @heritage.reviews
     @review = @heritage.reviews.build
+    @heritage_first_charm = @heritage.heritage_first_charm
+    @heritage_second_charm = @heritage.heritage_second_charm
+    @heritage_third_charm = @heritage.heritage_third_charm
+    @heritage_fourth_charm = @heritage.heritage_fourth_charm
   end
 
   def new
@@ -25,6 +29,14 @@ class HeritagesController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @heritage = Heritage.find(params[:id])
+    @country_name = Country.find(@heritage.country_id).name
+  end
+
+  def update
   end
 
   private

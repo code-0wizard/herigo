@@ -1,0 +1,2 @@
+module HeritageSecondCharmsHelper
+end

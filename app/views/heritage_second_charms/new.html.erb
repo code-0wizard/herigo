@@ -1,0 +1,11 @@
+<div class="heritage-charm-form">
+  <p class="heritage-charm-form__title">世界遺産魅力2つ目</p>
+  <%= form_with(model: @heritage_second_charm) do |f| %>
+    <%= f.text_field :main_title, placeholder: "メインタイトル", class: 'heritage-charm-form__main-title' %>
+    <%= f.text_field :sub_title, placeholder: "サブタイトル", class: 'heritage-charm-form__sub-title' %>
+    <%= f.text_area :detail, placeholder: "詳細", class: 'heritage-charm-form__detail' %>
+    <%= f.collection_select :heritage_id, Heritage.all, :id, :name, {}, { class: 'heritage-charm-form__heritage-select' } %>
+    <%= f.file_field :image, class: "heritage-charm-form__image" %>
+    <%= f.submit "登録", class: "heritage-charm-form__submit" %>
+  <% end %>
+</div>

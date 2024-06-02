@@ -1,4 +1,4 @@
-.heritage-form {
+.heritage-charm-form {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -12,13 +12,13 @@
     text-align: center;
     margin: 50px 0;
   }
-  &__name, &__content, &__country-name, &__country-name, &__image, &__submit {
+  &__main-title, &__sub-title, &__detail, &__heritage-select, &__image, &__submit {
     display: block;
     width: 50%;
     margin: 30px auto;
     padding: 10px;
   }
-  &__content {
+  &__detail {
     height: 150px;
   }
 }

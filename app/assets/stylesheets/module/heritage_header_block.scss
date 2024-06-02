@@ -1,9 +1,10 @@
 .heritage-header-block {
+  width: 70vw;
+  margin: 0 auto;
   position: relative;
   padding: 0 30px;
   font-size: 2rem;
   white-space: nowrap;
-  background-color: #fff;
   &__hr {
     margin: 0 0 20px 0;
     width: 100%;
@@ -33,6 +34,7 @@
     animation: moveLeftRight 1s infinite;
   }
 }
+
 @keyframes moveLeftRight {
   0% {
     transform: translateX(0);
@@ -48,12 +50,11 @@
   overflow-x: auto;
 }
 .heritage-header-wrapper {
+  background-color: #fff;
   position: fixed;
   top: 90px;
   right: 0;
   left: 0;
-  width: 70vw;
-  margin: 0 auto;
   height: 90px;
   z-index: 200;
 }
@@ -66,6 +67,7 @@
     margin-bottom: 60px;
     height: 60px;
   }
+
   .heritage-header-wrapper {
     top: 60px;
     left: 0;

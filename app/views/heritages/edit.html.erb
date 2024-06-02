@@ -1,9 +1,9 @@
 <div class="heritage-form">
-  <p class="heritage-form__title">世界遺産登録フォーム</p>
+  <p class="heritage-form__title">世界遺産編集フォーム</p>
   <%= form_with(model: @heritage) do |f| %>
     <%= f.text_field :name, placeholder: "世界遺産名", class: 'heritage-form__name' %>
     <%= f.text_area :content, placeholder: "世界遺産の概要", class: 'heritage-form__content' %>
-    <%= f.text_field :country, placeholder: "国名", class: 'heritage-form__country-name' %>
+    <%= f.text_field :country, placeholder: "国名", value: @country_name, class: 'heritage-form__country-name' %>
     <%= f.file_field :images, multiple: true, class: "heritage-form__image" %>
     <%= f.submit "登録", class: "heritage-form__submit" %>
   <% end %>
