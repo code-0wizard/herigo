@@ -1,14 +1,15 @@
 .charm-detail-block {
   display: flex;
-  width: 90%;
+  width: 100%;
   margin: 100px auto;
 }
 .charm-img-wrapper, .charm-img-container {
   flex: 1;
+  aspect-ratio: 7 / 5;
   position: relative;
   & img {
     width: 100%;
-    aspect-ratio: 7 / 5;
+    height: 100%;
     border-radius: 20px;
   }
   & span {
@@ -31,7 +32,8 @@
     display: block;
     font-size: 1.7rem;
     line-height: 3rem;
-    padding-top: 20px
+    padding-top: 20px;
+    width: 100%;
   }
 }
 .charm-describe-container {
@@ -44,7 +46,7 @@
 @media (max-width: 767px) {
   .charm-detail-block {
     display: block;
-    width: 90vw;
+    width: 100%;
     margin: 100px auto;
   }
   .charm-img-wrapper, .charm-img-container {

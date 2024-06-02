@@ -148,13 +148,22 @@
       </span>
     </div>
   </div>
+  <hr>
 </div>
-
-
-
-
+ 
 <div class="heritage-review-block" id="review-area">
+  <div class="heritage-score-inner">
+    <%= image_tag("star.png", size: "100x100") %>
+    <span class="heritage-score-inner__score">
+      <%= calc_average_review_score(@heritage.id) %>
+    </span>
+  </div>
+  <hr>
+  <div class="heritage-review-list">
+    <%= render 'shared/review_list' %>
+  </div>
 </div>
+
 
 <div class="heritage-tour-block" id="tour-area">
 </div>

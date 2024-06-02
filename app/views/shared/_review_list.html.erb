@@ -1,61 +1,31 @@
 <% @reviews.each do |review| %>
-  <div class="user-post-info">
-    <% if review.user && review.user.profile_image.attached? %>
-      <%= link_to review.user, class: "user-post-info__icon" do %>
-        <%= image_tag review.user.profile_image %>
+  <div class="user-review-container">
+    <div class="user-info-block">
+      <% if review.user && review.user.profile_image.attached? %>
+        <%= link_to review.user, class: "user-info-block__icon" do %>
+          <%= image_tag review.user.profile_image, size: "50x50" %>
+        <% end %>
       <% end %>
-    <% end %>
-    <div class="user-post-details">
-      <div class="user-post-details__user-name">
-        <span><%= review.user ? review.user.name : "Unknown User" %></span>
-        <% if review.persisted? %>
-          <%= image_tag "more.png", size: "20x20", class: "post-action-icon", data: { review_path: review_path(review) } %>
-        <% end %>
-      </div>
-      <div class="user-post-details__created-time">
-        <% if review.created_at %>
-          <%= formatted_post_time(review.created_at) %>
-        <% else %>
-          <span>日時不明</span>
-        <% end %>
-      </div>
-      <div class="user-post-heritage-block">
-        <%= link_to review.heritage.name, heritage_path(review.heritage), class: "user-post-heritage-block__heritage-name" %>
-        <span class="user-post-heritage-block__country-name">
-          [<%= review.heritage.country.name %>]
+      <div class="user-info-inner">
+        <p class="user-info-inner__user-name"><%= review.user ? review.user.name : "Unknown User" %></p>
+        <span class="user-info-inner__created-time">
+          <% if review.created_at %>
+            <%= formatted_post_time(review.created_at) %>
+          <% else %>
+            日時不明
+          <% end %>
         </span>
-      </div>        
-      <% if !review.score.nil? %>
-        <div class="review-score-container">
-          <%= render 'shared/review_score', review: review %>
-        </div>
-      <% end %>
-      <% if review.persisted? %>
-        <!--<%= link_to review_path(review), class: 'post-content' do %>-->
-          <div class="post-content">
-            <p><%= simple_format(review.content) %></p>
-          </div>
-        <!--<% end %>-->
-      <% else %>
-        <p><%= simple_format(review.content) %></p>
-      <% end %>
-      <div class="show-more-btn">もっと見る</div>
-      <% if review.review_images.attached? %>
-        <% review.review_images.each do |image| %>
-          <div class="user-post-details__post-img">
-            <%= image_tag image.variant(resize_to_limit: [300, 300]) %>
-          </div>
-        <% end %>
-      <% end %>
-      <span class="user-post-details__like" id="like-<%= review.id %>">
-        <%= render 'shared/like', review: review %>
-      </span>
-      <span class="user-post-details__reply">
-        <%= render 'shared/reply', review: review %>
-      </span>
+      </div>
+    </div>
+    <% if !review.score.nil? %>
+      <div class="review-score-container">
+        <%= render 'shared/review_score', review: review %>
+      </div>
+    <% end %>
+    <div class="user-review-container__content">
+      <p><%= simple_format(review.content) %></p>
     </div>
   </div>
-   <hr class="user-post-info__hr">
 <% end %>
 <%= render 'popup/post_action_popup' %>
 

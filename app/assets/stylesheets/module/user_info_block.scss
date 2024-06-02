@@ -1,0 +1,18 @@
+.user-info-block {
+  display: flex;
+  &__icon {
+    & img {
+      border-radius: 50%;
+    }
+  }
+}
+.user-info-inner {
+  padding-left: 10px;
+  &__user-name {
+    font-size: 2rem;
+  }
+  &__created-time {
+    color: #aaaaaa;
+    font-size: 1.2rem;
+  }
+}

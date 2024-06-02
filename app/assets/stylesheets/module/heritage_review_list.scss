@@ -1,0 +1,13 @@
+.heritage-review-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 767px) {
+  .heritage-review-list {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+  }
+}
