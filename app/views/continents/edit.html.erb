@@ -1,0 +1,7 @@
+<div class="heritage-charm-form">
+  <p class="heritage-charm-form__title">エリアの画像編集フォーム</p>
+  <%= form_with(model: @continent) do |f| %>
+    <%= f.file_field :image, class: "heritage-charm-form__image" %>
+    <%= f.submit "登録", class: "heritage-charm-form__submit" %>
+  <% end %>
+</div>

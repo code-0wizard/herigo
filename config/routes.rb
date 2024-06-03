@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'heritages#index'
   get '/login',  to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/signup', to: 'users#new'
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
   end  
   resources :account_activations,    only: [:edit]
+  resources :continents,             only: [:edit, :update]
   resources :password_resets,        only: [:new, :create, :edit, :update]
   resources :heritages,              only: [:new, :create, :edit, :update, :show, :index]
   resources :heritage_first_charms,  only: [:new, :create, :edit, :update]

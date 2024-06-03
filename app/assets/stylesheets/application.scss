@@ -16,32 +16,6 @@
 @import "module/*";
 @import "common/*";
 
-/* signup_form, login_form */
-
-.user_form {
-  .container {
-    margin-top: 40px;
-  }
-
-  .card {
-    border: 1px solid black;
-    width: 40vw;
-    margin: 0 auto;
-    border-radius: 20px;
-  }
-
-
-  .f-size {
-    width: 60%;
-    margin: 40px auto;
-  }
-
-  .margin_bottom {
-    margin-bottom: 30px;
-    text-decoration: underline;
-  }
-}
-
 .star {
   font-size: 3rem;
   color: #a09a9a;

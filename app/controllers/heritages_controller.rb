@@ -3,7 +3,8 @@ class HeritagesController < ApplicationController
   before_action :admin_user,     only: [:new, :create]
 
   def index
-    @heritages = Heritage.paginate(page: params[:page])
+    @heritages = Heritage.all
+    @continents = Continent.all
   end
 
   def show

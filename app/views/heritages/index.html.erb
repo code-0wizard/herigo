@@ -1,10 +1,57 @@
-<% provide(:title, 'All heritages') %>
+<% provide(:title, '世界遺産') %>
+<div class="top-header">
+  <nav class="top-link-list">
+    <%= link_to root_path, class: "link-container" do %>
+      <%= image_tag "book.svg", size: "25x25" %>
+      <span>TOP</span>
+    <% end %>
+    <%= link_to root_path, class: "link-container" do %>
+      <%= image_tag "book.svg", size: "25x25" %>
+      <span>素敵な景色</span>
+    <% end %>    <%= link_to root_path, class: "link-container" do %>
+      <%= image_tag "book.svg", size: "25x25" %>
+      <span>日本から近い</span>
+    <% end %>
+  </nav>
+</div>
 
-<h1>All Heritages</h1>
-<%= will_paginate %>
-<ul class="heritagess">
+<div class="top-heritages-list" id="top-heritages-list">
   <% @heritages.each do |heritage| %>
-    <li><%= link_to heritage.name, heritage %></li>
+    <div class="heritage-card">
+      <%= image_tag "heritage/マチュピチュ/1.png", class: "heritage-card__img" %>
+      <div class="heritage-card__heritage-name">
+        <%= heritage.name %>
+      </div>
+      <div class="heritage-card-inner-wrap">
+        <%= image_tag "location.png", size: "20x20", class: "heritage-card-inner-wrap__location-icon" %>
+        <span class="heritage-card-inner-wrap__country-name">
+          <%= heritage.country.name %>
+        </span>
+      </div>
+    </div>
   <% end %>
-</ul>
-<%= will_paginate %>
+</div>
+<hr class="top-heritages-list__hr">
+
+<div class="top-area-list">
+  <span class="top-area-list__title">エリアから探す</span>
+  <div class="continent-card-wrapper">
+    <% @continents.each do |continent| %>
+      <div class="continent-card">
+          <%= image_tag continent.image, class: "continent-card__img" %>
+          <span class="continent-card__name">
+            <%= continent.name %>
+          </span>
+      </div>
+    <% end %>
+  </div>
+</div>
+<hr class="top-area-list__hr">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.pc-header').style.width = '90vw';
+    var list = document.getElementById("top-heritages-list");
+    console.log(list.innerHTML);
+  });
+</script>

@@ -1,0 +1,65 @@
+.top-heritages-list {
+  width: 90vw;
+  margin: 180px auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  &__hr {
+    margin: 100px 0;
+  }
+}
+.heritage-card {
+  width: 17vw;
+  padding-bottom: 30px;
+  &__img {
+    width: 100%;
+    aspect-ratio: 7 / 5;
+    border-radius: 20px;
+  }
+  &__heritage-name {
+    font-size: 2rem;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    padding: 10px 0 5px 0;
+  }
+}
+.top-heritages-list:after {
+  content: "";
+  display: block;
+  width: 20vw;
+  height: 0;
+}
+.heritage-card-inner-wrap {
+  display: flex;
+  align-items: center;
+  &__country-name {
+    font-weight: light;
+    color: rgb(106, 106, 106);
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .top-heritages-list {
+    display: block;
+    &__hr {
+      margin: 30px 0;
+    }
+  }
+  .heritage-card {
+    width: 100%;
+    margin-bottom: 30px;
+    &__heritage-name {
+      font-size: 2rem;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+  }
+}

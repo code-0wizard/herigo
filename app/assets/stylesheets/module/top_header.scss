@@ -1,0 +1,19 @@
+.top-header {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  background-color: #fff;
+}
+.top-link-list {
+  display: flex;
+  gap: 20px;
+  width: 90vw;
+  margin: 0 auto;
+}
+.link-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
