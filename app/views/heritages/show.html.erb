@@ -153,15 +153,20 @@
  
 <div class="heritage-review-block" id="review-area">
   <div class="heritage-score-inner">
-    <%= image_tag("star.png", size: "100x100") %>
+    <%= image_tag("star.png", size: "50x50") %>
     <span class="heritage-score-inner__score">
       <%= calc_average_review_score(@heritage.id) %>
     </span>
   </div>
-  <hr>
   <div class="heritage-review-list">
     <%= render 'shared/review_list' %>
   </div>
+  <% if @reviews.count >= 7 %>
+    <div id="show-all-reviews" class="heritage-review-block__show-all-reviews">
+      <%= @reviews.count %> 件のレビューをすべて表示
+    </div>
+    <%= render 'popup/reviews_popup' %>
+  <% end %>
 </div>
 
 
@@ -181,7 +186,6 @@
         this.classList.add('active');
       });
     });
-
     // ul要素の横幅がnav要素を超えた場合にスクロールできるようにする
     var navElement = document.getElementById("nav-link");
     var ulElement = document.getElementById("link-list");
@@ -197,5 +201,13 @@
     navElement.addEventListener('scroll', function() {
       arrowImgElement.classList.remove('show');
     });
+  });
+
+  // レビュー用のポップアップを表示する処理
+  var reviewsPopup = document.getElementById("user-reviews-popup");
+  var showPopupBtn = document.getElementById("show-all-reviews");
+  showPopupBtn.addEventListener('click', function() {
+    reviewsPopup.classList.remove("hide");
+    document.getElementById('gray-out').classList.remove('hide');
   });
 </script>

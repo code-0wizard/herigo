@@ -1,0 +1,38 @@
+<div class="reviews-popup hide" id="user-reviews-popup">
+  <div class="reviews-popup-header">
+    <%= image_tag "close.png", size: "30x30", class: "reviews-popup-header__close-icon", id: "close-btn" %>
+  </div>
+  <div class="popup-review-list">
+    <% @reviews.each do |review| %>
+      <div class="popup-review-info" id="review-<%= review.id %>">
+        <div class="popup-user-block">
+          <% if review.user && review.user.profile_image.attached? %>
+            <%= link_to review.user, class: "popup-user-block__icon" do %>
+              <%= image_tag review.user.profile_image, size: "50x50" %>
+            <% end %>
+          <% end %>
+          <div class="popup-user-inner">
+            <p class="popup-user-inner__user-name">
+              <%= review.user ? review.user.name : "Unknown User" %>
+            </p>
+            <span class="popup-user-inner__created-time">
+              <% if review.created_at %>
+                <%= formatted_post_time(review.created_at) %>
+              <% else %>
+                日時不明
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <% if !review.score.nil? %>
+          <div class="popup-score-container">
+            <%= render 'shared/review_score', review: review %>
+          </div>
+        <% end %>
+        <div class="popup-review-info__content">
+          <p><%= simple_format(review.content) %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

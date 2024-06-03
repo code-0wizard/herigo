@@ -1,25 +1,38 @@
 .user-review-container {
-  padding-right: 50px;
-
+  width: 80%;
+  margin: 30px auto;
   &__content {
     font-size: 1.7rem;
     line-height: 2.8rem;
   }
+  .hide-overflow {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__show-btn {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1.7rem;
+    padding: 10px 0;
+    cursor: pointer;
+  }
 }
-
 .review-score-container {
   padding: 10px 0;
 }
 
 @media (max-width: 767px) {
   .user-review-container {
-    width: 100%;
-    margin-left: 30px;
+    width: 75vw;
     border: 1px solid #cacaca;
     padding: 20px;
     border-radius: 20px;
-    height: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    &__content {
+      width: 70vw;
+      white-space: normal;
+    }
   }
 }

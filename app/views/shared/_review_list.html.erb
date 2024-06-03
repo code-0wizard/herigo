@@ -1,5 +1,5 @@
-<% @reviews.each do |review| %>
-  <div class="user-review-container">
+<% @reviews.each_with_index do |review, index| %>
+  <div class="user-review-container<%= " hide" if index >= 6 %>">
     <div class="user-info-block">
       <% if review.user && review.user.profile_image.attached? %>
         <%= link_to review.user, class: "user-info-block__icon" do %>
@@ -7,7 +7,9 @@
         <% end %>
       <% end %>
       <div class="user-info-inner">
-        <p class="user-info-inner__user-name"><%= review.user ? review.user.name : "Unknown User" %></p>
+        <p class="user-info-inner__user-name">
+          <%= review.user ? review.user.name : "Unknown User" %>
+        </p>
         <span class="user-info-inner__created-time">
           <% if review.created_at %>
             <%= formatted_post_time(review.created_at) %>
@@ -25,12 +27,34 @@
     <div class="user-review-container__content">
       <p><%= simple_format(review.content) %></p>
     </div>
+    <%= link_to "すべて表示する", "#review-#{review.id}", class: "user-review-container__show-btn hide" %>
   </div>
 <% end %>
-<%= render 'popup/post_action_popup' %>
+<%= render 'popup/reviews_popup' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var reviews = document.querySelectorAll('.user-review-container__content');
+    var reviewsPopup = document.getElementById("user-reviews-popup");
+    reviews.forEach(function(review) {
+      var textHeight = review.clientHeight;
+      var lineHeight = getComputedStyle(review).getPropertyValue('line-height');
+      lineHeight = lineHeight.replace(/[^-\d\.]/g, '');
+      var showMoreBtn = review.nextElementSibling;
+      if (textHeight > lineHeight * 5) {
+        review.classList.add("hide-overflow");
+        showMoreBtn.classList.remove("hide");
+      }
+      showMoreBtn.addEventListener('click', function() {
+        reviewsPopup.classList.remove("hide");
+        document.getElementById('gray-out').classList.remove('hide');
+      });
+    });
+    var closeBtn = document.getElementById('close-btn');
+    closeBtn.addEventListener('click', function() {
+      reviewsPopup.classList.add('hide');
+      grayOut.classList.add('hide');
+    });
     // 「もっと見る」ボタンをクリックした時の処理
     // var reviewIdInput = document.getElementById('review-id-input');
     // var reviewId = reviewIdInput.value;

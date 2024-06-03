@@ -1,0 +1,40 @@
+.popup-review-list {
+
+}
+.popup-user-block {
+  display: flex;
+  &__icon {
+    & img {
+      border-radius: 50%;
+    }
+  }
+}
+.popup-user-inner {
+  padding-left: 10px;
+  &__user-name {
+    font-size: 2rem;
+  }
+  &__created-time {
+    color: #aaaaaa;
+    font-size: 1.2rem;
+  }
+}
+.popup-score-container {
+  padding: 10px 0;
+}
+.popup-review-info {
+  width: 80%;
+  margin: 30px auto;
+  &__content {
+    font-size: 1.7rem;
+    line-height: 2.8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .popup-review-info {
+    width: 90%;
+    margin: 30px auto;
+    white-space: normal;
+  }
+}

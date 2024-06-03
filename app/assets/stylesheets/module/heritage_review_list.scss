@@ -5,8 +5,8 @@
 
 @media (max-width: 767px) {
   .heritage-review-list {
-    width: 100%;
     display: flex;
+    white-space: nowrap;
     overflow-x: auto;
     gap: 20px;
   }
