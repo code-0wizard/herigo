@@ -2,18 +2,30 @@
   <div class="pc-header">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
-    <%= link_to "世界遺産", heritages_url, class: "pc-header__heritage-index-link" %>
-    <%= link_to "ユーザー一覧", users_url, class: "pc-header__user-index-link" %>
-    <div class="header-right-block">
-      <% if logged_in? %>
-        <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "header-right-block__logout-link" %>
-        <%= link_to current_user, class: "header-right-block__user-icon" do %>
-          <%= image_tag current_user.profile_image, size: '60x60' %>
-        <% end %>
-      <% else %>
-        <%= link_to "ログイン", login_url, class: "header-right-block__login-link" %>
-        <%= link_to "会員登録", signup_url, class: "header-right-block__singup-link" %>
-      <% end %>
+    <% if logged_in? %>
+      <div class="pc-header-menu">
+        <%= image_tag ("humberger_menu.svg"), size: '30x30' %>
+        <%= image_tag current_user.profile_image, size: '30x30', class: "pc-header-menu__user-icon" %>
+        <div class="hover-menu-list">
+          <%= link_to "世界遺産", heritages_url, class: "hover-menu-list__heritage-index-link" %>
+          <%= link_to "ユーザー一覧", users_url, class: "hover-menu-list__user-index-link" %>
+          <hr class="hover-menu-list__hr">
+          <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "hover-menu-list__logout-link" %>
+        </div>
+      </div>
+    <% else %>
+      <div class="pc-header-menu">
+        <span>ログイン</span>
+        <%= image_tag("default_icon.png", size: "30x30") %>
+        <div class="hover-menu-list">
+          <%= link_to "世界遺産", heritages_url, class: "hover-menu-list__heritage-index-link" %>
+          <%= link_to "ユーザー一覧", users_url, class: "hover-menu-list__user-index-link" %>
+          <hr class="hover-menu-list__hr">
+          <%= link_to "ログイン", login_url, class: "hover-menu-list__login-link" %>
+          <%= link_to "会員登録", signup_url, class: "hover-menu-list__singup-link" %>
+        </div>
+      </div>
+    <% end %>
     </div>
   </div>
 

@@ -11,22 +11,6 @@
     font-weight: bold;
     padding-left: 10px;
   }
-  &__heritage-index-link, &__user-index-link {
-    padding-left: 40px;
-  }
-}
-.header-right-block {
-  margin-left: auto;
-  &__user-icon {
-    & img {
-      border-radius: 50%;
-    }
-  }
-  &__logout-link,
-  &__login-link,
-  &__singup-link {
-    padding-right: 20px;
-  }
 }
 
 @media (max-width: 767px) {

@@ -18,7 +18,7 @@
 <div class="top-heritages-list" id="top-heritages-list">
   <% @heritages.each do |heritage| %>
     <div class="heritage-card">
-      <%= image_tag "heritage/マチュピチュ/1.png", class: "heritage-card__img" %>
+      <%= link_to image_tag("heritage/マチュピチュ/1.png", class: "heritage-card__img"), heritage_path(heritage) %>
       <div class="heritage-card__heritage-name">
         <%= heritage.name %>
       </div>
