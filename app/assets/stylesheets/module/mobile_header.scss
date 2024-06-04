@@ -1,13 +1,13 @@
 .mobile-header {
   display: none;
-  background-color: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 @media (max-width: 767px) {
   .mobile-header {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: block;
     width: 100vw;
     height: 60px;
@@ -22,23 +22,35 @@
     align-items: center;
     justify-content: space-between;
   }
-  .header-center-block {
+  .header-search-btn {
+    display: inline-block;
+    border: 0.5px solid #525252;
+    border-radius: 30px;
+    padding: 10px;
+    width: 50vw;
+    &__area-search {
+      color: #aaaaaa;
+    }
+  }
+  .mobile-header-menu {
+    border: 0.5px solid #cacaca;
+    border-radius: 30px;
+    padding: 10px;
     display: flex;
-    align-items: center;
-    &__logo-name {
-      font-size: 2.5rem;
-      font-weight: bold;
+    gap: 10px;
+    &__user-icon {
+      border-radius: 50%;
     }
   }
   .humberger-menu-header {
     position: fixed;
     top: 0;
-    left: -100%;
+    right: -100%;
     transition: all 0.5s;
     width: 80vw;
     height: 100vh;
     background-color: #fff;
-    z-index: 200;
+    z-index: 1000;
     padding: 15px;
     &__close-icon {
       display: block;
@@ -67,6 +79,6 @@
     }
   }
  .humberger-menu-header-open {
-    left: 0;
+    right: 0;
   }
 }

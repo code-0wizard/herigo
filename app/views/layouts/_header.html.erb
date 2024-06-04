@@ -32,12 +32,19 @@
   <div class="mobile-header">
     <!--デフォルトのヘッダー-->
     <div class="default-header" id="default_header">
-      <%= image_tag "humberger_menu.svg", size: '40x40', id: "humburger-menu-icon" %>
-      <div class="header-center-block">
-        <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
-        <%= link_to "Herigo", root_url, class: "header-center-block__logo-name" %>
+      <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
+      <div class="header-search-btn">
+        <%= image_tag("search.svg", size: "30x30") %>
+        <span class="header-search-btn__area-search">エリアから探す</span>
       </div>
-      <%= image_tag "search.svg", size: '40x40' %>
+      <div class="mobile-header-menu" id="humburger-menu-icon">
+        <% if logged_in? %>
+          <%= image_tag ("humberger_menu.svg"), size: '30x30' %>
+          <%= image_tag current_user.profile_image, size: '30x30', class: "mobile-header-menu__user-icon" %>
+        <% else %>
+          <%= image_tag("default_icon.png", size: "30x30") %>
+        <% end %>
+      </div>
     </div>
     <hr class="mobile-header__hr">
     <!--ハンバーガーメニュー押下時のヘッダー-->
@@ -68,16 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
   var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
   var headerCloseIcon = document.getElementById('header-close-icon');
   var humbergerHeaderElement = document.getElementById('humberger_menu_header');
-  var grayOutElement = document.getElementById('gray-out');
   
   humburgerMenuIcon.addEventListener('click', function() {
     humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-    grayOutElement.classList.toggle("hide");
   });
-
   headerCloseIcon.addEventListener('click', function() {
     humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-    grayOutElement.classList.toggle("hide");
   });
 });
 </script>

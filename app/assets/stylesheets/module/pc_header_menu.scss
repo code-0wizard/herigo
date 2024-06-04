@@ -8,16 +8,13 @@
   position: relative;
   gap: 15px;
   align-items: center;
-
   &__user-icon {
     border-radius: 50%;
   }
 }
-
 .hover-menu-list {
   display: none;
 }
-
 .pc-header-menu:hover,
 .hover-menu-list:hover {
   .hover-menu-list {
