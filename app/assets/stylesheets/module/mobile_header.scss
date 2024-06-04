@@ -10,17 +10,14 @@
     left: 0;
     display: block;
     width: 100vw;
-    height: 60px;
-    &__hr {
-      margin: 0;
-      border: 0.5px solid #cccaca;
-    }
+    height: 70px;
   }
   .default-header {
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 70px;
   }
   .header-search-btn {
     display: inline-block;

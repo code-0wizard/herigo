@@ -1,5 +1,11 @@
 class HeritageLikesController < ApplicationController
   before_action :logged_in_user
+  before_action :correct_user,   only: [:show]
+
+  def show
+    user = User.find(params[:id])
+    @bookmark_heritages = user.heritage_likes
+  end
 
   def create
     heritage = Heritage.find(params[:heritage_id])

@@ -20,6 +20,6 @@ Rails.application.routes.draw do
   resources :reviews,                only: [:create, :destroy, :show]
   resources :relationships,          only: [:create, :destroy]
   resources :likes,                  only: [:create, :destroy]
-  resources :heritage_likes,         only: [:create, :destroy]
+  resources :heritage_likes,         only: [:create, :destroy, :show]
   resources :replies,                only: [:create, :destroy]
 end

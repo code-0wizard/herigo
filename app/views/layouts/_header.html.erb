@@ -10,6 +10,7 @@
           <%= link_to "世界遺産", heritages_url, class: "hover-menu-list__heritage-index-link" %>
           <%= link_to "ユーザー一覧", users_url, class: "hover-menu-list__user-index-link" %>
           <hr class="hover-menu-list__hr">
+          <%= link_to "お気に入り", heritage_like_path(current_user), class: "hover-menu-list__bookmark-link" %>
           <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "hover-menu-list__logout-link" %>
         </div>
       </div>
@@ -46,7 +47,6 @@
         <% end %>
       </div>
     </div>
-    <hr class="mobile-header__hr">
     <!--ハンバーガーメニュー押下時のヘッダー-->
     <div class="humberger-menu-header" id="humberger_menu_header">
       <%= image_tag "close.png", size: '30x30', id: "header-close-icon", class: "humberger-menu-header__close-icon" %>

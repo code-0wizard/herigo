@@ -1,0 +1,16 @@
+<div class="top-heritages-list">
+  <% @bookmark_heritages.each do |bookmark_heritage| %>
+    <div class="heritage-card">
+      <%= link_to image_tag("heritage/マチュピチュ/1.png", class: "heritage-card__img"), heritage_path(bookmark_heritage) %>
+      <div class="heritage-card__heritage-name">
+        <%= bookmark_heritage.name %>
+      </div>
+      <div class="heritage-card-inner-wrap">
+        <%= image_tag "location.png", size: "20x20", class: "heritage-card-inner-wrap__location-icon" %>
+        <span class="heritage-card-inner-wrap__country-name">
+          <%= bookmark_heritage.country.name %>
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>
