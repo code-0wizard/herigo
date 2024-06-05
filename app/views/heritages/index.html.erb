@@ -38,12 +38,14 @@
   <span class="top-area-list__title">エリアから探す</span>
   <div class="continent-card-wrapper">
     <% @continents.each do |continent| %>
-      <div class="continent-card">
-          <%= image_tag continent.image, class: "continent-card__img" %>
-          <span class="continent-card__name">
-            <%= continent.name %>
-          </span>
-      </div>
+      <%= link_to continent_path(continent) do %>
+        <div class="continent-card">
+            <%= image_tag continent.image, class: "continent-card__img" %>
+            <span class="continent-card__name">
+              <%= continent.name %>
+            </span>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -1,16 +1,12 @@
-<div id='map'></div>
+<div class="area-page-header">
+</div>
+<div class="area-main-block">
+  <div class="heritage-cards-block">
+  </div>
+  <div class="area-map-block" id="map">
+  </div>
+</div>
 
-<style>
-#map {
-  height: 600px;
-  width: 100%;
-}
-map area:hover {
-  color: #fff;
-}
-</style>
-
-<!-- js部分 -->
 <script>
     function initMap() {
 
@@ -33,7 +29,7 @@ map area:hover {
       });
       let transitLayer = new google.maps.TransitLayer();
       transitLayer.setMap(map);
-
+      
 //複数マーカー ここから
         ( function() { 
           let markerLatLng = { lat: 48.63236587521742, lng: -1.5076857193302453 }; // 緯度経度のデータ作成

@@ -1,4 +1,7 @@
 class ContinentsController < ApplicationController
+  def show
+  end
+  
   def edit
     @continent = Continent.find(params[:id])
   end

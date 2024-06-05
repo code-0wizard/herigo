@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end  
   resources :account_activations,    only: [:edit]
-  resources :continents,             only: [:edit, :update]
+  resources :continents,             only: [:edit, :update, :show]
   resources :password_resets,        only: [:new, :create, :edit, :update]
   resources :heritages,              only: [:new, :create, :edit, :update, :show, :index]
   resources :heritage_first_charms,  only: [:new, :create, :edit, :update]
