@@ -42,6 +42,6 @@ class HeritagesController < ApplicationController
 
   private
     def heritage_params
-      params.require(:heritage).permit(:name, :content, :country, images: [])
+      params.require(:heritage).permit(:name, :content, :lat, :lng, :country, images: [])
     end
 end
