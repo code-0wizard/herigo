@@ -1,78 +1,23 @@
-.heritage-img-area {
-  margin: 180px auto 20px auto;
-  width: 70vw;
-  aspect-ratio: 8 / 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px;
-  &__main-img {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px 0 0 20px;
-  }
-}
-.heritage-img-right-area {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 5px;
-  &__second-img, &__third-img, &__fourth-img, &__fifth-img {
-    width: 100%;
-    height: 100%;
-  }
-  &__third-img {
-    border-radius: 0 20px 0 0;
-  }
-  &__fifth-img {
-    border-radius: 0 0 20px 0;
-  }
-}
-
-@media (max-width: 767px) {
-  .heritage-img-area {
-    display: block;
-    margin-top: 140px;
-    width: 90%;
-    &__main-img {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-    }
-  }
-  .heritage-img-right-area {
-    display: none;
-  }
-}
-
-
-.heritage-img-area {
-  margin: 180px auto 20px auto;
-  width: 70vw;
-  aspect-ratio: 8 / 3;
-  :first-child, :nth-child(2), :nth-child(3), :nth-child(4) {
-    display: inline-block;
-  }
-  :first-child {
-    width: calc(50%);
-    height: 100%;
-    border-radius: 20px 0 0 20px;
-  }
-  :nth-child(2) {
-    width: calc(25%);
-    height: calc(50%);
-  }
-  :nth-child(3) {
-    width: calc(20%);
-    height: calc(40%);
-    border-radius: 0 20px 0 0;
-  }
-  :nth-child(4) {
-    width: calc(20%);
-    height: calc(40%);
-  }
-  :nth-child(5) {
-    width: calc(20%);
-    height: calc(40%);
-    border-radius: 0 0 20px 0;
-  }
-}
+    <% @heritages.each do |heritage|%>
+      <% if !heritage.lat.nil? %>
+        ( function() { 
+          let markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
+          const heritageTag = document.createElement("div");
+          heritageTag.className = "heritage-pin";
+          heritageTag.textContent = "hoge";
+          let marker = new google.maps.marker.AdvancedMarkerView({
+            position: markerLatLng, 
+            map: map,
+            content: heritageTag
+          });
+          //マーカーをクリックしたとき、詳細情報を表示
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "hoge"
+          }); //ここで詳細ページへのリンクを表示させる
+          marker.addListener('mouseover', function() {
+            infowindow.open(map, marker);
+          });
+       })();
+       <% end %>
+    <% end %>

@@ -1,5 +1,6 @@
 class ContinentsController < ApplicationController
   def show
+    @heritages = Heritage.all
   end
   
   def edit

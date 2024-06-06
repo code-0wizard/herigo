@@ -1,3 +1,9 @@
 .area-page-header {
   margin-top: 180px;
 }
+
+@media (max-width: 767px) {
+  .area-page-header {
+    margin-top: 120px;
+  }
+}
