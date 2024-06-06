@@ -5,7 +5,7 @@
     <% @heritages.each do |heritage|%>
       <% if heritage.images.attached? %>
         <div class="area-heritage-card" id="heritage-<%= heritage.id %>">
-          <%= image_tag "close.png", size: "30x30", class: "area-heritage-card__close-btn" %>
+          <%= image_tag "close_white.svg", size: "30x30", class: "area-heritage-card__close-btn" %>
           <%= link_to image_tag(heritage.images[0], class: "area-heritage-card__img"), heritage_url(heritage) %>
           <p class="area-heritage-card__name"><%= heritage.name %></p>
         </div>
