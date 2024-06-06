@@ -28,27 +28,31 @@ function initMap() {
     mapId: "4504f8b37365c3d0",
   });
   
-  <% @heritages.each do |heritage|%>
-    <% if !heritage.lat.nil? %>
-      ( function() { 
-        const heritageTag = document.createElement("a");
-        heritageTag.className = "heritage-pin";
-        heritageTag.href = `#heritage-<%= heritage.id %>`;
-        heritageTag.textContent = `<%= heritage.name %>  ⭐︎<%= calc_average_review_score(heritage.id) %>`;
-
-        const markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
-        const markerView = new google.maps.marker.AdvancedMarkerView({
-          map,
-          position: markerLatLng,
-          content: heritageTag,
-        });
-        markerView.addListener('click', function() {
-          const showHeritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
-          showHeritageCard.classList.toggle("area-heritage-card-show");
-        });
-      })();
+  map.addListener('idle', function() {
+    const bounds = map.getBounds();
+    <% @heritages.each do |heritage|%>
+      <% if !heritage.lat.nil? %>
+        heritageLatLng = new google.maps.LatLng(<%= heritage.lat %>, <%= heritage.lng %>);
+        isVisible = bounds.contains(heritageLatLng);
+        if (isVisible) {
+          const heritageTag = document.createElement("a");
+          heritageTag.className = "heritage-pin";
+          heritageTag.href = `#heritage-<%= heritage.id %>`;
+          heritageTag.textContent = `<%= heritage.name %>  ⭐︎<%= calc_average_review_score(heritage.id) %>`;
+          const markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
+          const markerView = new google.maps.marker.AdvancedMarkerView({
+            map,
+            position: markerLatLng,
+            content: heritageTag,
+          });
+          markerView.addListener('click', function() {
+            const showHeritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
+            showHeritageCard.classList.toggle("area-heritage-card-show");
+          });
+        }
+      <% end %>
     <% end %>
-  <% end %>
+   });
 }
 window.initMap = initMap;
 
