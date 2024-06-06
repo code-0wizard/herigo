@@ -38,10 +38,26 @@ class HeritagesController < ApplicationController
   end
 
   def update
+    @heritage = Heritage.find(params[:id])
+    country_id = Country.find_by(name: params[:heritage][:country]).id
+    if @heritage.update(heritage_params.merge(country_id: country_id))
+      @heritage.heritage_tags.destroy_all
+      create_heritage_tags(params[:id], params[:heritage][:tag_ids])
+      redirect_to root_url
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   private
     def heritage_params
-      params.require(:heritage).permit(:name, :content, :lat, :lng, :country, images: [])
+      params.require(:heritage).permit(:name, :content, :lat, :lng, images: [])
+    end
+
+    def create_heritage_tags(heritage_id, tag_ids)
+      return if tag_ids.blank?
+      tag_ids.each do |tag_id|
+        HeritageTag.create(heritage_id: heritage_id, tag_id: tag_id)
+      end
     end
 end
