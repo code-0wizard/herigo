@@ -2,6 +2,7 @@
 </div>
 <div class="area-main-block">
   <div class="heritage-cards-block">
+    <p id="no-heritage-msg" class="heritage-no-msg">この地域には遺産がありません。別の場所を探してみてください。</p>
     <% @heritages.each do |heritage|%>
       <% if heritage.images.attached? %>
         <div class="area-heritage-card" id="heritage-<%= heritage.id %>">
@@ -21,45 +22,63 @@
   defer
 ></script>
 <script>
-function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 38.60, lng: 135.5 },
-    zoom: 5.5,
-    mapId: "4504f8b37365c3d0",
-  });
-  
-  map.addListener('idle', function() {
-    const bounds = map.getBounds();
-    <% @heritages.each do |heritage|%>
-      <% if !heritage.lat.nil? %>
-        heritageLatLng = new google.maps.LatLng(<%= heritage.lat %>, <%= heritage.lng %>);
-        isVisible = bounds.contains(heritageLatLng);
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 38.60, lng: 135.5 },
+      zoom: 5.5,
+      mapId: "4504f8b37365c3d0",
+    });
+
+    map.addListener('idle', function() {
+      updateVisibleHeritages(map);
+    });
+  }
+  // カードとマップ上のピンの表示を更新
+  function updateVisibleHeritages(map) {
+    var bounds = map.getBounds();
+    var hasVisibleHeritage = false;
+    <% @heritages.each do |heritage| %>
+      <% if !heritage.lat.nil? && !heritage.lng.nil? %>
+        var heritageLatLng = new google.maps.LatLng(<%= heritage.lat %>, <%= heritage.lng %>);
+        var isVisible = bounds.contains(heritageLatLng);
+        var heritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
         if (isVisible) {
-          const heritageTag = document.createElement("a");
+          var heritageTag = document.createElement("a");
           heritageTag.className = "heritage-pin";
           heritageTag.href = `#heritage-<%= heritage.id %>`;
           heritageTag.textContent = `<%= heritage.name %>  ⭐︎<%= calc_average_review_score(heritage.id) %>`;
-          const markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
-          const markerView = new google.maps.marker.AdvancedMarkerView({
+          var markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
+          var markerView = new google.maps.marker.AdvancedMarkerView({
             map,
             position: markerLatLng,
             content: heritageTag,
           });
           markerView.addListener('click', function() {
-            const allHeritageCards = document.querySelectorAll('.area-heritage-card');
-            // クリックされた以外のカードをすべて非表示
-            allHeritageCards.forEach(card => {
-              card.classList.remove('heritage-card-show');
-            });
-            // クリックされたカードのみ表示
-            const showHeritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
-            showHeritageCard.classList.add("heritage-card-show");
+            toggleHeritageCard(`<%= heritage.id %>`);
           });
+          hasVisibleHeritage = true;
+          heritageCard.classList.add("area-heritage-card-show");
+        } else {
+          heritageCard.classList.remove("area-heritage-card-show");
         }
       <% end %>
     <% end %>
-   });
-}
+    var noHeritageMsg = document.getElementById("no-heritage-msg");
+    if (hasVisibleHeritage) {
+      noHeritageMsg.classList.add("hide");
+    } else {
+      noHeritageMsg.classList.remove("hide");
+    }
+  }
+  // スマホ版の画面でタップされたピンのカードを表示する処理
+  function toggleHeritageCard(heritageId) {
+    var allHeritageCards = document.querySelectorAll('.area-heritage-card');
+    allHeritageCards.forEach(card => {
+      card.classList.remove('heritage-card-show');
+    });
+    var showHeritageCard = document.getElementById(`heritage-${heritageId}`);
+    showHeritageCard.classList.add('heritage-card-show');
+  }
 window.initMap = initMap;
 
   document.addEventListener('DOMContentLoaded', function() {

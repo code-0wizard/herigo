@@ -1,23 +1,36 @@
-    <% @heritages.each do |heritage|%>
-      <% if !heritage.lat.nil? %>
-        ( function() { 
-          let markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
-          const heritageTag = document.createElement("div");
-          heritageTag.className = "heritage-pin";
-          heritageTag.textContent = "hoge";
-          let marker = new google.maps.marker.AdvancedMarkerView({
-            position: markerLatLng, 
-            map: map,
-            content: heritageTag
-          });
-          //マーカーをクリックしたとき、詳細情報を表示
-          let infowindow = new google.maps.InfoWindow({
-            position: markerLatLng,
-            content: "hoge"
-          }); //ここで詳細ページへのリンクを表示させる
-          marker.addListener('mouseover', function() {
-            infowindow.open(map, marker);
-          });
-       })();
-       <% end %>
-    <% end %>
+  map.addListener('idle', function() {
+    const bounds = map.getBounds();
+      <% @heritages.each do |heritage|%>
+        <% if !heritage.lat.nil? %>
+          var heritageLatLng = new google.maps.LatLng(<%= heritage.lat %>, <%= heritage.lng %>);
+          var isVisible = bounds.contains(heritageLatLng);
+          var heritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
+          if (isVisible) {
+            const heritageTag = document.createElement("a");
+            heritageTag.className = "heritage-pin";
+            heritageTag.href = `#heritage-<%= heritage.id %>`;
+            heritageTag.textContent = `<%= heritage.name %>  ⭐︎<%= calc_average_review_score(heritage.id) %>`;
+            const markerLatLng = { lat: <%= heritage.lat %>, lng: <%= heritage.lng %> };
+            const markerView = new google.maps.marker.AdvancedMarkerView({
+              map,
+              position: markerLatLng,
+              content: heritageTag,
+            });
+            markerView.addListener('click', function() {
+              const allHeritageCards = document.querySelectorAll('.area-heritage-card');
+              // クリックされた以外のカードをすべて非表示
+              allHeritageCards.forEach(card => {
+                card.classList.remove('heritage-card-show');
+              });
+              // クリックされたカードのみ表示
+              heritageCard.classList.add("heritage-card-show");
+            });
+            heritageCard.classList.add("area-heritage-card-show");
+          } else {
+            heritageCard.classList.remove("area-heritage-card-show");
+          }
+        <% end %>
+      <% end %>
+  });
+}
+window.initMap = initMap;
