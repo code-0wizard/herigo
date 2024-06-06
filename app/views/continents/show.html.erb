@@ -46,8 +46,14 @@ function initMap() {
             content: heritageTag,
           });
           markerView.addListener('click', function() {
+            const allHeritageCards = document.querySelectorAll('.area-heritage-card');
+            // クリックされた以外のカードをすべて非表示
+            allHeritageCards.forEach(card => {
+              card.classList.remove('heritage-card-show');
+            });
+            // クリックされたカードのみ表示
             const showHeritageCard = document.getElementById(`heritage-<%= heritage.id %>`);
-            showHeritageCard.classList.toggle("area-heritage-card-show");
+            showHeritageCard.classList.add("heritage-card-show");
           });
         }
       <% end %>
@@ -64,7 +70,7 @@ window.initMap = initMap;
         const parentElement = event.target.closest(".area-heritage-card");
         if (parentElement) {
           event.preventDefault();
-          parentElement.classList.toggle("area-heritage-card-show");
+          parentElement.classList.remove('heritage-card-show');
         }
       });
     });
