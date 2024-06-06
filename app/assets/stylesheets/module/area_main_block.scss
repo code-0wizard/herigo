@@ -23,6 +23,7 @@
 }
 
 .area-heritage-card {
+  display: none;
   width: calc(49% - 20px);
   height: auto;
   margin-bottom: 30px;
@@ -44,6 +45,9 @@
     padding-top: 10px;
   }
 }
+.area-heritage-card-show {
+  display: block;
+}
 
 @media (max-width: 767px) {
   .area-main-block {
@@ -61,6 +65,7 @@
   }
 
   .area-heritage-card {
+    display: block;
     z-index: 10;
     position: fixed;
     bottom: -100vh;
@@ -91,7 +96,7 @@
     }
   }
 
-  .area-heritage-card-show {
+  .heritage-card-show {
     bottom: 40px;
   }
 }
