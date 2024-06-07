@@ -73,6 +73,15 @@
     </div>
   </div>
 </header>
+<!--検索フォーム押下後に表示されるポップアップ-->
+<div class="header-search-container" id="area-search-popup">
+  <div class="continent-search-block">
+  </div>
+  <div class="country-search-block">
+  </div>
+  <div class="heritage-search-block">
+  </div>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -88,18 +97,17 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   var searchForm = document.getElementById('search-form');
-  var pcHeader = document.getElementById('pc-header-js');
+  var searchPopup = document.getElementById('area-search-popup');
   searchForm.addEventListener('click', function() {
     document.getElementById('gray-out').classList.remove('hide');
-    searchForm.classList.add("active-form");
-    pcHeader.classList.add("active-header");
+    searchPopup.classList.add("header-search-active");
   });
-  document.addEventListener('click', (e) => {
-    if(!e.target.closest('div#pc-header-js')) {
-      document.getElementById('gray-out').classList.add('hide');
-      searchForm.classList.remove("active-form");
-      pcHeader.classList.remove("active-header");
-    }
-  })
+  // document.addEventListener('click', (e) => {
+  //   if(!e.target.closest('div#area-search-popup')) {
+  //     document.getElementById('gray-out').classList.add('hide');
+  //     searchPopup.classList.remove("header-search-active");
+  //   }
+  // })
+  document.getElementById('gray-out').classList.remove('hide');
 });
 </script>

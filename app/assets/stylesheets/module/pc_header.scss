@@ -14,14 +14,6 @@
     padding-left: 10px;
   }
 }
-header .active-header {
-  height: 200px;
-  align-items: normal;
-  transition: all 0.2s;
-  .pc-header__logo-name {
-    padding-top: 10px;
-  }
-}
 
 @media (max-width: 767px) {
   .pc-header {
