@@ -2,6 +2,10 @@
   <div class="pc-header">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
+    <div class="header-search-form" id="search-form">
+      <span class="header-search-form__placeholder">エリア</span>
+      <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
+    </div>
     <% if logged_in? %>
       <div class="pc-header-menu">
         <%= image_tag ("humberger_menu.svg"), size: '30x30' %>
@@ -34,9 +38,9 @@
     <!--デフォルトのヘッダー-->
     <div class="default-header" id="default_header">
       <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
-      <div class="header-search-btn">
-        <%= image_tag("search.svg", size: "30x30") %>
-        <span class="header-search-btn__area-search">エリアから探す</span>
+      <div class="header-search-form" id="search-form">
+        <span class="header-search-form__placeholder">エリア</span>
+        <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
       </div>
       <div class="mobile-header-menu" id="humburger-menu-icon">
         <% if logged_in? %>
