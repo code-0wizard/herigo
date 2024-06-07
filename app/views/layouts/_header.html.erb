@@ -76,6 +76,12 @@
 <!--検索フォーム押下後に表示されるポップアップ-->
 <div class="header-search-container" id="area-search-popup">
   <div class="continent-search-block">
+    <p class="continent-search-block__title">エリア</p>
+    <div class="continent-search-list">
+      <% Continent.all.each do |continent| %>
+        <%= link_to continent.name, continent_path(continent), class:"continent-search-list__name" %>
+      <% end %>
+    </div>
   </div>
   <div class="country-search-block">
   </div>
