@@ -1,5 +1,5 @@
 <header>
-  <div class="pc-header">
+  <div class="pc-header" id="pc-header-js">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
     <div class="header-search-form" id="search-form">
@@ -86,5 +86,20 @@ document.addEventListener("DOMContentLoaded", function() {
   headerCloseIcon.addEventListener('click', function() {
     humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
   });
+
+  var searchForm = document.getElementById('search-form');
+  var pcHeader = document.getElementById('pc-header-js');
+  searchForm.addEventListener('click', function() {
+    document.getElementById('gray-out').classList.remove('hide');
+    searchForm.classList.add("active-form");
+    pcHeader.classList.add("active-header");
+  });
+  document.addEventListener('click', (e) => {
+    if(!e.target.closest('div#pc-header-js')) {
+      document.getElementById('gray-out').classList.add('hide');
+      searchForm.classList.remove("active-form");
+      pcHeader.classList.remove("active-header");
+    }
+  })
 });
 </script>

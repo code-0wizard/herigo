@@ -7,10 +7,19 @@
   background-color: #fff;
   height: 80px;
   position: relative;
+  transition: all 0.1s;
   &__logo-name {
     font-size: 3rem;
     font-weight: bold;
     padding-left: 10px;
+  }
+}
+header .active-header {
+  height: 200px;
+  align-items: normal;
+  transition: all 0.2s;
+  .pc-header__logo-name {
+    padding-top: 10px;
   }
 }
 
