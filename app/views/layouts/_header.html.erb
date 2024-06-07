@@ -74,16 +74,34 @@
   </div>
 </header>
 <!--検索フォーム押下後に表示されるポップアップ-->
-<div class="header-search-container" id="area-search-popup">
-  <div class="continent-search-block">
-    <p class="continent-search-block__title">エリア</p>
-    <div class="continent-search-list">
-      <% Continent.all.each do |continent| %>
-        <%= link_to continent.name, continent_path(continent), class:"continent-search-list__name" %>
+<div class="header-search-popup" id="area-search-popup">
+  <div class="search-popup-inner">
+    <p class="search-popup-inner__title">エリア</p>
+    <div class="search-link-list">
+      <% @continents = Continent.all %>
+      <% @continents.each do |continent| %>
+        <%= link_to continent.name, continent_path(continent), class:"search-link-list__name" %>
       <% end %>
     </div>
   </div>
-  <div class="country-search-block">
+  <div class="search-popup-inner">
+    <p class="search-popup-inner__title">国</p>
+    <div class="search-nav-link">
+      <% @continents.each do |continent| %>
+        <div class="search-nav-link__item" id= "nav-item-<%= continent.id %>">
+          <%= continent.name %>
+        </div>
+      <% end %>
+    </div>
+    <div class="search-link-list">
+      <% @continents.each_with_index do |continent, index| %>
+        <div class="search-link-block<%= ' selected' if index == 0 %>" id= "nav-item-<%= continent.id %>">
+          <% continent.countries.each do |country| %>
+            <%= link_to country.name, root_url, class:"search-link-block__item" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="heritage-search-block">
   </div>
