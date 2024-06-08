@@ -1,0 +1,45 @@
+.country-list-area {
+  width: 100vw;
+  height: 50vh;
+  max-height: 600px;
+  position: absolute;
+  top: -1000px;
+  left: 0;
+  background-color: #fff;
+  transition: all 0.3s;
+}
+.country-list-area-show {
+  top: 40px;
+  width: 100vw;
+  transition: all 0.3s;
+}
+.country-link-block {
+  width: 90vw;
+  margin: 30px auto;
+  height: 90%;
+  line-height: 3.5rem;
+  overflow-x: scroll;
+  :hover {
+    color: #0f84ff;
+  }
+  &__link  {
+    display: inline-block;
+    width: 140px;
+  }
+  &__name {
+    font-size: 1.7rem;
+    display: inline-block;
+    width: 140px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } 
+}
+
+@media (max-width: 767px) {
+  .country-link-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
