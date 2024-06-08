@@ -75,6 +75,7 @@
 </header>
 <!--検索フォーム押下後に表示されるポップアップ-->
 <div class="header-search-popup" id="area-search-popup">
+<%= image_tag "close.png", size: "30x30", class: "review-popup-header__close-icon", id: "popup-close-btn" %>
   <div class="search-popup-inner">
     <p class="search-popup-inner__title">エリア</p>
     <div class="search-link-list">
@@ -134,6 +135,11 @@
         searchPopup.classList.remove("header-search-active");
       }
     })
+    var popupCloseBtn = document.getElementById("popup-close-btn");
+    popupCloseBtn.addEventListener('click', function() {
+      searchPopup.classList.remove("header-search-active");
+      document.getElementById('gray-out').classList.add('hide');
+    });
 
     function adjustFontSize() {
       var searchCountryLinks = document.querySelectorAll('.search-country-link');

@@ -78,7 +78,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 100%;
   width: 7vw;
   border: 0.5px solid #9c9c9c;
   border-radius: 20px;
@@ -97,7 +96,6 @@
 
 @media (max-width: 767px) {
   .header-search-popup {
-    top: 0;
     left: 0;
     transform: none;
     width: 100vw;
