@@ -44,6 +44,7 @@
 }
 .search-nav-link {
   white-space: nowrap;
+  width: 100%;
   overflow-x: auto;
   margin-top: 20px;
   border-bottom: 1px solid #cacaca;
@@ -71,16 +72,23 @@
   height: 120px;
   width: 100%;
   overflow-x: auto;
+}
+.search-country-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  width: 7vw;
+  border: 0.5px solid #9c9c9c;
+  border-radius: 20px;
+  padding: 5px 10px;
   &__item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 7vw;
-    padding: 10px 20px;
-    border: 0.5px solid #9c9c9c;
-    border-radius: 20px;
-    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    width: auto;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -103,5 +111,18 @@
     &__name {
       width: 120px;
     }
+  }
+  .search-link-block {
+    column-gap: 10px;
+    width: 95vw;
+  }
+  .search-country-link {
+    width: 120px;
+    &__item {
+      width: 120px;
+    }
+  }
+  .search-nav-link {
+    width: 95vw;
   }
 }

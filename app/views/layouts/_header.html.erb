@@ -97,7 +97,9 @@
       <% @continents.each_with_index do |continent, index| %>
         <div class="search-link-block <%= 'hide' if index >= 1 %>" data-id="<%= continent.id %>">
           <% continent.countries.each do |country| %>
-            <%= link_to country.name, root_url, class:"search-link-block__item" %>
+            <%= link_to root_url, class: "search-country-link" do %>
+              <span class="search-country-link__item"><%= country.name %></span>
+            <% end %>
           <% end %>
         </div>
       <% end %>
@@ -151,6 +153,26 @@ document.addEventListener("DOMContentLoaded", function() {
   //   <% end %>
   // }
 
+function adjustFontSize() {
+  var searchCountryLinks = document.querySelectorAll('.search-country-link');
+  searchCountryLinks.forEach(function(outerElement) {
+    var innerElement = outerElement.querySelector('.search-country-link__item');
+    var outerWidth = outerElement.clientWidth;
+    var innerWidth = innerElement.scrollWidth;
+    var fontSize = parseInt(window.getComputedStyle(innerElement).fontSize);
+    while (innerWidth > outerWidth && fontSize > 10) {
+      fontSize--;
+      innerElement.style.fontSize = fontSize + 'px';
+      innerWidth = innerElement.scrollWidth;
+      if (fontSize === 10) {
+        innerElement.style.overflow = "hidden";
+        break;
+      }
+    }
+  });
+}
+adjustFontSize();
+
   var navItems = document.querySelectorAll('.search-nav-link__item');
   navItems.forEach(function(navItem) {
     navItem.addEventListener('click', function() {
@@ -165,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var continentId = countryBlock.dataset.id
       if (continentId === selectedContinentId) {
         countryBlock.classList.remove('hide');
+        adjustFontSize();
       } else {
         countryBlock.classList.add('hide');
         document.getElementById(`item-${continentId}`).classList.remove('selected');
