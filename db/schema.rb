@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_045720) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_06_061805) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,6 +93,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_045720) do
     t.index ["heritage_id"], name: "index_heritage_second_charms_on_heritage_id", unique: true
   end
 
+  create_table "heritage_tags", force: :cascade do |t|
+    t.integer "heritage_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["heritage_id"], name: "index_heritage_tags_on_heritage_id"
+    t.index ["tag_id"], name: "index_heritage_tags_on_tag_id"
+  end
+
   create_table "heritage_third_charms", force: :cascade do |t|
     t.string "main_title"
     t.string "sub_title"
@@ -158,6 +167,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_045720) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 20, null: false
     t.string "email", null: false
@@ -181,6 +196,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_045720) do
   add_foreign_key "heritage_first_charms", "heritages"
   add_foreign_key "heritage_fourth_charms", "heritages"
   add_foreign_key "heritage_second_charms", "heritages"
+  add_foreign_key "heritage_tags", "heritages"
+  add_foreign_key "heritage_tags", "tags"
   add_foreign_key "heritage_third_charms", "heritages"
   add_foreign_key "heritages", "countries"
   add_foreign_key "replies", "reviews"

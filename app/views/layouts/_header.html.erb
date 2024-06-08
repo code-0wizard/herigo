@@ -1,7 +1,11 @@
 <header>
-  <div class="pc-header">
+  <div class="pc-header" id="pc-header-js">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
+    <div class="header-search-form" id="search-form">
+      <span class="header-search-form__placeholder">エリア</span>
+      <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
+    </div>
     <% if logged_in? %>
       <div class="pc-header-menu">
         <%= image_tag ("humberger_menu.svg"), size: '30x30' %>
@@ -34,9 +38,9 @@
     <!--デフォルトのヘッダー-->
     <div class="default-header" id="default_header">
       <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
-      <div class="header-search-btn">
-        <%= image_tag("search.svg", size: "30x30") %>
-        <span class="header-search-btn__area-search">エリアから探す</span>
+      <div class="header-search-form" id="search-form">
+        <span class="header-search-form__placeholder">エリア</span>
+        <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
       </div>
       <div class="mobile-header-menu" id="humburger-menu-icon">
         <% if logged_in? %>
@@ -69,18 +73,108 @@
     </div>
   </div>
 </header>
+<!--検索フォーム押下後に表示されるポップアップ-->
+<div class="header-search-popup" id="area-search-popup">
+  <div class="search-popup-inner">
+    <p class="search-popup-inner__title">エリア</p>
+    <div class="search-link-list">
+      <% @continents = Continent.all %>
+      <% @continents.each do |continent| %>
+        <%= link_to continent.name, continent_path(continent), class:"search-link-list__name" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="search-popup-inner">
+    <p class="search-popup-inner__title">国</p>
+    <div class="search-nav-link">
+      <% @continents.each_with_index do |continent, index| %>
+        <div class="search-nav-link__item <%= 'selected' if index == 0 %>" data-id="<%= continent.id %>" id="item-<%= continent.id %>">
+          <%= continent.name %>
+        </div>
+      <% end %>
+    </div>
+    <div class="search-link-list">
+      <% @continents.each_with_index do |continent, index| %>
+        <div class="search-link-block <%= 'hide' if index >= 1 %>" data-id="<%= continent.id %>">
+          <% continent.countries.each do |country| %>
+            <%= link_to root_url, class: "search-country-link" do %>
+              <span class="search-country-link__item"><%= country.name %></span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
-  var headerCloseIcon = document.getElementById('header-close-icon');
-  var humbergerHeaderElement = document.getElementById('humberger_menu_header');
-  
-  humburgerMenuIcon.addEventListener('click', function() {
-    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
+  document.addEventListener("DOMContentLoaded", function() {
+    var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
+    var headerCloseIcon = document.getElementById('header-close-icon');
+    var humbergerHeaderElement = document.getElementById('humberger_menu_header');
+    
+    humburgerMenuIcon.addEventListener('click', function() {
+      humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
+    });
+    headerCloseIcon.addEventListener('click', function() {
+      humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
+    });
+
+    var searchForm = document.getElementById('search-form');
+    var searchPopup = document.getElementById('area-search-popup');
+    var grayOut = document.getElementById('gray-out');
+    searchForm.addEventListener('click', function() {
+      grayOut.classList.remove('hide');
+      searchPopup.classList.add("header-search-active");
+      event.stopPropagation();
+    });
+    document.addEventListener('click', (e) => {
+      if(!e.target.closest('div#area-search-popup')) {
+        document.getElementById('gray-out').classList.add('hide');
+        searchPopup.classList.remove("header-search-active");
+      }
+    })
+
+    function adjustFontSize() {
+      var searchCountryLinks = document.querySelectorAll('.search-country-link');
+      searchCountryLinks.forEach(function(outerElement) {
+        var innerElement = outerElement.querySelector('.search-country-link__item');
+        var outerWidth = outerElement.clientWidth;
+        var innerWidth = innerElement.scrollWidth;
+        var fontSize = parseInt(window.getComputedStyle(innerElement).fontSize);
+        while (innerWidth > outerWidth && fontSize > 10) {
+          fontSize--;
+          innerElement.style.fontSize = fontSize + 'px';
+          innerWidth = innerElement.scrollWidth;
+          if (fontSize === 10) {
+            innerElement.style.overflow = "hidden";
+            break;
+          }
+        }
+      });
+    }
+    adjustFontSize();
+
+    var navItems = document.querySelectorAll('.search-nav-link__item');
+    navItems.forEach(function(navItem) {
+      navItem.addEventListener('click', function() {
+        var continentId = navItem.dataset.id;
+        toggleCountryList(continentId, navItem);
+      });
+    });
+    function toggleCountryList(selectedContinentId,selectedContinent) {
+      var countryBlocks = document.querySelectorAll('.search-link-block');
+      selectedContinent.classList.add('selected');
+      countryBlocks.forEach(function(countryBlock) {
+        var continentId = countryBlock.dataset.id
+        if (continentId === selectedContinentId) {
+          countryBlock.classList.remove('hide');
+          adjustFontSize();
+        } else {
+          countryBlock.classList.add('hide');
+          document.getElementById(`item-${continentId}`).classList.remove('selected');
+        }
+      });
+    }
   });
-  headerCloseIcon.addEventListener('click', function() {
-    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-  });
-});
 </script>

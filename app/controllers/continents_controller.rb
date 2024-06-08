@@ -1,6 +1,15 @@
 class ContinentsController < ApplicationController
   def show
-    @heritages = Heritage.all
+    @tags = Tag.all
+    @continent = Continent.find(params[:id])
+    @tag_id = params[:tag_id] unless params[:tag_id].nil?
+    if !params[:tag_id].nil? 
+      @tag_id = params[:tag_id]
+      tag = Tag.find(@tag_id)
+      @heritages = tag.heritages
+    else
+      @heritages = Heritage.all
+    end
   end
   
   def edit

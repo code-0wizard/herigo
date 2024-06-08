@@ -1,8 +1,20 @@
 <div class="area-page-header">
+  <div class="area-page-header-block">
+    <div class="heritage-tag-list">
+      <% @tags.each do |tag| %>
+        <%= link_to continent_path(@continent, tag_id: tag.id), class: "heritage-tag-link", id:"tag-btn-#{tag.id}" do %>
+          <%= image_tag("book.svg", class: "heritage-tag-link__icon", size: "30x30") %>
+          <span class="heritage-tag-link__name">
+            <%= tag.name %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 <div class="area-main-block">
   <div class="heritage-cards-block">
-    <p id="no-heritage-msg" class="heritage-no-msg">この地域には遺産がありません。別の場所を探してみてください。</p>
+    <p id="no-heritage-msg" class="heritage-no-msg">世界遺産が見つかりませんでした</p>
     <% @heritages.each do |heritage|%>
       <% if heritage.images.attached? %>
         <div class="area-heritage-card" id="heritage-<%= heritage.id %>">
@@ -79,7 +91,7 @@
     var showHeritageCard = document.getElementById(`heritage-${heritageId}`);
     showHeritageCard.classList.add('heritage-card-show');
   }
-window.initMap = initMap;
+  window.initMap = initMap;
 
   document.addEventListener('DOMContentLoaded', function() {
     // スマホ版ページの世界遺産カードのバツボタン押下時の処理
@@ -93,5 +105,14 @@ window.initMap = initMap;
         }
       });
     });
+
+    <% @tags.each do |tag| %>
+      var tagButton = document.getElementById('tag-btn-<%= tag.id %>');
+      if ('<%= tag.id %>' == '<%= @tag_id %>') {
+        tagButton.classList.add("active-tag");
+      } else {
+        tagButton.classList.remove("active-tag");
+      }
+    <% end %>
   });
 </script>

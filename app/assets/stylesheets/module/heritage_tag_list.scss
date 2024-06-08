@@ -1,0 +1,35 @@
+.heritage-tag-list {
+  display: flex;
+  gap: 30px;
+  white-space: nowrap;
+  overflow-x: auto;
+  height: 60px;
+  align-items: center;
+}
+.heritage-tag-link {
+  display: flex;
+  align-items: center;
+  &__name {
+    font-size: 1.7rem;
+    font-weight: 400;
+    padding-left: 5px;
+  }
+}
+.heritage-tag-link:hover {
+  background-color: #f0f0f0;
+  border-radius: 20px;
+}
+.active-tag {
+  background-color: #dfe2e4;
+  border-radius: 20px;
+  padding: 5px 10px;
+  & .heritage-tag-link__name {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 767px) {
+  .heritage-tag-list {
+    height: 50px;
+  }
+}
