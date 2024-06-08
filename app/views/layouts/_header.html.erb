@@ -105,94 +105,76 @@
       <% end %>
     </div>
   </div>
-  <div class="heritage-search-block">
-  </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
-  var headerCloseIcon = document.getElementById('header-close-icon');
-  var humbergerHeaderElement = document.getElementById('humberger_menu_header');
-  
-  humburgerMenuIcon.addEventListener('click', function() {
-    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-  });
-  headerCloseIcon.addEventListener('click', function() {
-    humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
-  });
+  document.addEventListener("DOMContentLoaded", function() {
+    var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
+    var headerCloseIcon = document.getElementById('header-close-icon');
+    var humbergerHeaderElement = document.getElementById('humberger_menu_header');
+    
+    humburgerMenuIcon.addEventListener('click', function() {
+      humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
+    });
+    headerCloseIcon.addEventListener('click', function() {
+      humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
+    });
 
-  var searchForm = document.getElementById('search-form');
-  var searchPopup = document.getElementById('area-search-popup');
-  searchForm.addEventListener('click', function() {
-    document.getElementById('gray-out').classList.remove('hide');
-    searchPopup.classList.add("header-search-active");
-  });
-  // document.addEventListener('click', (e) => {
-  //   if(!e.target.closest('div#area-search-popup')) {
-  //     document.getElementById('gray-out').classList.add('hide');
-  //     searchPopup.classList.remove("header-search-active");
-  //   }
-  // })
-  document.getElementById('gray-out').classList.remove('hide');
-
-  // <% @continents.each do |continent| %>
-  //   var navItem = document.getElementById(`nav-item-<%= continent.id %>`);
-  //   navItem.addEventListener('click', function() {
-  //     toggleCountryList(<%= continent.id %>);
-  //   });
-  // <% end %>
-  // function toggleCountryList(continent_id) {
-  //   <% @continents.each do |continent| %>
-  //     var countryBlock = document.getElementById(`continent-<%= continent.id %>-countries`);
-  //     if (<%= continent.id %> === continent_id) {
-  //       countryBlock.classList.remove("hide");
-  //     } else {
-  //       countryBlock.classList.add("hide");
-  //     }
-  //   <% end %>
-  // }
-
-function adjustFontSize() {
-  var searchCountryLinks = document.querySelectorAll('.search-country-link');
-  searchCountryLinks.forEach(function(outerElement) {
-    var innerElement = outerElement.querySelector('.search-country-link__item');
-    var outerWidth = outerElement.clientWidth;
-    var innerWidth = innerElement.scrollWidth;
-    var fontSize = parseInt(window.getComputedStyle(innerElement).fontSize);
-    while (innerWidth > outerWidth && fontSize > 10) {
-      fontSize--;
-      innerElement.style.fontSize = fontSize + 'px';
-      innerWidth = innerElement.scrollWidth;
-      if (fontSize === 10) {
-        innerElement.style.overflow = "hidden";
-        break;
+    var searchForm = document.getElementById('search-form');
+    var searchPopup = document.getElementById('area-search-popup');
+    var grayOut = document.getElementById('gray-out');
+    searchForm.addEventListener('click', function() {
+      grayOut.classList.remove('hide');
+      searchPopup.classList.add("header-search-active");
+      event.stopPropagation();
+    });
+    document.addEventListener('click', (e) => {
+      if(!e.target.closest('div#area-search-popup')) {
+        document.getElementById('gray-out').classList.add('hide');
+        searchPopup.classList.remove("header-search-active");
       }
+    })
+
+    function adjustFontSize() {
+      var searchCountryLinks = document.querySelectorAll('.search-country-link');
+      searchCountryLinks.forEach(function(outerElement) {
+        var innerElement = outerElement.querySelector('.search-country-link__item');
+        var outerWidth = outerElement.clientWidth;
+        var innerWidth = innerElement.scrollWidth;
+        var fontSize = parseInt(window.getComputedStyle(innerElement).fontSize);
+        while (innerWidth > outerWidth && fontSize > 10) {
+          fontSize--;
+          innerElement.style.fontSize = fontSize + 'px';
+          innerWidth = innerElement.scrollWidth;
+          if (fontSize === 10) {
+            innerElement.style.overflow = "hidden";
+            break;
+          }
+        }
+      });
+    }
+    adjustFontSize();
+
+    var navItems = document.querySelectorAll('.search-nav-link__item');
+    navItems.forEach(function(navItem) {
+      navItem.addEventListener('click', function() {
+        var continentId = navItem.dataset.id;
+        toggleCountryList(continentId, navItem);
+      });
+    });
+    function toggleCountryList(selectedContinentId,selectedContinent) {
+      var countryBlocks = document.querySelectorAll('.search-link-block');
+      selectedContinent.classList.add('selected');
+      countryBlocks.forEach(function(countryBlock) {
+        var continentId = countryBlock.dataset.id
+        if (continentId === selectedContinentId) {
+          countryBlock.classList.remove('hide');
+          adjustFontSize();
+        } else {
+          countryBlock.classList.add('hide');
+          document.getElementById(`item-${continentId}`).classList.remove('selected');
+        }
+      });
     }
   });
-}
-adjustFontSize();
-
-  var navItems = document.querySelectorAll('.search-nav-link__item');
-  navItems.forEach(function(navItem) {
-    navItem.addEventListener('click', function() {
-      var continentId = navItem.dataset.id;
-      toggleCountryList(continentId, navItem);
-    });
-  });
-  function toggleCountryList(selectedContinentId,selectedContinent) {
-    var countryBlocks = document.querySelectorAll('.search-link-block');
-    selectedContinent.classList.add('selected');
-    countryBlocks.forEach(function(countryBlock) {
-      var continentId = countryBlock.dataset.id
-      if (continentId === selectedContinentId) {
-        countryBlock.classList.remove('hide');
-        adjustFontSize();
-      } else {
-        countryBlock.classList.add('hide');
-        document.getElementById(`item-${continentId}`).classList.remove('selected');
-      }
-    });
-  }
-});
 </script>

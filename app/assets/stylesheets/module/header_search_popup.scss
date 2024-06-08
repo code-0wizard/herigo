@@ -1,6 +1,6 @@
 .header-search-popup {
   position: fixed;
-  top: 50%;
+  top: -100%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
@@ -15,7 +15,7 @@
 }
 .header-search-active {
   top: 50%;
-  transition: all 0.1s;
+  transition: all 0.3s;
 }
 .search-popup-inner {
   margin-top: 30px;
@@ -89,6 +89,9 @@
     width: auto;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+  :hover {
+    font-weight: bold;
   }
 }
 
