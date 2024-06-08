@@ -2,7 +2,7 @@
   <div class="pc-header" id="pc-header-js">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
-    <div class="header-search-form" id="search-form">
+    <div class="header-search-form" id="search-form-pc">
       <span class="header-search-form__placeholder">エリア</span>
       <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
     </div>
@@ -38,7 +38,7 @@
     <!--デフォルトのヘッダー-->
     <div class="default-header" id="default_header">
       <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
-      <div class="header-search-form" id="search-form">
+      <div class="header-search-form" id="search-form-mobile">
         <span class="header-search-form__placeholder">エリア</span>
         <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
       </div>
@@ -75,6 +75,7 @@
 </header>
 <!--検索フォーム押下後に表示されるポップアップ-->
 <div class="header-search-popup" id="area-search-popup">
+<%= image_tag "close.png", size: "30x30", class: "review-popup-header__close-icon", id: "popup-close-btn" %>
   <div class="search-popup-inner">
     <p class="search-popup-inner__title">エリア</p>
     <div class="search-link-list">
@@ -112,7 +113,6 @@
     var humburgerMenuIcon = document.getElementById('humburger-menu-icon');
     var headerCloseIcon = document.getElementById('header-close-icon');
     var humbergerHeaderElement = document.getElementById('humberger_menu_header');
-    
     humburgerMenuIcon.addEventListener('click', function() {
       humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
     });
@@ -120,20 +120,31 @@
       humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
     });
 
-    var searchForm = document.getElementById('search-form');
+    var searchForms = [
+      document.getElementById('search-form-pc'),
+      document.getElementById('search-form-mobile')
+    ];
     var searchPopup = document.getElementById('area-search-popup');
     var grayOut = document.getElementById('gray-out');
-    searchForm.addEventListener('click', function() {
+    searchForms.forEach(function(form) {
+      form.addEventListener('click', showSearchPopup);
+    })
+    function showSearchPopup() {
       grayOut.classList.remove('hide');
       searchPopup.classList.add("header-search-active");
       event.stopPropagation();
-    });
+    }
     document.addEventListener('click', (e) => {
       if(!e.target.closest('div#area-search-popup')) {
         document.getElementById('gray-out').classList.add('hide');
         searchPopup.classList.remove("header-search-active");
       }
     })
+    var popupCloseBtn = document.getElementById("popup-close-btn");
+    popupCloseBtn.addEventListener('click', function() {
+      searchPopup.classList.remove("header-search-active");
+      document.getElementById('gray-out').classList.add('hide');
+    });
 
     function adjustFontSize() {
       var searchCountryLinks = document.querySelectorAll('.search-country-link');
