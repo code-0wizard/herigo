@@ -1,0 +1,27 @@
+.search-result-block {
+  width: 90vw;
+  margin: 140px auto 0 auto;
+  &__no-heritage {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+.search-result-heritage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.search_result-msg {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  &__result-count {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-result-heritage {
+    display: block;
+  }
+}

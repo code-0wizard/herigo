@@ -1,31 +1,6 @@
 <% provide(:title, '世界遺産') %>
-<div class="top-header">
-  <nav class="top-link-list" id="continent-list">
-    <% @continents.each do |continent| %>
-      <div class="continent-wrapper" data-id="<%= continent.id %>" id="item-<%= continent.id %>">
-        <span class="continent-wrapper__name">
-          <%= continent.name %>
-        </span>
-        <%= image_tag "arrow.svg", size: "15x15", class: "continent-wrapper__arrow-icon" %>
-      </div>
-    <% end %>
-  </nav>
-  <div class="country-list-area" id="country-area">
-    <% @continents.each do |continent| %>
-      <div class="country-link-block hide" data-id="<%= continent.id %>">
-        <% continent.countries.each do |country| %>
-          <%= link_to root_url, class: "country-link-block__link" do %>
-            <span class="country-link-block__name">
-              <%= country.name %>
-            </span>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div class="top-heritages-list" id="top-heritages-list">
+<%= render 'shared/continent_header' %>
+<div class="top-heritages-list">
   <% @heritages.each do |heritage| %>
     <div class="heritage-card">
       <%= link_to image_tag("heritage/マチュピチュ/1.png", class: "heritage-card__img"), heritage_path(heritage) %>
@@ -59,51 +34,3 @@
   </div>
 </div>
 <hr class="top-area-list__hr">
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var continents = document.querySelectorAll('.continent-wrapper');
-    continents.forEach(function(continent) {
-      continent.addEventListener('click', function() {
-        var continentId = continent.dataset.id;
-        toggleContinent(continentId, continent);
-      });
-    });
-    function toggleContinent(selectedContinentId,selectedContinent) {
-      var continentList = document.getElementById("continent-list");
-      var countryArea = document.getElementById("country-area");
-      var alreadySelectedContinent = document.querySelector('.selected-continent');
-      var countryBlocks = document.querySelectorAll('.country-link-block');
-      if (selectedContinent.classList.contains("selected-continent")) {
-        // クリックされたcontinentが既に選択された状態だった場合
-        countryArea.classList.remove('country-list-area-show');
-        selectedContinent.classList.remove('selected-continent');
-        countryBlocks.forEach(function(countryBlock) {
-          countryBlock.classList.add('hide');
-        });
-      } else if (alreadySelectedContinent) {
-        // 既に他のcontinentが選択された状態だった場合
-        alreadySelectedContinent.classList.remove('selected-continent');
-        selectedContinent.classList.add('selected-continent');
-        toggleCountryList(countryBlocks,selectedContinentId);
-      } else {
-        // 選択されたcontinentが存在しない場合
-        countryArea.classList.add('country-list-area-show');
-        selectedContinent.classList.add('selected-continent');
-        toggleCountryList(countryBlocks,selectedContinentId);
-      }
-    }
-    function toggleCountryList(countryBlocks,selectedContinentId) {
-      var countryBlocks = document.querySelectorAll('.country-link-block');
-      countryBlocks.forEach(function(countryBlock) {
-        var continentId = countryBlock.dataset.id
-        if (continentId === selectedContinentId) {
-          countryBlock.classList.remove('hide');
-        } else {
-          countryBlock.classList.add('hide');
-        }
-      });
-    }
-
-  });
-</script>
