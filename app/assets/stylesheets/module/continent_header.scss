@@ -1,4 +1,4 @@
-.top-header {
+.continent-header {
   position: fixed;
   top: 80px;
   left: 0;
@@ -7,7 +7,7 @@
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.top-link-list {
+.continent-btn-list {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -48,12 +48,13 @@
 }
 
 @media (max-width: 767px) {
-  .top-header {
+  .continent-header {
+    top: 69px;
     &__hr {
       display: none;
     }
   }
-  .top-link-list {
+  .continent-btn-list {
     padding: 5px 20px;
     justify-content: left;
   }

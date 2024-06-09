@@ -1,0 +1,32 @@
+<%= render 'shared/continent_header' %>
+<div class="search-result-block">
+  <% if !@records.empty? %>
+    <p class="search_result-msg">
+      「<%= @search_words %>」にヒット世界遺産：
+      <span class="search_result-msg__result-count">
+        <%= @records.count %>
+      </span>
+      件
+    </p>
+    <div class="search-result-heritage">
+      <% @records.each do |heritage| %>
+        <div class="heritage-card">
+          <%= link_to image_tag("heritage/マチュピチュ/1.png", class: "heritage-card__img"), heritage_path(heritage) %>
+          <div class="heritage-card__heritage-name">
+            <%= heritage.name %>
+          </div>
+          <div class="heritage-card-inner-wrap">
+            <%= image_tag "location.png", size: "20x20", class: "heritage-card-inner-wrap__location-icon" %>
+            <span class="heritage-card-inner-wrap__country-name">
+              <%= heritage.country.name %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="search-result-block__no-heritage">
+      「<%= @search_words %>」に一致する世界遺産は見つかりませんでした。
+    </p>
+  <% end %>
+</div>

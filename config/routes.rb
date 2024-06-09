@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/signup', to: 'users#new'
   get "/logout",  to: "sessions#destroy"
+  get "/search", to: "searches#search"
   resources :users do
     member do
       get :following, :followers

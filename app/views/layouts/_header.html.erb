@@ -2,9 +2,11 @@
   <div class="pc-header" id="pc-header-js">
     <%= link_to image_tag("Herigo_logo.png", size: "80x60"), root_url, class: "pc-header__logo-img" %>
     <%= link_to "Herigo", root_url, class: "pc-header__logo-name" %>
-    <div class="header-search-form" id="search-form-pc">
-      <span class="header-search-form__placeholder">エリア</span>
-      <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
+    <div class="header-search-block">
+      <%= form_with url: search_path, method: :get, local: true, class: 'header-search-form' do |f| %>
+        <%= f.text_field :query, placeholder: '世界遺産名で検索', class: 'header-search-form__input' %>
+        <%= image_tag ("search.svg"), size: '25x25', class:"header-search-form__search-icon" %>
+      <% end %>
     </div>
     <% if logged_in? %>
       <div class="pc-header-menu">
@@ -38,9 +40,11 @@
     <!--デフォルトのヘッダー-->
     <div class="default-header" id="default_header">
       <%= link_to image_tag("Herigo_logo.png", size: "60x45"), root_url, class: "header-center-block__logo-img" %>
-      <div class="header-search-form" id="search-form-mobile">
-        <span class="header-search-form__placeholder">エリア</span>
-        <%= image_tag ("search.svg"), size: '30x30', class:"header-search-form__search-icon" %>
+      <div class="header-search-block">
+        <%= form_with url: root_path, method: :get, local: true, class: 'header-search-form' do |f| %>
+          <%= f.text_field :query, placeholder: '世界遺産名で検索', class: 'header-search-form__input' %>
+          <%= image_tag ("search.svg"), size: '25x25', class:"header-search-form__search-icon" %>
+        <% end %>
       </div>
       <div class="mobile-header-menu" id="humburger-menu-icon">
         <% if logged_in? %>
@@ -73,40 +77,6 @@
     </div>
   </div>
 </header>
-<!--検索フォーム押下後に表示されるポップアップ-->
-<div class="header-search-popup" id="area-search-popup">
-<%= image_tag "close.png", size: "30x30", class: "review-popup-header__close-icon", id: "popup-close-btn" %>
-  <div class="search-popup-inner">
-    <p class="search-popup-inner__title">エリア</p>
-    <div class="search-link-list">
-      <% @continents = Continent.all %>
-      <% @continents.each do |continent| %>
-        <%= link_to continent.name, continent_path(continent), class:"search-link-list__name" %>
-      <% end %>
-    </div>
-  </div>
-  <div class="search-popup-inner">
-    <p class="search-popup-inner__title">国</p>
-    <div class="search-nav-link">
-      <% @continents.each_with_index do |continent, index| %>
-        <div class="search-nav-link__item <%= 'selected' if index == 0 %>" data-id="<%= continent.id %>" id="item-<%= continent.id %>">
-          <%= continent.name %>
-        </div>
-      <% end %>
-    </div>
-    <div class="search-link-list">
-      <% @continents.each_with_index do |continent, index| %>
-        <div class="search-link-block <%= 'hide' if index >= 1 %>" data-id="<%= continent.id %>">
-          <% continent.countries.each do |country| %>
-            <%= link_to root_url, class: "search-country-link" do %>
-              <span class="search-country-link__item"><%= country.name %></span>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -120,72 +90,6 @@
       humbergerHeaderElement.classList.toggle("humberger-menu-header-open");
     });
 
-    var searchForms = [
-      document.getElementById('search-form-pc'),
-      document.getElementById('search-form-mobile')
-    ];
-    var searchPopup = document.getElementById('area-search-popup');
-    var grayOut = document.getElementById('gray-out');
-    searchForms.forEach(function(form) {
-      form.addEventListener('click', showSearchPopup);
-    })
-    function showSearchPopup() {
-      grayOut.classList.remove('hide');
-      searchPopup.classList.add("header-search-active");
-      event.stopPropagation();
-    }
-    document.addEventListener('click', (e) => {
-      if(!e.target.closest('div#area-search-popup')) {
-        document.getElementById('gray-out').classList.add('hide');
-        searchPopup.classList.remove("header-search-active");
-      }
-    })
-    var popupCloseBtn = document.getElementById("popup-close-btn");
-    popupCloseBtn.addEventListener('click', function() {
-      searchPopup.classList.remove("header-search-active");
-      document.getElementById('gray-out').classList.add('hide');
-    });
-
-    function adjustFontSize() {
-      var searchCountryLinks = document.querySelectorAll('.search-country-link');
-      searchCountryLinks.forEach(function(outerElement) {
-        var innerElement = outerElement.querySelector('.search-country-link__item');
-        var outerWidth = outerElement.clientWidth;
-        var innerWidth = innerElement.scrollWidth;
-        var fontSize = parseInt(window.getComputedStyle(innerElement).fontSize);
-        while (innerWidth > outerWidth && fontSize > 10) {
-          fontSize--;
-          innerElement.style.fontSize = fontSize + 'px';
-          innerWidth = innerElement.scrollWidth;
-          if (fontSize === 10) {
-            innerElement.style.overflow = "hidden";
-            break;
-          }
-        }
-      });
-    }
-    adjustFontSize();
-
-    var navItems = document.querySelectorAll('.search-nav-link__item');
-    navItems.forEach(function(navItem) {
-      navItem.addEventListener('click', function() {
-        var continentId = navItem.dataset.id;
-        toggleCountryList(continentId, navItem);
-      });
-    });
-    function toggleCountryList(selectedContinentId,selectedContinent) {
-      var countryBlocks = document.querySelectorAll('.search-link-block');
-      selectedContinent.classList.add('selected');
-      countryBlocks.forEach(function(countryBlock) {
-        var continentId = countryBlock.dataset.id
-        if (continentId === selectedContinentId) {
-          countryBlock.classList.remove('hide');
-          adjustFontSize();
-        } else {
-          countryBlock.classList.add('hide');
-          document.getElementById(`item-${continentId}`).classList.remove('selected');
-        }
-      });
-    }
+    
   });
 </script>
