@@ -1,50 +1,19 @@
-<div class="heritage-header-wrapper">
-  <hr class="heritage-header-wrapper__hr">
-  <nav class="heritage-header-block" id="nav-link">
-    <ul id="link-list">
-      <li class="active">
-        <%= image_tag "book.svg", size: "25x25" %>
-        基本情報
-        </li>
-      <li>
-        <%= image_tag "star.svg", size: "25x25" %>
-        見どころ
-      </li>
-      <li>
-        <%= link_to "#review-area" do %>
-          <%= image_tag "review.svg", size: "25x25" %>
-          口コミ
-        <% end %>
-      </li>
-      <li>
-        <%= link_to "#tour-area" do %>
-          <%= image_tag "tour.svg", size: "25x25" %>
-          ツアー
-        <% end %>
-      </li>
-      <li>
-        <%= link_to "#photo-area" do %>
-          <%= image_tag "photo.svg", size: "25x25" %>
-          写真
-        <% end %>
-      </li>
-    </ul>
-  </nav>
+<%= render 'shared/continent_header' %>
+<div class="heritage-top-area">
+  <div class="heritage-img-area">
+    <%= image_tag "heritage/マチュピチュ/top_pc.png", class: "heritage-img-area__pc-img" %>
+    <%= image_tag "heritage/マチュピチュ/top_mb.png", class: "heritage-img-area__mb-img" %>
+     <p class="heritage-img-area__name"><%= @heritage.name %></p>
+  </div>
+  <p class="heritage-top-area__content"><%= @heritage.content %></p>
+  <p class="heritage-country-info">
+    <%= image_tag "location.png", size: "30x30", class: "heritage-country-info__location_icon" %>
+    <span class="heritage-country-info__country-name">
+      <%= @heritage.country.name %>
+    </span>
+  </p>
 </div>
 
-<div class="heritage-img-area">
-  <% if @heritage.images.attached? %>
-    <% @heritage.images.each do |image| %>
-      <%= image_tag image %>
-    <% end %>
-  <% else %>
-    <%= image_tag "heritage/マチュピチュ/1.png" %>
-    <%= image_tag "heritage/マチュピチュ/2.png" %>
-    <%= image_tag "heritage/マチュピチュ/3.png" %>
-    <%= image_tag "heritage/マチュピチュ/4.png" %>
-    <%= image_tag "heritage/マチュピチュ/5.png" %>
-  <% end %>
-</div>
 
 <div class="heritage-detail-info">
   <div class="heritage-detail-info__heritage-name">

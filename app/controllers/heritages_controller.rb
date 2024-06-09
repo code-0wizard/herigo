@@ -11,6 +11,7 @@ class HeritagesController < ApplicationController
     @heritage = Heritage.find(params[:id])
     @reviews = @heritage.reviews
     @review = @heritage.reviews.build
+    @continents = Continent.all
     @heritage_first_charm = @heritage.heritage_first_charm
     @heritage_second_charm = @heritage.heritage_second_charm
     @heritage_third_charm = @heritage.heritage_third_charm
