@@ -23,30 +23,25 @@
 </div>
 
 <div class="heritage-main-block">
-</div>
-
-<div class="heritage-charm-block" id="charm-area">
-  <p class="heritage-charm-block__title">見どころ</p>
-  <p class="heritage-charm-block__content"><%= @heritage.content %></p>
-  <p class="heritage-charm-block__sub-title">見どころ一覧</p>
-  <div class="charm-img-block">
-    <div class="charm-img-block__charm-link">
-      <%= link_to image_tag(@heritage_first_charm.image), "#first-charm-area" %>
-      <span><%= @heritage_first_charm.main_title %></span>
+  <div class="main-charm-block">
+    <div class="main-charm-area">
+      <%= image_tag "heritage/マチュピチュ/charm1.png", class: "main-charm-area__main-img js-main-img" %>
+      <%= image_tag "heritage/マチュピチュ/1.png", class: "main-charm-area__sub-img js-sub-img" %>
     </div>
-    <div class="charm-img-block__charm-link">
-      <%= link_to image_tag(@heritage_second_charm.image), "#second-charm-area" %>
-      <span><%= @heritage_second_charm.main_title %></span>
+    <div class="charm-describe-area js-describe-area">
+      <p class="charm-describe-area__sub-title">
+        <%= @heritage_first_charm.sub_title %>
+      </p>
+      <p class="charm-describe-area__detail">
+        <%= @heritage_first_charm.detail %>
+      </p>
     </div>
-    <div class="charm-img-block__charm-link">
-      <%= link_to image_tag(@heritage_third_charm.image), "#third-charm-area" %>
-      <span><%= @heritage_third_charm.main_title %></span>
-    </div>
-    <div class="charm-img-block__charm-link">
-      <%= link_to image_tag(@heritage_fourth_charm.image), "#fourth-charm-area" %>
-      <span><%= @heritage_fourth_charm.main_title %></span>
-    </div>
+    <p class="charm-describe-area__show-msg-btn hide js-show-full-msg">すべて表示</p>
   </div>
+
+  <div class="slide-show-area">
+  </div>
+</div>
 
   <div id="first-charm-area" class="charm-detail-block">
     <div class="charm-img-wrapper">
@@ -137,36 +132,36 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // タップされた要素にクラスを追加
-    var navItems = document.querySelectorAll('.heritage-header-block li');
-    navItems.forEach(item => {
-      item.addEventListener('click', function() {
-        navItems.forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
+    var imgElement = document.querySelector('.js-main-img');
+    var observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
       });
     });
-    // ul要素の横幅がnav要素を超えた場合にスクロールできるようにする
-    var navElement = document.getElementById("nav-link");
-    var ulElement = document.getElementById("link-list");
-    var arrowImgElement = document.getElementById("arrow-img");
-    function checkOverflow() {
-      if (ulElement.scrollWidth > navElement.clientWidth) {
-        navElement.classList.add('scrollable');
-        arrowImgElement.classList.add('show');
-      }
-    }
-    // 初回チェック
-    checkOverflow();
-    navElement.addEventListener('scroll', function() {
-      arrowImgElement.classList.remove('show');
-    });
-  });
+    observer.observe(imgElement);
 
-  // レビュー用のポップアップを表示する処理
-  var reviewsPopup = document.getElementById("user-reviews-popup");
-  var showPopupBtn = document.getElementById("show-all-reviews");
-  showPopupBtn.addEventListener('click', function() {
-    reviewsPopup.classList.remove("hide");
-    document.getElementById('gray-out').classList.remove('hide');
+    // スマホ版のページでsub-imgの下にdescribeが来るように調整
+    var subImgElements = document.querySelectorAll('.js-sub-img');
+    var mainImgElements = document.querySelectorAll('.js-main-img');
+    var mediaQuery = window.matchMedia('(max-width: 767px)');
+    var titleElements = document.querySelectorAll('.js-describe-area');
+    mainImgElements.forEach((imgElement, index) => {
+      var subImgHeight = subImgElements[index].offsetHeight;
+      var mainImgheight = imgElement.offsetHeight;
+      var adjustedHeight = subImgHeight - mainImgheight * 0.15;
+      if (mediaQuery.matches) {
+        titleElements[index].style.marginTop = `${adjustedHeight}px`;
+      }
+    });
+
+    // レビュー用のポップアップを表示する処理
+    var reviewsPopup = document.getElementById("user-reviews-popup");
+    var showPopupBtn = document.getElementById("show-all-reviews");
+    showPopupBtn.addEventListener('click', function() {
+      reviewsPopup.classList.remove("hide");
+      document.getElementById('gray-out').classList.remove('hide');
+    });
   });
 </script>
