@@ -5,33 +5,24 @@
     <%= image_tag "heritage/マチュピチュ/top_mb.png", class: "heritage-img-area__mb-img" %>
      <p class="heritage-img-area__name"><%= @heritage.name %></p>
   </div>
-  <p class="heritage-top-area__content"><%= @heritage.content %></p>
+  <div class="heritage-item-list">
+    <p class="heritage-item-list__content">
+      <%= @heritage.content %>
+    </p>
+    <div class="heritage-item-list-right">
+      <%= render 'heritages/like_form' %>
+      <span class="heritage-item-list-right__like">お気に入り</span>
+    </div>
+  </div>
   <p class="heritage-country-info">
-    <%= image_tag "location.png", size: "30x30", class: "heritage-country-info__location_icon" %>
+    <%= image_tag "location.png", size: "25x25", class: "heritage-country-info__location_icon" %>
     <span class="heritage-country-info__country-name">
       <%= @heritage.country.name %>
     </span>
   </p>
 </div>
 
-
-<div class="heritage-detail-info">
-  <div class="heritage-detail-info__heritage-name">
-    <%= @heritage.name %>
-  </div>
-  <div class="heritage-detail-info__country-name">
-    <%= image_tag "location.png", size: "20x20" %>
-    <%= @heritage.country.name %>
-  </div>
-  <div class="heritage-detail-info-inner">
-    <%= render 'shared/heritage_score', heritage: @heritage %>
-    <% if logged_in? %>
-      <div class="heritage-detail-btn-block">
-        <%= render 'heritages/like_form' %>
-        <%= render 'shared/review_create' %>
-      </div>
-    <% end %>
-  </div>
+<div class="heritage-main-block">
 </div>
 
 <div class="heritage-charm-block" id="charm-area">

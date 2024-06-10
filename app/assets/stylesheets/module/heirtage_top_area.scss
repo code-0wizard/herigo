@@ -1,9 +1,32 @@
 .heritage-top-area {
   margin: 140px auto 20px auto;
   width: 80vw;
+}
+.heritage-item-list {
+  display: flex;
+  padding: 30px 0 20px 11vw;
   &__content {
-    padding: 30px 20vw 20px 11vw;
-    font-size: 2rem;
+    width: 40vw;
+    font-size: 1.7rem;
+    line-height: 3rem;
+  }
+  &__icon {
+    & .heart-red-icon {
+      margin-right: 10px;
+    }
+  }
+}
+.heritage-item-list-right {
+  margin-left: auto;
+  & .heart-red-icon {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  &__like {
+    font-size: 1.7rem;
+    text-decoration: underline;
+    text-decoration-color: #000000;
+    text-underline-offset: 5px;
   }
 }
 .heritage-img-area {
@@ -41,7 +64,7 @@
   align-items: center;
   padding-left: 11vw;
   &__country-name {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 }
 @keyframes fadeIn {
@@ -67,10 +90,17 @@
   .heritage-top-area {
     margin: 110px auto 20px auto;
     width: 100vw;
+  }
+  .heritage-item-list {
+    padding: 30px 10px;
     &__content {
-      padding: 30px 20px;
-      font-size: 1.7rem;
-      line-height: 3rem;
+      width: 85%;
+    }
+  }
+  .heritage-item-list-right {
+    margin-left: 10px;
+    &__like {
+      display: none;
     }
   }
   .heritage-img-area {
@@ -86,8 +116,5 @@
   }
   .heritage-country-info {
     padding-left: 20px;
-    &__country-name {
-      font-size: 1.7rem;
-    }
   }
 }
