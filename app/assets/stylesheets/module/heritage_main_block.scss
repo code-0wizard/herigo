@@ -30,28 +30,27 @@
     width: 100%;
     height: auto;
     border-radius: 20px;
-    animation: fadeIn 1s ease-in-out;
     opacity: 0;
+    transition: opacity 1s ease-in-out;
   }
   &__sub-img {
     border-radius: 20px;
     position: absolute;
-    top: 85%;
+    top: 100%;
     left: calc(50% + 20vw);
     transform: translateX(-50%);
     width: 40%;
     height: auto;
-  }
-}
-.fade-in {
-  opacity: 1;
-}
-@keyframes fadeIn {
-  from {
     opacity: 0;
+    transition: all 1s ease-in-out;
   }
-  to {
+  & .fade-in {
     opacity: 1;
+  }
+  & .slide-in {
+    animation-delay: 1s;
+    opacity: 1;
+    top: 85%;
   }
 }
 

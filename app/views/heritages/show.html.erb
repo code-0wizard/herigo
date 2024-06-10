@@ -59,6 +59,22 @@
       <%= image_tag "heritage/マチュピチュ/4.png", class: "slide-show-area__img" %>
     </div>
   </div>
+
+  <div class="main-charm-block">
+    <div class="main-charm-area">
+      <%= image_tag "heritage/マチュピチュ/charm2.png", class: "main-charm-area__main-img js-main-img" %>
+      <%= image_tag "heritage/マチュピチュ/2.png", class: "main-charm-area__sub-img js-sub-img" %>
+    </div>
+    <div class="charm-describe-area js-describe-area">
+      <p class="charm-describe-area__sub-title">
+        <%= @heritage_second_charm.sub_title %>
+      </p>
+      <p class="charm-describe-area__detail">
+        <%= @heritage_second_charm.detail %>
+      </p>
+    </div>
+    <p class="charm-describe-area__show-msg-btn hide js-show-full-msg">すべて表示</p>
+  </div>
 </div>
 
   <div id="first-charm-area" class="charm-detail-block">
@@ -150,19 +166,39 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var imgElement = document.querySelector('.js-main-img');
-    var observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    var mainImgElements = document.querySelectorAll('.js-main-img');
+    var subImgElements = document.querySelectorAll('.js-sub-img');
+    var observerCallback = function(entries, observer) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target);
         }
       });
+    };
+    var observerCallbackSub = function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('slide-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+    var observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1 
+    };
+    var observer = new IntersectionObserver(observerCallback, observerOptions);
+    var observerSub = new IntersectionObserver(observerCallbackSub, observerOptions);
+    mainImgElements.forEach(function(img) {
+      observer.observe(img);
     });
-    observer.observe(imgElement);
+    subImgElements.forEach(function(img) {
+      observerSub.observe(img);
+    });
 
     // スマホ版のページでsub-imgの下にdescribeが来るように調整
-    var subImgElements = document.querySelectorAll('.js-sub-img');
-    var mainImgElements = document.querySelectorAll('.js-main-img');
     var mediaQuery = window.matchMedia('(max-width: 767px)');
     var titleElements = document.querySelectorAll('.js-describe-area');
     mainImgElements.forEach((imgElement, index) => {
