@@ -1,6 +1,7 @@
 <div class="reviews-popup hide" id="user-reviews-popup">
   <div class="reviews-popup-header">
     <%= image_tag "close.png", size: "30x30", class: "reviews-popup-header__close-icon", id: "close-btn" %>
+    <div class="reviews-popup-header__title">レビュー一覧</div>
   </div>
   <div class="popup-review-list">
     <% @reviews.each do |review| %>

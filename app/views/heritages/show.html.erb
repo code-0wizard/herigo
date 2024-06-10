@@ -77,6 +77,21 @@
   </div>
 </div>
 
+<div class="heritage-review-block" id="review-area">
+  <div class="heritage-score-inner">
+    <%= render 'shared/heritage_score', heritage: @heritage %>
+  </div>
+  <div class="heritage-review-list">
+    <%= render 'shared/review_list' %>
+  </div>
+  <% if @reviews.count >= 7 %>
+    <div id="show-all-reviews" class="heritage-review-block__show-all-reviews">
+      <%= @reviews.count %> 件のレビューをすべて表示
+    </div>
+    <%= render 'popup/reviews_popup' %>
+  <% end %>
+</div>
+
   <div id="first-charm-area" class="charm-detail-block">
     <div class="charm-img-wrapper">
       <%= image_tag(@heritage_first_charm.image) %>
@@ -138,25 +153,6 @@
   </div>
   <hr>
 </div>
- 
-<div class="heritage-review-block" id="review-area">
-  <div class="heritage-score-inner">
-    <%= image_tag("star.png", size: "50x50") %>
-    <span class="heritage-score-inner__score">
-      <%= calc_average_review_score(@heritage.id) %>
-    </span>
-  </div>
-  <div class="heritage-review-list">
-    <%= render 'shared/review_list' %>
-  </div>
-  <% if @reviews.count >= 7 %>
-    <div id="show-all-reviews" class="heritage-review-block__show-all-reviews">
-      <%= @reviews.count %> 件のレビューをすべて表示
-    </div>
-    <%= render 'popup/reviews_popup' %>
-  <% end %>
-</div>
-
 
 <div class="heritage-tour-block" id="tour-area">
 </div>

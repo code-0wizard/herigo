@@ -17,8 +17,15 @@
 }
 .reviews-popup-header {
   margin-bottom: 30px;
+  display: flex;
+  align-items: center;
   &__close-icon {
     cursor: pointer;
+  }
+  &__title {
+    margin: 0 auto;
+    font-size: 2.5rem;
+    text-decoration: underline;
   }
 }
 
