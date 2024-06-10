@@ -1,0 +1,15 @@
+<div class="top-area-list">
+  <span class="top-area-list__title">エリアから探す</span>
+  <div class="continent-card-wrapper">
+    <% Continent.all.each do |continent| %>
+      <%= link_to continent_path(continent) do %>
+        <div class="continent-card">
+            <%= image_tag continent.image, class: "continent-card__img" %>
+            <span class="continent-card__name">
+              <%= continent.name %>
+            </span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
