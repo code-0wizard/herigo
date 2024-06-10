@@ -1,0 +1,17 @@
+  <div class="heritage-map" id="map"></div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY'] %>&callback=initMap&libraries=marker&v=beta" defer></script>
+<script>
+  function initMap() {
+    const myLatLng = { lat: <%= @heritage.lat %>, lng: <%= @heritage.lng %> };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: myLatLng,
+      zoom: 5.5
+    });
+    new google.maps.Marker({
+      position: myLatLng,
+      map
+    });
+  }
+  window.initMap = initMap;
+</script>
