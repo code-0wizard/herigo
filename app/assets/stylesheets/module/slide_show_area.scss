@@ -1,0 +1,25 @@
+.slide-show-area {
+  width: 100vw;
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  gap: 30px;
+}
+.slide-wrapper {
+  display: flex;
+  animation: slide-flow 30s infinite linear 1s both;
+  gap: 30px;
+}
+.slide-show-area__img {
+  width: 30vw;
+  min-width: 300px;
+  object-fit:cover;
+  aspect-ratio: 7 / 5;
+  border-radius: 20px;
+}
+
+@keyframes slide-flow {
+  0% {transform: translateX(0);}
+100% {transform: translateX(-100%);}
+}
