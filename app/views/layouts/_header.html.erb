@@ -15,9 +15,9 @@
         <div class="hover-menu-list">
           <%= link_to "世界遺産", heritages_url, class: "hover-menu-list__heritage-index-link" %>
           <%= link_to "ユーザー一覧", users_url, class: "hover-menu-list__user-index-link" %>
-          <hr class="hover-menu-list__hr">
           <%= link_to "プロフィール編集", edit_user_path(current_user), class: "hover-menu-list__profile-edit" %>
           <%= link_to "お気に入り", heritage_like_path(current_user), class: "hover-menu-list__bookmark-link" %>
+          <hr class="hover-menu-list__hr">
           <%= link_to "ログアウト", logout_path, data: { "turbo-method": :delete }, class: "hover-menu-list__logout-link" %>
         </div>
       </div>
