@@ -1,7 +1,7 @@
 .heritage-review-block {
   padding: 50px 0;
   width: 70vw;
-  margin: 0 auto;
+  margin: 15vh auto;
   &__show-all-reviews {
     display: inline-block;
     margin: 50px;
@@ -15,17 +15,27 @@
 .heritage-score-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  &__score {
-    padding-left: 20px;
-    font-size: 4rem;
+  margin: 0 0 50px 50px;
+  & .heritage-score-info {
+    &__score-img {
+      width: 200px;
+      height: 40px;
+    }
+    &__score-value {
+      font-size: 3rem;
+      padding-left: 10px;
+    }
+  }
+  & .review-create-btn {
+    display: inline-block;
+    margin-left: auto;
   }
 }
 
 @media (max-width: 767px) {
   .heritage-review-block {
     width: 80vw;
+    margin: 7vh auto;
     &__show-all-reviews {
       display: block;
       padding: 10px 20px;
@@ -33,6 +43,20 @@
       font-size: 2rem;
       margin: 20px auto;
       text-align: center;
+    }
+  }
+  .heritage-score-inner {
+    width: 100vw;
+    margin: 0 0 20px 0;
+    & .heritage-score-info {
+
+      &__score-img {
+        width: 120px;
+        height: 24px;
+      }
+      &__score-value {
+        font-size: 2rem;
+      }
     }
   }
 }
