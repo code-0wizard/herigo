@@ -1,5 +1,5 @@
 <div class="profile-bookmark-list">
-  <% current_user.liking_heritages.each do |heritage| %>
+  <% current_user.heritages.each do |heritage| %>
     <!--PC版-->
     <%= link_to heritage_path(heritage), class: "profile-heritage-card" do %>
       <%= image_tag "heritage/nature.png", class: "profile-heritage-card__image" %>
@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
   <!--スマホ版-->
-  <% current_user.liking_heritages.each do |heritage| %>
+  <% current_user.heritages.each do |heritage| %>
     <%= link_to heritage_path(heritage), class: "profile-heritage-mobile-card" do %>
       <div class="profile-heritage-mobile-card__image">
         <%= image_tag "heritage/nature.png" %>
