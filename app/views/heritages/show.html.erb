@@ -129,6 +129,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 画像が表示された時にアニメーションを実行する
     var mainImgElements = document.querySelectorAll('.js-main-img');
     var subImgElements = document.querySelectorAll('.js-sub-img');
     var subCharmBlocks = document.querySelectorAll('.js-charm-wrapper');
@@ -166,7 +167,7 @@
       observer.observe(block);
     });
 
-    // スマホ版のページでsub-imgの下にdescribeが来るように調整
+    // レスポンシブデザインの調整
     var mediaQuery = window.matchMedia('(max-width: 767px)');
     var titleElements = document.querySelectorAll('.js-describe-area');
     mainImgElements.forEach((imgElement, index) => {
@@ -178,7 +179,7 @@
       }
     });
 
-    // レビュー用のポップアップを表示する処理
+    // レビューポップアップを表示するll
     var reviewsPopup = document.getElementById("user-reviews-popup");
     var showPopupBtn = document.getElementById("show-all-reviews");
     showPopupBtn.addEventListener('click', function() {

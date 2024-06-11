@@ -12,6 +12,7 @@ gem "bootstrap-sass",  "3.4.1"
 gem "sassc-rails",     "2.1.2"
 gem 'jquery-rails'
 gem 'image_processing', '~> 1.2'
+gem 'aws-sdk-s3'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
