@@ -1,28 +1,71 @@
 <% provide(:title, 'プロフィール編集') %>
 <div class="profile-edit-form">
-  <div class="profile-edit-form__form-title">プロフィール編集</div>
-  <%= form_with(model: @user) do |f| %>
+  <%= form_with(model: @user, local: true) do |f| %>
     <%= render 'shared/error_messages', object: @user %>
     <%= f.file_field :profile_image, id: "hidden-file-input", class: "hide" %>
-    <div class="user-icon-area" >
-      <%= image_tag current_user.profile_image, size: '100x100', class: "user-icon-area__user-icon" %>
-      <%= image_tag "camera.png", size: '30x30', class: "user-icon-area__camera-icon", id: "icon-edit-btn" %>
+    <div class="profile-top-area">
+      <p class="profile-top-area__form-title">プロフィール編集</p>
+      <div class="user-icon-area" id="icon-preview-area">
+        <%= image_tag current_user.profile_image, class: "user-icon-area__user-icon" %>
+        <button class="user-icon-area__edit-btn" id="icon-edit-btn" type="button">
+          <%= image_tag "camera.svg", size: '20x20' %>
+          <span>編集</span>
+        </button>
+      </div>
     </div>
-    <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'profile-edit-form__user-name' %>
-    <%= f.email_field :email, placeholder: "メールアドレス", class: 'profile-edit-form__email' %>
-    <%= f.text_area :content, placeholder: "自己紹介", class: 'profile-edit-form__content' %>
+    <hr class="profile-edit-form__hr">
+    <div class="user-column-area">
+      <%= f.label :name, "ユーザー名", class: "user-column-area__label" %>
+      <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'user-column-area__input' %>
+    </div>
+    <hr class="profile-edit-form__hr">
+    <div class="user-column-area">
+      <%= f.label :email, "メールアドレス", class: "user-column-area__label" %>
+      <span class="email-inner">
+        <p class="email-inner__value"><%= @user.email %></p>
+        <%= link_to "変更する", root_url, class: "email-inner__link" %>
+      </span>
+    </div>
+    <hr class="profile-edit-form__hr">
+    <div class="user-column-area">
+      <%= f.label :password, "パスワード", class: "user-column-area__label" %>
+      <span class="email-inner">
+        <p class="email-inner__value">* * * * * * * * *</p>
+        <%= link_to "変更する", root_url, class: "email-inner__link" %>
+      </span>
+    </div>
+    <hr class="profile-edit-form__hr">
     <%= f.submit "更新", class: "profile-edit-form__submit" %>
   <% end %>
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var body = document.body;
     document.body.style.backgroundColor = '#efefef';
+    // アイコン編集ボタン押下時にhiddenのFile用inputタグを擬似的にクリックする
     var hiddenFileInput = document.getElementById("hidden-file-input");
     var iconEditBtn = document.getElementById("icon-edit-btn");
     iconEditBtn.addEventListener('click', function() {
       hiddenFileInput.click();
+    });
+    var imgPreview = document.getElementById("icon-preview-area");
+    hiddenFileInput.addEventListener('change', function() {
+      imgPreview.innerHTML = '';
+      var files = hiddenFileInput.files;
+      Array.from(files).forEach(file => {
+        if (file && file.type.startsWith('image/')) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var newIcon = document.createElement('img');
+            newIcon.src = e.target.result;
+            newIcon.className = "user-icon-area__user-icon";
+            newIcon.id = "user-icon";
+            imgPreview.appendChild(newIcon);
+            imgPreview.appendChild(iconEditBtn);
+          }
+          reader.readAsDataURL(file);
+        }
+      });
     });
   });
 </script>
