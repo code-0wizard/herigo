@@ -1,16 +1,21 @@
-<div class="top-heritages-list">
-  <% @bookmark_heritages.each do |bookmark_heritage| %>
-    <div class="heritage-card">
-      <%= link_to image_tag("heritage/マチュピチュ/1.png", class: "heritage-card__img"), heritage_path(bookmark_heritage) %>
-      <div class="heritage-card__heritage-name">
-        <%= bookmark_heritage.name %>
-      </div>
-      <div class="heritage-card-inner-wrap">
-        <%= image_tag "location.png", size: "20x20", class: "heritage-card-inner-wrap__location-icon" %>
-        <span class="heritage-card-inner-wrap__country-name">
-          <%= bookmark_heritage.country.name %>
-        </span>
-      </div>
-    </div>
-  <% end %>
+<div class="bookmark-heritage-wrapper">
+  <p class="bookmark-heritage-wrapper__page-title">お気に入り</p>
+  <div class="bookmark-heritage-list">
+    <% @bookmark_heritages.each do |heritage| %>
+      <%= link_to heritage_path(heritage), class: "bookmark-heritage-link" do %>
+        <%= image_tag("heritage/マチュピチュ/1.png", class: "bookmark-heritage-link__img") %>
+        <p class="bookmark-heritage-link__name"><%= heritage.name %></p>
+        <div class="bookmark-heritage-country">
+          <%= image_tag "location.png", size: "20x20", class: "bookmark-heritage-country__icon" %>
+          <span class="bookmark-heritage-country__name"><%= heritage.country.name %></span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("pc-header-js").style.width = "70vw";    
+  });
+</script>

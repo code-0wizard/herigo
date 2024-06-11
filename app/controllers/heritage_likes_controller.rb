@@ -4,7 +4,7 @@ class HeritageLikesController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    @bookmark_heritages = user.heritage_likes
+    @bookmark_heritages = user.heritages
   end
 
   def create
