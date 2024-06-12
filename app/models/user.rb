@@ -28,7 +28,7 @@ class User < ApplicationRecord
   validates :password,              presence: { message: 'パスワード欄は必須です' },
                                     format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },                                  
                                     length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' },
-                                    on: :create
+                                    allow_nil: true
   validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' },
                                     allow_nil: true
   validates :profile_image,         content_type: { in: %w[image/jpeg image/gif image/png], message: "有効なフォーマットではありません" },
@@ -79,8 +79,8 @@ class User < ApplicationRecord
 
   # パスワード再設定の属性を設定する
   def create_reset_digest
-    self.reset_token = user.new_token
-    update_attribute(:reset_digest,  user.digest(reset_token))
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
   end
   
