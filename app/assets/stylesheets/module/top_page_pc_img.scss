@@ -1,0 +1,30 @@
+.top-page-pc-img {
+  width: 100vw;
+  height: auto;
+  margin-top: 120px;
+  animation: fadeIn 2s ease-in-out;
+}
+.top-page-mb-img {
+  display: none;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .top-page-pc-img {
+    display: none;
+  }
+  .top-page-mb-img {
+    display: block;
+    width: 100vw;
+    height: auto;
+    margin-top: 110px;
+    animation: fadeIn 2s ease-in-out;
+  }
+}
