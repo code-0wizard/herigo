@@ -1,11 +1,12 @@
 <% provide(:title, "パスワード再設定") %>
-<div class="password-reset-wrapper">
-  <div class="password-reset-form">
-    <p class="password-reset-form__title">パスワード再設定</p>
-    <p class="password-reset-form__describe">登録済みのメールアドレスを入力してください</p>
+<div class="reset-wrapper">
+  <div class="reset-form">
+    <p class="reset-form__title">パスワード再設定</p>
+    <p class="reset-form__describe">登録済みのメールアドレスを入力してください</p>
     <%= form_with(url: password_resets_path, scope: :password_reset) do |f| %>
-      <%= f.email_field :email, placeholder: "メールアドレス", class: 'password-reset-form__input' %>
-      <%= f.submit "変更する", class: "password-reset-form__submit" %>
+      <%= f.email_field :email, placeholder: "メールアドレス", class: 'reset-form__input' %>
+      <%= f.submit "変更する", class: "reset-form__submit" %>
     <% end %>
+    <%= render 'shared/flash_message' %>
   </div>
 </div>

@@ -1,10 +1,10 @@
-.password-reset-wrapper {
+.reset-wrapper {
   background-color: #ececec;
   width: 100vw;
   height: auto;
   min-height: 100vh;
 }
-.password-reset-form {
+.reset-form {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -50,7 +50,7 @@
 }
 
 @media (max-width: 767px) {
-  .password-reset-form {
+  .reset-form {
     position: static;
     top: auto;
     left: auto;    
@@ -63,7 +63,7 @@
     &__title {
       padding-bottom: 0;
     }
-    &__password-confirmation,
+    &__confirmation,
     &__password,
     &__submit {
       margin: 50px auto 0 auto;
@@ -72,7 +72,7 @@
       margin: 0 auto;
     }
   }
-  .password-reset-wrapper {
+  .reset-wrapper {
     background-color: #fff;
   }
 }
