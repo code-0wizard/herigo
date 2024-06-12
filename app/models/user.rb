@@ -28,7 +28,7 @@ class User < ApplicationRecord
   validates :password,              presence: { message: 'パスワード欄は必須です' },
                                     format: { with: VALID_PASSWORD_REGEX, message: 'パスワード欄には、半角英数字のみ(各1文字以上) で入力してください' },                                  
                                     length: { in: 8..20, message: 'パスワード欄は8～20桁で入力してください' },
-                                    allow_nil: true
+                                    on: :create
   validates :password_confirmation, comparison: { equal_to: :password, message: 'パスワード再入力欄がパスワード欄と一致しません' },
                                     allow_nil: true
   validates :profile_image,         content_type: { in: %w[image/jpeg image/gif image/png], message: "有効なフォーマットではありません" },

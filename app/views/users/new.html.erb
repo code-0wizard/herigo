@@ -1,19 +1,21 @@
 <% provide(:title, 'Sign up') %>
-<%= render 'shared/error_messages', object: @user %>
-<div class="signup-form">
-  <div class="signup-form__form-title">会員登録</div>
-  <%= form_with(model: @user) do |f| %>
-    <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'signup-form__user-name' %>
-    <%= f.email_field :email, placeholder: "メールアドレス", class: 'signup-form__email' %>
-    <%= f.password_field :password, placeholder: "パスワード:8~20桁の半角英数字(各1文字以上)", class: 'signup-form__password' %>
-    <%= f.password_field :password_confirmation, placeholder: "パスワード確認欄", class: 'signup-form__password-confirmation' %>
-    <%= f.submit "会員登録", class: "signup-form__submit" %>
-  <% end %>
-</div>
+<div class="signup-form-wrapper">
+  <div class="signup-form">
+    <p class="signup-form__form-title">会員登録</p>
+    <%= form_with(model: @user) do |f| %>
+      <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'signup-form__user-name' %>
+      <%= error_message_for(@user, :name) %>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var body = document.body;
-  document.body.style.backgroundColor = '#efefef';
-});
-</script>
+      <%= f.email_field :email, placeholder: "メールアドレス", class: 'signup-form__email' %>
+      <%= error_message_for(@user, :email) %>
+
+      <%= f.password_field :password, placeholder: "パスワード:8~20桁の半角英数字(各1文字以上)", class: 'signup-form__password' %>
+      <%= error_message_for(@user, :password) %>
+
+      <%= f.password_field :password_confirmation, placeholder: "パスワード確認欄", class: 'signup-form__password-confirmation' %>
+      <%= error_message_for(@user, :password_confirmation) %>
+
+      <%= f.submit "会員登録", class: "signup-form__submit" %>
+    <% end %>
+  </div>
+</div>

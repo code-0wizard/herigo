@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_create_params)
     default_icon_path = Rails.root.join("app/assets/images/default_icon.png")
     @user.profile_image.attach(io: File.open(default_icon_path), filename: 'default_icon.png', content_type: 'image/png')
     if @user.save
@@ -36,9 +36,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(user_update_params)
       flash[:success] = "プロフィールが更新されました"
-      redirect_to @user
+      redirect_to root_url
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -65,8 +65,12 @@ class UsersController < ApplicationController
   end
 
   private
-    def user_params
+    def user_create_params
       params.require(:user).permit(:name, :email, :profile_image, :content, :password, :password_confirmation)
+    end
+
+    def user_update_params
+      params.require(:user).permit(:name, :profile_image)
     end
 
     def correct_user
