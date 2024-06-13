@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :heritage_second_charms, only: [:new, :create, :edit, :update]
   resources :heritage_third_charms,  only: [:new, :create, :edit, :update]
   resources :heritage_fourth_charms, only: [:new, :create, :edit, :update]
+  resources :heritage_charms,        only: [:new, :create, :edit, :update, :index]
   resources :email_resets,           only: [:new, :create, :update]
   resources :reviews,                only: [:create, :destroy, :show]
   resources :relationships,          only: [:create, :destroy]

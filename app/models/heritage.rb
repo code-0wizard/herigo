@@ -4,6 +4,7 @@ class Heritage < ApplicationRecord
   has_one :heritage_second_charm, dependent: :destroy
   has_one :heritage_third_charm, dependent: :destroy
   has_one :heritage_fourth_charm, dependent: :destroy
+  has_many :heritage_charms, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :heritage_likes, dependent: :destroy
   has_many :likers, through: :heritage_likes, source: :user
