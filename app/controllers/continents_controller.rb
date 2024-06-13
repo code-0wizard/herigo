@@ -20,7 +20,6 @@ class ContinentsController < ApplicationController
     @continent = Continent.find(params[:id])
     @continent.image.attach(params[:continent][:image])
     if @continent.update(continent_params)
-      flash[:success] = "写真の登録が完了しました。"
       redirect_to root_url
     else
       render 'edit', status: :unprocessable_entity

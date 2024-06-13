@@ -13,9 +13,6 @@
   <body>
     <%= render 'layouts/header' %>
     <div id="gray-out" class="background-gray-out hide"></div>
-    <% flash.each do |message_type, message| %>
-      <div class="flash-msg alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
     <%= yield %>
   </body>
 </html>

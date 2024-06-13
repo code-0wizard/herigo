@@ -26,7 +26,6 @@ class HeritagesController < ApplicationController
     country = Country.find_by(name: heritage_params[:country])
     @heritage = country.heritages.build(heritage_params.except(:country).merge(country_id: country.id))
     if @heritage.save
-      flash[:info] = "世界遺産登録完了しました"
       redirect_to root_url
     else
       render 'new', status: :unprocessable_entity

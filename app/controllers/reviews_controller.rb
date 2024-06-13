@@ -8,7 +8,6 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     #@review.review_images.attach(params[:review][:review_images]) これがあると同じ画像を2枚保存しちゃう
     if @review.save
-      flash[:success] = "口コミが投稿されました"
       redirect_to root_url
     else
       @reviews = @heritage.reviews
@@ -26,8 +25,7 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    flash[:success] = "投稿を削除しました。"
-    redirect_to review.user, status: :see_other
+    redirect_to root_url, status: :see_other
   end
 
   private

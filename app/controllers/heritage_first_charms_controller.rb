@@ -8,7 +8,6 @@ class HeritageFirstCharmsController < ApplicationController
     @heritage_first_charm = heritage.build_heritage_first_charm(heritage_first_charm_params)
     @heritage_first_charm.image.attach(params[:heritage_first_charm][:image])
     if @heritage_first_charm.save
-      flash[:success] = "1つ目の魅力が登録完了しました。"
       redirect_to root_url
     else
       render 'new', status: :unprocessable_entity

@@ -15,8 +15,7 @@ class RepliesController < ApplicationController
 
   def destroy
     Reply.find(params[:id]).destroy
-    flash[:success] = "コメントを削除しました"
-    redirect_to users_url, status: :see_other
+    redirect_to root_url, status: :see_other
   end
 
   private
