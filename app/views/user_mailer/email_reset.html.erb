@@ -1,0 +1,11 @@
+<p><%= @user.name %>様</p>
+
+<p>
+下記のボタンをクリックし、メールアドレスの変更手続きを完了させてください。
+</p>
+
+<%= form_with(url: email_reset_url(@user.email_reset_token), scope: :email_reset) do |f| %>
+  <%= hidden_field_tag :old_email, @user.email %>
+  <%= f.hidden_field :email, value: @user.new_email %>
+  <%= f.submit "こちら" %>
+<% end %>
