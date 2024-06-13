@@ -1,0 +1,10 @@
+<div class="notice-modal-wrapper">
+  <div class="notice-modal">
+    <p class="notice-modal__main-msg">パスワード再設定URLの有効期限が切れています</p>
+    <p class="notice-modal__sub-msg">
+      お手数ですが、
+      <%= link_to"こちら", new_password_reset_path, class: "notice-modal__url" %>
+      よりメールアドレスを入力し、再度パスワード再設定のお手続きをお願いします
+    </p>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="notice-modal-wrapper">
+  <div class="notice-modal">
+    <%= image_tag("check.svg", class: "notice-modal__icon") %>
+    <p class="notice-modal__main-msg">変更確認メールを送信しました</p>
+    <p class="notice-modal__sub-msg">メールに記載されたURLをクリックし、メールアドレスの変更手続きを完了させてください。</p>
+    <p class="notice-modal__caution">※まだ変更手続きは完了しておりません。24時間以内に完了しない場合、URLは無効になりますのでご注意ください。</p>
+    <%= link_to"OK", root_url, class: "notice-modal__ok-btn" %>
+  </div>
+</div>

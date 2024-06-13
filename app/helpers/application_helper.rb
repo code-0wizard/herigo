@@ -31,4 +31,10 @@ module ApplicationHelper
     Reply.where(review_id: review_id).count
   end
 
+  def error_message_for(object, field)
+    if object.errors[field].any?
+      content_tag(:p, object.errors[field].first, class: 'validation-error-message')
+    end
+  end
+
 end

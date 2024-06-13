@@ -13,7 +13,7 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :email_reset_token, :new_email
   before_create :create_activation_digest
   has_one_attached :profile_image
   has_secure_password validations: false
@@ -77,14 +77,12 @@ class User < ApplicationRecord
     update_attribute(:activated_at, Time.zone.now)
   end
 
-  # パスワード再設定の属性を設定する
   def create_reset_digest
-    self.reset_token = user.new_token
-    update_attribute(:reset_digest,  user.digest(reset_token))
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
   end
   
-  # パスワード再設定のメールを送信する
   def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
   end
@@ -93,9 +91,19 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def feed
-    Review.where("user_id IN (:following_ids) OR user_id = :user_id",
-     following_ids: , user_id: id)
+  def create_email_reset_digest(new_email)
+    self.email_reset_token = User.new_token
+    self.new_email = new_email
+    update_attribute(:email_reset_digest,  User.digest(email_reset_token))
+    update_attribute(:email_reset_sent_at, Time.zone.now)
+  end
+  
+  def send_email_reset_email
+    UserMailer.email_reset(self).deliver_now
+  end
+
+  def email_reset_expired?
+    email_reset_sent_at < 24.hours.ago
   end
 
   def follow(other_user)

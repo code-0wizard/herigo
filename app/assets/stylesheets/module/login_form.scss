@@ -5,16 +5,16 @@
   transform: translate(-50%, -50%);
   width: 40%;
   margin: 0 auto;
-  padding: 20px 5%;
+  padding: 60px 5%;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
   &__form-title {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 3rem;
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
   }
   &__email,
   &__password,
@@ -43,6 +43,12 @@
     }
   }
 }
+.login-form-wrapper {
+  background-color: #ececec;
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+}
 
 @media (max-width: 767px) {
   .login-form {
@@ -53,7 +59,8 @@
     border: none;
     padding: 30px 20px;
     transform: none;
-    margin-top: 180px;
+    box-shadow: none;
+    margin-top: 100px;
     &__form-title {
       padding-bottom: 0;
     }
@@ -62,5 +69,8 @@
     &__submit {
       margin: 30px auto;
     }
-  }  
+  }
+  .login-form-wrapper {
+    background-color: #fff;
+  }
 }

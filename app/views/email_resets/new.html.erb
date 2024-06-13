@@ -1,0 +1,12 @@
+<% provide(:title, "メールアドレス再設定") %>
+<div class="reset-wrapper">
+  <div class="reset-form">
+    <p class="reset-form__title">メールアドレス変更</p>
+    <p class="reset-form__describe">新しく登録したいメールアドレスを入力してください</p>
+    <%= form_with(url: email_resets_path, scope: :email_reset) do |f| %>
+      <%= f.email_field :email, placeholder: "メールアドレス", class: 'reset-form__input' %>
+      <%= render 'shared/flash_message' %>
+      <%= f.submit "変更する", class: "reset-form__submit" %>
+    <% end %>
+  </div>
+</div>

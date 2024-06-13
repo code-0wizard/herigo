@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         redirect_to forwarding_url || root_url
       else
         message  = "アカウントが有効化されていません。"
-        message += "有効化のリンクを含んだメールをチェックしてください"
+        message += "会員登録時に届いたメールをチェックしてください"
         flash[:warning] = message
         redirect_to root_url
       end

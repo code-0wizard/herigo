@@ -1,5 +1,7 @@
 <% provide(:title, '世界遺産') %>
 <%= render 'shared/continent_header' %>
+<%= image_tag "heritage/top/pc_top.png", class: "top-page-pc-img" %>
+<%= image_tag "heritage/top/mb_top.png", class: "top-page-mb-img" %>
 <div class="top-heritages-list">
   <% @heritages.each do |heritage| %>
     <div class="heritage-card">

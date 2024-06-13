@@ -23,8 +23,7 @@ class UsersController < ApplicationController
     @user.profile_image.attach(io: File.open(default_icon_path), filename: 'default_icon.png', content_type: 'image/png')
     if @user.save
       @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
-      redirect_to root_url
+      render 'mail_sent', status: :ok
     else
       render 'new', status: :unprocessable_entity
     end
@@ -37,8 +36,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "プロフィールが更新されました"
-      redirect_to @user
+      render 'edit_complete', status: :ok
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -46,8 +44,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "ユーザーを削除しました"
-    redirect_to users_url, status: :see_other
+    redirect_to root_url, status: :see_other
   end
 
   def following
