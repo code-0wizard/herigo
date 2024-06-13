@@ -1,7 +1,27 @@
 <% provide(:title, '世界遺産') %>
 <%= render 'shared/continent_header' %>
-<%= image_tag "heritage/top/pc_top.png", class: "top-page-pc-img" %>
-<%= image_tag "heritage/top/mb_top.png", class: "top-page-mb-img" %>
+<div class="top-slideshow-pc">
+  <%= image_tag "top/pc/1.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/2.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/3.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/4.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/5.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/6.png", class: "top-slideshow-pc__img" %>
+  <%= image_tag "top/pc/7.png", class: "top-slideshow-pc__img" %>
+  <span class="top-slideshow-pc__first-phrase">世界遺産を探す旅へ、</span>
+  <span class="top-slideshow-pc__second-phrase">出かけよう</span>
+</div>
+<div class="top-slideshow-mobile">
+  <%= image_tag "top/mobile/1.png", class: "top-slideshow-mobile__img" %>
+  <%= image_tag "top/mobile/2.png", class: "top-slideshow-mobile__img" %>
+  <%= image_tag "top/mobile/3.png", class: "top-slideshow-mobile__img" %>
+  <%= image_tag "top/mobile/4.png", class: "top-slideshow-mobile__img" %>
+  <%= image_tag "top/mobile/5.png", class: "top-slideshow-mobile__img" %>
+  <span class="top-slideshow-mobile__first-phrase">世界遺産を探す旅へ、</span>
+  <span class="top-slideshow-mobile__second-phrase">出かけよう</span>
+</div>
+<!--<%= image_tag "heritage/top/pc_top.png", class: "top-page-pc-img" %>-->
+<!--<%= image_tag "heritage/top/mb_top.png", class: "top-page-mb-img" %>-->
 <div class="top-heritages-list">
   <% @heritages.each do |heritage| %>
     <div class="heritage-card">
