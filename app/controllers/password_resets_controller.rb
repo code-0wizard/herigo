@@ -55,7 +55,7 @@ class PasswordResetsController < ApplicationController
 
   def check_expiration
     if @user.password_reset_expired?
-      render 'expired', status: :ok
+      render 'expired', status: :unprocessable_entity
     end
   end
 end

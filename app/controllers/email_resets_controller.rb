@@ -26,7 +26,7 @@ class EmailResetsController < ApplicationController
     redirect_to root_url unless (@user && @user.activated? && @user.authenticated?(:email_reset, params[:id])) #TODO
     if @user.email_reset_expired?
       render 'expired', status: :unprocessable_entity
-    elsif @user.update(user_params)
+    elsif @user.update(email_reset_params)
       reset_session
       log_in @user
       render 'reset_complete', status: :ok
@@ -37,7 +37,7 @@ class EmailResetsController < ApplicationController
 
   private
 
-  def user_params
+  def email_reset_params
     params.require(:email_reset).permit(:email)
   end
 
