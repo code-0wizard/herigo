@@ -21,7 +21,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name,                  presence: { message: 'ユーザー名欄は必須です' }, 
-                                    length: { maximum: 20, message: 'ユーザー名欄は20文字以下で入力してください' }
+                                    length: { maximum: 10, message: 'ユーザー名欄は10文字以下で入力してください' }
   validates :email,                 presence: { message: 'メールアドレス欄は必須です' }, 
                                     format: { with: VALID_EMAIL_REGEX, message: 'メールアドレス欄は正しいメールアドレスを入力してください' },
                                     uniqueness: { message: 'このメールアドレスは登録済みです' }

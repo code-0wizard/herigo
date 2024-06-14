@@ -1,7 +1,6 @@
 <% provide(:title, 'プロフィール編集') %>
 <div class="profile-edit-form">
   <%= form_with(model: @user, local: true) do |f| %>
-    <%= render 'shared/error_messages', object: @user %>
     <%= f.file_field :profile_image, id: "hidden-file-input", class: "hide" %>
     <div class="profile-top-area">
       <p class="profile-top-area__form-title">プロフィール編集</p>
@@ -16,7 +15,10 @@
     <hr class="profile-edit-form__hr">
     <div class="user-column-area">
       <%= f.label :name, "ユーザー名", class: "user-column-area__label" %>
-      <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'user-column-area__input' %>
+      <div>
+        <%= f.text_field :name, placeholder: "ユーザー名（10文字以内）", class: 'user-column-area__input' %>
+        <%= error_message_for(@user, :name) %>
+      </div>
     </div>
     <hr class="profile-edit-form__hr">
     <div class="user-column-area">
