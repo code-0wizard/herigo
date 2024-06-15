@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_163337) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,26 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_163337) do
     t.index ["heritage_id"], name: "index_heritage_charms_on_heritage_id"
   end
 
-  create_table "heritage_first_charms", force: :cascade do |t|
-    t.string "main_title"
-    t.string "sub_title"
-    t.text "detail"
-    t.integer "heritage_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["heritage_id"], name: "index_heritage_first_charms_on_heritage_id", unique: true
-  end
-
-  create_table "heritage_fourth_charms", force: :cascade do |t|
-    t.string "main_title"
-    t.string "sub_title"
-    t.text "detail"
-    t.integer "heritage_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["heritage_id"], name: "index_heritage_fourth_charms_on_heritage_id", unique: true
-  end
-
   create_table "heritage_likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "heritage_id"
@@ -95,16 +75,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_163337) do
     t.index ["user_id"], name: "index_heritage_likes_on_user_id"
   end
 
-  create_table "heritage_second_charms", force: :cascade do |t|
-    t.string "main_title"
-    t.string "sub_title"
-    t.text "detail"
-    t.integer "heritage_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["heritage_id"], name: "index_heritage_second_charms_on_heritage_id", unique: true
-  end
-
   create_table "heritage_tags", force: :cascade do |t|
     t.integer "heritage_id", null: false
     t.integer "tag_id", null: false
@@ -112,16 +82,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_163337) do
     t.datetime "updated_at", null: false
     t.index ["heritage_id"], name: "index_heritage_tags_on_heritage_id"
     t.index ["tag_id"], name: "index_heritage_tags_on_tag_id"
-  end
-
-  create_table "heritage_third_charms", force: :cascade do |t|
-    t.string "main_title"
-    t.string "sub_title"
-    t.text "detail"
-    t.integer "heritage_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["heritage_id"], name: "index_heritage_third_charms_on_heritage_id", unique: true
   end
 
   create_table "heritages", force: :cascade do |t|
@@ -208,12 +168,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_163337) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "countries", "continents"
   add_foreign_key "heritage_charms", "heritages"
-  add_foreign_key "heritage_first_charms", "heritages"
-  add_foreign_key "heritage_fourth_charms", "heritages"
-  add_foreign_key "heritage_second_charms", "heritages"
   add_foreign_key "heritage_tags", "heritages"
   add_foreign_key "heritage_tags", "tags"
-  add_foreign_key "heritage_third_charms", "heritages"
   add_foreign_key "heritages", "countries"
   add_foreign_key "replies", "reviews"
   add_foreign_key "replies", "users"
