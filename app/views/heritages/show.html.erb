@@ -133,7 +133,6 @@
     var observerCallback = function(entries, observer) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          console.log(1);
           entry.target.classList.add('fade-in');
           observer.unobserve(entry.target);
         }
@@ -176,7 +175,7 @@
       }
     });
 
-    // レビューポップアップを表示するll
+    // レビューポップアップを表示する
     var reviewsPopup = document.getElementById("user-reviews-popup");
     var showPopupBtn = document.getElementById("show-all-reviews");
     showPopupBtn.addEventListener('click', function() {
