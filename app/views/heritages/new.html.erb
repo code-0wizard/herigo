@@ -6,7 +6,16 @@
     <%= f.text_field :country, placeholder: "国名", class: 'heritage-form__country-name' %>
     <%= f.text_field :lat, placeholder: "緯度", class: 'heritage-form__lat' %>
     <%= f.text_field :lng, placeholder: "経度", class: 'heritage-form__lng' %>
-    <%= f.file_field :images, multiple: true, class: "heritage-form__image" %>
+
+    <%= f.label :pc_image, "pc_image", class: "heritage-form__label" %>
+    <%= f.file_field :pc_image, class: "heritage-form__image" %>
+    
+    <%= f.label :mobile_image, "mobile_image", class: "heritage-form__label" %>
+    <%= f.file_field :mobile_image, class: "heritage-form__image" %>
+
+    <%= f.label :slideshow_images, "slideshow_images", class: "heritage-form__label" %>
+    <%= f.file_field :slideshow_images, multiple: true, class: "heritage-form__image" %>    
+
     <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name, class: "heritage-form__tag" %>
     <%= f.submit "登録", class: "heritage-form__submit" %>
   <% end %>

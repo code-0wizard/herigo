@@ -51,7 +51,7 @@ class HeritagesController < ApplicationController
 
   private
     def heritage_params
-      params.require(:heritage).permit(:name, :content, :lat, :lng, images: [])
+      params.require(:heritage).permit(:name, :content, :lat, :lng, :pc_image, :mobile_image ,slideshow_images: [])
     end
 
     def create_heritage_tags(heritage_id, tag_ids)

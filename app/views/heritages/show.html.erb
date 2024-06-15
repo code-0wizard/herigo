@@ -1,8 +1,8 @@
 <%= render 'shared/continent_header' %>
 <div class="heritage-top-area">
   <div class="heritage-img-area">
-    <%= image_tag "heritage/マチュピチュ/top_pc.png", class: "heritage-img-area__pc-img" %>
-    <%= image_tag "heritage/マチュピチュ/top_mb.png", class: "heritage-img-area__mb-img" %>
+    <%= image_tag @heritage.pc_image, class: "heritage-img-area__pc-img" %>
+    <%= image_tag @heritage.mobile_image, class: "heritage-img-area__mb-img" %>
      <p class="heritage-img-area__name"><%= @heritage.name %></p>
   </div>
   <div class="heritage-item-list">
@@ -41,22 +41,19 @@
 
   <div class="slide-show-area">
     <div class="slide-wrapper">
-      <%= image_tag "heritage/マチュピチュ/1.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/2.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/3.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/4.png", class: "slide-show-area__img" %>
+      <% @heritage.slideshow_images.each do |image| %>
+        <%= image_tag image, class: "slide-show-area__img" %>
+      <% end %>
     </div>
     <div class="slide-wrapper">
-      <%= image_tag "heritage/マチュピチュ/1.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/2.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/3.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/4.png", class: "slide-show-area__img" %>
+      <% @heritage.slideshow_images.each do |image| %>
+        <%= image_tag image, class: "slide-show-area__img" %>
+      <% end %>
     </div>
-      <div class="slide-wrapper">
-      <%= image_tag "heritage/マチュピチュ/1.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/2.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/3.png", class: "slide-show-area__img" %>
-      <%= image_tag "heritage/マチュピチュ/4.png", class: "slide-show-area__img" %>
+    <div class="slide-wrapper">
+      <% @heritage.slideshow_images.each do |image| %>
+        <%= image_tag image, class: "slide-show-area__img" %>
+      <% end %>
     </div>
   </div>
 
