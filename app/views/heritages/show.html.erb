@@ -25,15 +25,15 @@
 <div class="heritage-main-block">
   <div class="main-charm-block">
     <div class="main-charm-area">
-      <%= image_tag "heritage/マチュピチュ/charm1.png", class: "main-charm-area__main-img js-main-img" %>
-      <%= image_tag "heritage/マチュピチュ/1.png", class: "main-charm-area__sub-img js-sub-img" %>
+      <%= image_tag @heritage_first_charm.main_image, class: "main-charm-area__main-img js-main-img" %>
+      <%= image_tag @heritage_first_charm.sub_image, class: "main-charm-area__sub-img js-sub-img" %>
     </div>
     <div class="charm-describe-area js-describe-area">
       <p class="charm-describe-area__sub-title">
-        <%= @heritage_first_charm.sub_title %>
+        <%= @heritage_first_charm.title %>
       </p>
       <p class="charm-describe-area__detail">
-        <%= @heritage_first_charm.detail %>
+        <%= @heritage_first_charm.description %>
       </p>
     </div>
     <p class="charm-describe-area__show-msg-btn hide js-show-full-msg">すべて表示</p>
@@ -62,15 +62,15 @@
 
   <div class="main-charm-block">
     <div class="main-charm-area">
-      <%= image_tag "heritage/マチュピチュ/charm2.png", class: "main-charm-area__main-img js-main-img" %>
-      <%= image_tag "heritage/マチュピチュ/2.png", class: "main-charm-area__sub-img js-sub-img" %>
+      <%= image_tag @heritage_second_charm.main_image, class: "main-charm-area__main-img js-main-img" %>
+      <%= image_tag @heritage_second_charm.sub_image, class: "main-charm-area__sub-img js-sub-img" %>
     </div>
     <div class="charm-describe-area js-describe-area">
       <p class="charm-describe-area__sub-title">
-        <%= @heritage_second_charm.sub_title %>
+        <%= @heritage_second_charm.title %>
       </p>
       <p class="charm-describe-area__detail">
-        <%= @heritage_second_charm.detail %>
+        <%= @heritage_second_charm.description %>
       </p>
     </div>
     <p class="charm-describe-area__show-msg-btn hide js-show-full-msg">すべて表示</p>
@@ -94,24 +94,24 @@
 
 <div class="sub-charm-block">
   <div class="charm-wrapper js-charm-wrapper">
-    <%= image_tag "heritage/マチュピチュ/charm3.png", class: "charm-wrapper__img" %>
+    <%= image_tag @heritage_third_charm.main_image, class: "charm-wrapper__img" %>
     <div class="charm-describe-container">
       <p class="charm-describe-container__title">
-        <%= @heritage_third_charm.sub_title %>
+        <%= @heritage_third_charm.title %>
       </p>
       <p class="charm-describe-container__detail">
-        <%= @heritage_third_charm.detail %>
+        <%= @heritage_third_charm.description %>
       </p>
     </div>
   </div>
   <div class="charm-wrapper js-charm-wrapper">
-    <%= image_tag "heritage/マチュピチュ/charm4.png", class: "charm-wrapper__img order-2" %>
+    <%= image_tag @heritage_fourth_charm.main_image, class: "charm-wrapper__img order-2" %>
     <div class="charm-describe-container order-1">
       <p class="charm-describe-container__title">
-        <%= @heritage_fourth_charm.sub_title %>
+        <%= @heritage_fourth_charm.title %>
       </p>
       <p class="charm-describe-container__detail">
-        <%= @heritage_fourth_charm.detail %>
+        <%= @heritage_fourth_charm.description %>
       </p>
     </div>
   </div>

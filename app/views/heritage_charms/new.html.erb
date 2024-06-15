@@ -1,11 +1,18 @@
-<div class="heritage-charm-form">
-  <p class="heritage-charm-form__title">世界遺産魅力1つ目</p>
-  <%= form_with(model: @heritage_first_charm) do |f| %>
-    <%= f.text_field :main_title, placeholder: "メインタイトル", class: 'heritage-charm-form__main-title' %>
-    <%= f.text_field :sub_title, placeholder: "サブタイトル", class: 'heritage-charm-form__sub-title' %>
-    <%= f.text_area :detail, placeholder: "詳細", class: 'heritage-charm-form__detail' %>
-    <%= f.collection_select :heritage_id, Heritage.all, :id, :name, {}, { class: 'heritage-charm-form__heritage-select' } %>
-    <%= f.file_field :image, class: "heritage-charm-form__image" %>
-    <%= f.submit "登録", class: "heritage-charm-form__submit" %>
+<%= form_with(url: heritage_charms_path, multipart: true, local: true) do |form| %>
+  <% @heritage_charms.each_with_index do |heritage_charm, index| %>
+    <div class="heritage-charm-form">
+      <p class="heritage-charm-form__title">魅力<%= index + 1 %></p>
+      <%= fields_for "heritage_charms[]", heritage_charm do |f| %>
+        <% if index == 0 %>
+          <%= select_tag 'heritage_id', options_from_collection_for_select(Heritage.all, :id, :name), class: 'heritage-charm-form__heritage-select' %>
+        <% end %>
+        <%= f.hidden_field :order, value: index + 1 %>
+        <%= f.text_field :title, placeholder: "タイトル", class: 'heritage-charm-form__title' %>
+        <%= f.text_area :description, placeholder: "説明(100文字以内)", class: 'heritage-charm-form__description' %>
+        <%= f.file_field :main_image, class: "heritage-charm-form__image" %>
+        <%= f.file_field :sub_image, class: "heritage-charm-form__image" %>
+      <% end %>
+    </div>
   <% end %>
-</div>
+  <%= form.submit "登録", class: "heritage-charm-form__submit" %>
+ <% end %>
