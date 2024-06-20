@@ -72,13 +72,17 @@
   display: grid;
   grid-template-columns: 3fr 7fr;
   width: 80%;
-  height: 100px;
+  height: auto;
+  min-height: 100px;
   margin: 0 auto;
   &__label {
     font-weight: normal;
     font-size: 1.7rem;
     background-color: #ececec;
     padding: 30px 20px;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
   }
   &__input {
     display: inline-block;
@@ -87,6 +91,10 @@
     border-radius: 10px;
     font-size: 1.7rem;
     padding: 10px;
+    width: 80%;
+  }
+  & .validation-error-message {
+    margin: 0 0 20px 20px
   }
 }
 .email-inner {

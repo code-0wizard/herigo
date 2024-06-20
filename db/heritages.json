@@ -1,9 +1,36 @@
 [
   {
-    "name": "マチュピチュ",
-    "content": "hoge",
-    "country_id": 1,
-    "lat":1,
-    "lng":1
+    "heritage": {
+      "name": "テスト",
+      "content": "hoge",
+      "country_id": 1,
+      "lat": -32.3736263,
+      "lng": 40.4373623
+    },
+    "heritage_tags": [
+      1, 2, 3
+    ],
+    "heritage_charms": [
+      {
+        "title": "Charm 1",
+        "description": "Description 1",
+        "order": 1
+      },
+      {
+        "title": "Charm 2",
+        "description": "Description 2",
+        "order": 2
+      },
+      {
+        "title": "Charm 3",
+        "description": "Description 3",
+        "order": 3
+      },
+      {
+        "title": "Charm 4",
+        "description": "Description 4",
+        "order": 4
+      }
+    ]
   }
 ]

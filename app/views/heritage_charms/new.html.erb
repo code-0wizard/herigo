@@ -1,0 +1,18 @@
+<%= form_with(url: heritage_charms_path, multipart: true, local: true) do |form| %>
+  <% @heritage_charms.each_with_index do |heritage_charm, index| %>
+    <div class="heritage-charm-form">
+      <p class="heritage-charm-form__title">魅力<%= index + 1 %></p>
+      <%= fields_for "heritage_charms[]", heritage_charm do |f| %>
+        <% if index == 0 %>
+          <%= select_tag 'heritage_id', options_from_collection_for_select(Heritage.all, :id, :name), class: 'heritage-charm-form__heritage-select' %>
+        <% end %>
+        <%= f.hidden_field :order, value: index + 1 %>
+        <%= f.text_field :title, placeholder: "タイトル", class: 'heritage-charm-form__title' %>
+        <%= f.text_area :description, placeholder: "説明(100文字以内)", class: 'heritage-charm-form__description' %>
+        <%= f.file_field :main_image, class: "heritage-charm-form__image" %>
+        <%= f.file_field :sub_image, class: "heritage-charm-form__image" %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= form.submit "登録", class: "heritage-charm-form__submit" %>
+ <% end %>

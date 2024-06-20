@@ -12,10 +12,10 @@ class HeritagesController < ApplicationController
     @reviews = @heritage.reviews
     @review = @heritage.reviews.build
     @continents = Continent.all
-    @heritage_first_charm = @heritage.heritage_first_charm
-    @heritage_second_charm = @heritage.heritage_second_charm
-    @heritage_third_charm = @heritage.heritage_third_charm
-    @heritage_fourth_charm = @heritage.heritage_fourth_charm
+    @heritage_first_charm = @heritage.heritage_charms.find_by(order: 1)
+    @heritage_second_charm = @heritage.heritage_charms.find_by(order: 2)
+    @heritage_third_charm = @heritage.heritage_charms.find_by(order: 3)
+    @heritage_fourth_charm = @heritage.heritage_charms.find_by(order: 4)
   end
 
   def new
@@ -51,7 +51,7 @@ class HeritagesController < ApplicationController
 
   private
     def heritage_params
-      params.require(:heritage).permit(:name, :content, :lat, :lng, images: [])
+      params.require(:heritage).permit(:name, :content, :lat, :lng, :pc_image, :mobile_image ,slideshow_images: [])
     end
 
     def create_heritage_tags(heritage_id, tag_ids)
