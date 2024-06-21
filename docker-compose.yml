@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    container_name: herigo-db
+    image: postgres:12
+    environment:
+      POSTGRES_USER: user_kenya_3323
+      POSTGRES_PASSWORD: 93Hh8ihH9f
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      POSTGRES_USER: user_kenya_3323
+      POSTGRES_PASSWORD: 93Hh8ihH9f
+    volumes:
+      - .:/herigo
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      
+volumes:
+  postgresql-data:
+    driver: local
