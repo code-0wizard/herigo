@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -58,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
   create_table "heritage_charms", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "heritage_id", null: false
+    t.bigint "heritage_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order"
@@ -76,8 +79,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
   end
 
   create_table "heritage_tags", force: :cascade do |t|
-    t.integer "heritage_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "heritage_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["heritage_id"], name: "index_heritage_tags_on_heritage_id"
@@ -87,7 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
   create_table "heritages", force: :cascade do |t|
     t.string "name"
     t.text "content"
-    t.integer "country_id", null: false
+    t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "lat", precision: 16, scale: 14
@@ -117,8 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
 
   create_table "replies", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id", null: false
-    t.integer "review_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["review_id", "created_at"], name: "index_replies_on_review_id_and_created_at"
@@ -129,8 +132,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_072015) do
 
   create_table "reviews", force: :cascade do |t|
     t.text "content"
-    t.integer "heritage_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "heritage_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
