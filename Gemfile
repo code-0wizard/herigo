@@ -60,7 +60,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails'
   gem "factory_bot_rails"
-  gem "rubocop"
+  gem 'rubocop', require:false
+  gem 'rubocop-rails', require:false
 end
 
 group :development do
