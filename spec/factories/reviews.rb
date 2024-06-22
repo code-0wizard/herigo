@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :review do
-    content { "MyText" }
+    content { 'MyText' }
     heritage { nil }
     user { nil }
   end

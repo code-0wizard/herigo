@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     user = User.find_by(email: params[:session][:email])
@@ -12,8 +11,8 @@ class SessionsController < ApplicationController
         log_in user
         redirect_to forwarding_url || root_url
       else
-        message  = "アカウントが有効化されていません。"
-        message += "会員登録時に届いたメールをチェックしてください"
+        message  = 'アカウントが有効化されていません。'
+        message += '会員登録時に届いたメールをチェックしてください'
         flash[:warning] = message
         redirect_to root_url
       end

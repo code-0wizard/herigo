@@ -7,7 +7,7 @@ class CreateReplies < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    add_index :replies, [:user_id, :created_at]
-    add_index :replies, [:review_id, :created_at]
+    add_index :replies, %i[user_id created_at]
+    add_index :replies, %i[review_id created_at]
   end
 end

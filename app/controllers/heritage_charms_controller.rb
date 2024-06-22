@@ -1,6 +1,5 @@
 class HeritageCharmsController < ApplicationController
-  def index
-  end
+  def index; end
 
   def new
     @heritage_charms = Array.new(4) do
@@ -27,9 +26,7 @@ class HeritageCharmsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
-  def update
-  end
+  def update; end
 end
