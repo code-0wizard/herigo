@@ -11,7 +11,6 @@ class HeritageCharmsController < ApplicationController
   end
 
   def create
-    debugger
     heritage = Heritage.find(params[:heritage_id])
     @heritage_charms = params[:heritage_charms].map do |heritage_charm_param|
       heritage_charm = heritage.heritage_charms.build(heritage_charm_param.permit(:title, :description, :order))

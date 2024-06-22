@@ -94,7 +94,6 @@ RSpec.describe PasswordResetsController, type: :controller do
     #     patch :update, params: { id: user.reset_token, email: user.email, user: { password: "newpassword", password_confirmation: "newpassword" } }
     #     expect(response).to redirect_to(user)
     #   end
-    end
   end
 
 end

@@ -24,6 +24,7 @@ module ApplicationHelper
     heritage = Heritage.find(heritage_id)
     average = heritage.reviews.where.not(score: nil).average(:score)
     formatted_average = average.nil? ? 0 : average.round(2)
+    formatted_average
   end
 
   def count_replies_for_review(review_id)

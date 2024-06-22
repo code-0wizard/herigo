@@ -4,7 +4,6 @@ class LikesController < ApplicationController
   def create
     @review = Review.find(params[:review_id])
     current_user.like_review(@review)
-    heritage = Heritage.find(@review.heritage_id)
     respond_to do |format|
       format.js
     end
@@ -13,7 +12,6 @@ class LikesController < ApplicationController
   def destroy
     @review = Review.find(params[:review_id])
     current_user.unlike_review(@review)
-    heritage = Heritage.find(@review.heritage_id)
     respond_to do |format|
       format.js
     end
