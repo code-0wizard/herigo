@@ -1,0 +1,7 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: <%= Rails.application.credentials.dig(:postgres, :user) %>
+  password: <%= Rails.application.credentials.dig(:postgres, :password) %>
+  database: myapp_test
