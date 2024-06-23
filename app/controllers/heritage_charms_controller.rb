@@ -1,6 +1,5 @@
 class HeritageCharmsController < ApplicationController
-  def index
-  end
+  def index; end
 
   def new
     @heritage_charms = Array.new(4) do
@@ -12,7 +11,6 @@ class HeritageCharmsController < ApplicationController
   end
 
   def create
-    debugger
     heritage = Heritage.find(params[:heritage_id])
     @heritage_charms = params[:heritage_charms].map do |heritage_charm_param|
       heritage_charm = heritage.heritage_charms.build(heritage_charm_param.permit(:title, :description, :order))
@@ -27,9 +25,7 @@ class HeritageCharmsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
-  def update
-  end
+  def update; end
 end

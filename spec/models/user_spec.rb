@@ -10,13 +10,13 @@ RSpec.describe User, type: :model do
         password_confirmation: 'password123'
       )
     end
-  
+
     describe 'name validations' do
       it 'is valid with @user' do
         @user.valid?
         expect(@user).to be_valid
       end
-  
+
       context 'when name is nil' do
         it 'is invalid' do
           @user.name = nil
@@ -31,23 +31,23 @@ RSpec.describe User, type: :model do
           expect(@user.errors[:name]).to include('ユーザー名欄は必須です')
         end
       end
-  
+
       context 'when name is longer than 20 characters' do
         it 'is invalid' do
-          @user.name = 'a' * 21 
+          @user.name = 'a' * 21
           @user.valid?
           expect(@user.errors[:name]).to include('ユーザー名欄は20文字以下で入力してください')
         end
       end
       context 'when name is exactly 20 characters' do
         it 'is valid' do
-          @user.name = 'a' * 20 
+          @user.name = 'a' * 20
           @user.valid?
           expect(@user).to be_valid
         end
       end
     end
-  
+
     describe 'email validations' do
       context 'when email is nil' do
         it 'is invalid' do
@@ -58,12 +58,12 @@ RSpec.describe User, type: :model do
       end
       context 'when email is blank' do
         it 'is invalid' do
-            @user.email = ' '
-            @user.valid?
-            expect(@user.errors[:email]).to include('メールアドレス欄は必須です')
+          @user.email = ' '
+          @user.valid?
+          expect(@user.errors[:email]).to include('メールアドレス欄は必須です')
         end
       end
-  
+
       context 'when duplicate email' do
         it 'does not allow' do
           duplicate_email_user = User.new(
@@ -76,16 +76,16 @@ RSpec.describe User, type: :model do
           expect(duplicate_email_user.errors[:email]).to include('このメールアドレスは登録済みです')
         end
       end
-  
+
       context 'when email is incorrect format' do
         it 'does not allow' do
-          @user.email = "hogehoge"
+          @user.email = 'hogehoge'
           @user.valid?
           expect(@user.errors[:email]).to include('メールアドレス欄は正しいメールアドレスを入力してください')
         end
       end
     end
-  
+
     describe 'password validations' do
       context 'when password is nil' do
         it 'is invalid' do
@@ -101,7 +101,7 @@ RSpec.describe User, type: :model do
           expect(@user.errors[:password]).to include('パスワード欄は必須です')
         end
       end
-  
+
       context 'when password is shorter than 8 characters' do
         it 'is invalid' do
           @user.password = 'pass123'
@@ -116,7 +116,7 @@ RSpec.describe User, type: :model do
           expect(@user.errors[:password]).to include('パスワード欄は8～20桁で入力してください')
         end
       end
-  
+
       context 'when password does not contain numbers' do
         it 'is invalid' do
           @user.password = 'password'
@@ -132,7 +132,7 @@ RSpec.describe User, type: :model do
         end
       end
     end
-  
+
     describe 'password_confirmation validations' do
       context 'when password_confirmation does not match password' do
         it 'is invalid' do

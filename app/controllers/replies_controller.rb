@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   before_action :logged_in_user
-  
+
   def create
     @review = Review.find(params[:reply][:review_id])
     @reply = @review.replies.build(reply_params)
@@ -19,7 +19,8 @@ class RepliesController < ApplicationController
   end
 
   private
-    def reply_params
-      params.require(:reply).permit(:content, :review_id, reply_images: [])
-    end
+
+  def reply_params
+    params.require(:reply).permit(:content, :review_id, reply_images: [])
+  end
 end

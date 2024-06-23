@@ -8,6 +8,6 @@ class CreateLikes < ActiveRecord::Migration[7.1]
     end
     add_index :likes, :review_id
     add_index :likes, :user_id
-    add_index :likes, [:user_id, :review_id], unique: true
+    add_index :likes, %i[user_id review_id], unique: true
   end
 end

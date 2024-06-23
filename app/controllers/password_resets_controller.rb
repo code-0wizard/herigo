@@ -1,14 +1,13 @@
 class PasswordResetsController < ApplicationController
-  before_action :get_user,         only: [:edit, :update]
-  before_action :valid_user,       only: [:edit, :update]
-  before_action :check_expiration, only: [:edit, :update]
+  before_action :get_user,         only: %i[edit update]
+  before_action :valid_user,       only: %i[edit update]
+  before_action :check_expiration, only: %i[edit update]
 
-  def new
-  end
+  def new; end
 
   def create
     if params[:password_reset][:email].empty?
-      flash.now[:danger] = "メールアドレスが入力されていません"
+      flash.now[:danger] = 'メールアドレスが入力されていません'
       render 'new', status: :unprocessable_entity
     else
       @user = User.find_by(email: params[:password_reset][:email])
@@ -17,14 +16,13 @@ class PasswordResetsController < ApplicationController
         @user.send_password_reset_email
         render 'mail_sent', status: :ok
       else
-        flash.now[:danger] = "このメールアドレスは登録されていません"
+        flash.now[:danger] = 'このメールアドレスは登録されていません'
         render 'new', status: :unprocessable_entity
       end
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -47,15 +45,15 @@ class PasswordResetsController < ApplicationController
   end
 
   def valid_user
-    unless (@user && @user.activated? &&
-            @user.authenticated?(:reset, params[:id]))
+    unless @user && @user.activated? &&
+           @user.authenticated?(:reset, params[:id])
       redirect_to root_url
     end
   end
 
   def check_expiration
-    if @user.password_reset_expired?
-      render 'expired', status: :unprocessable_entity
-    end
+    return unless @user.password_reset_expired?
+
+    render 'expired', status: :unprocessable_entity
   end
 end

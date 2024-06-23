@@ -3,7 +3,7 @@ class ContinentsController < ApplicationController
     @tags = Tag.all
     @continent = Continent.find(params[:id])
     @tag_id = params[:tag_id] unless params[:tag_id].nil?
-    if !params[:tag_id].nil? 
+    if !params[:tag_id].nil?
       @tag_id = params[:tag_id]
       tag = Tag.find(@tag_id)
       @heritages = tag.heritages
@@ -11,7 +11,7 @@ class ContinentsController < ApplicationController
       @heritages = Heritage.all
     end
   end
-  
+
   def edit
     @continent = Continent.find(params[:id])
   end

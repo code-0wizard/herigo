@@ -10,7 +10,7 @@ class UserMailerPreview < ActionMailer::Preview
   def email_reset
     user = User.first
     user.email_reset_token = User.new_token
-    user.new_email = "aaa@aaa.com"
+    user.new_email = 'aaa@aaa.com'
     UserMailer.email_reset(user)
   end
 end

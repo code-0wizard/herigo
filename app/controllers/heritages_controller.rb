@@ -1,6 +1,6 @@
 class HeritagesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create]
-  before_action :admin_user,     only: [:new, :create]
+  before_action :logged_in_user, only: %i[new create]
+  before_action :admin_user,     only: %i[new create]
 
   def index
     @heritages = Heritage.all
@@ -40,7 +40,7 @@ class HeritagesController < ApplicationController
   def update
     @heritage = Heritage.find(params[:id])
     country_id = Country.find_by(name: params[:heritage][:country]).id
-    if @heritage.update(heritage_params.merge(country_id: country_id))
+    if @heritage.update(heritage_params.merge(country_id:))
       @heritage.heritage_tags.destroy_all
       create_heritage_tags(params[:id], params[:heritage][:tag_ids])
       redirect_to root_url
@@ -50,14 +50,16 @@ class HeritagesController < ApplicationController
   end
 
   private
-    def heritage_params
-      params.require(:heritage).permit(:name, :content, :lat, :lng, :pc_image, :mobile_image ,slideshow_images: [])
-    end
 
-    def create_heritage_tags(heritage_id, tag_ids)
-      return if tag_ids.blank?
-      tag_ids.each do |tag_id|
-        HeritageTag.create(heritage_id: heritage_id, tag_id: tag_id)
-      end
+  def heritage_params
+    params.require(:heritage).permit(:name, :content, :lat, :lng, :pc_image, :mobile_image, slideshow_images: [])
+  end
+
+  def create_heritage_tags(heritage_id, tag_ids)
+    return if tag_ids.blank?
+
+    tag_ids.each do |tag_id|
+      HeritageTag.create(heritage_id:, tag_id:)
     end
+  end
 end
