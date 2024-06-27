@@ -81,6 +81,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'rspec-rails'
+  gem "launchy"
 end
 
 gem 'jsbundling-rails', '~> 1.3'

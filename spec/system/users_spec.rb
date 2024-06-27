@@ -18,14 +18,22 @@ RSpec.describe 'Users', type: :system do
   end
 
   scenario '有効な値の場合、ユーザーは新規登録される' do
-    visit new_user_path
-    fill_in 'user[name]', with:'テストユーザー'
-    fill_in 'user[email]', with:'test@test.com'
-    fill_in 'user[password]', with:'password123'
-    fill_in 'user[password_confirmation]', with:'password123'
-
     expect {
+      visit new_user_path
+      fill_in 'user[name]', with:'テストユーザー'
+      fill_in 'user[email]', with:'test@test.com'
+      fill_in 'user[password]', with:'password123'
+      fill_in 'user[password_confirmation]', with:'password123'
       click_button '会員登録'
     }.to change(User, :count).by 1
+
+    mail = ActionMailer::Base.deliveries.last
+
+    aggregate_failures do
+      expect(mail.to).to eq ["test@test.com"]
+      expect(mail.from).to eq ["from@example.com"]
+      expect(mail.subject).to eq "アカウント有効化"
+      expect(mail.body.encoded).to include activation_url
+    end
   end
 end
