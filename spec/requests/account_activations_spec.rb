@@ -18,6 +18,7 @@ RSpec.describe 'AccountActivations', type: :request do
         expect(@user).to be_activated
       end
  
+      # TODO:ログイン状態にならない
       it 'ログイン状態になること' do
         get edit_account_activation_path(@user.activation_token, email: @user.email)
         expect(logged_in?).to be_truthy
