@@ -26,6 +26,5 @@ RSpec.describe UserMailer, type: :mailer do
       activation_url = edit_account_activation_url(user.activation_token, email: user.email)
       expect(mail.html_part.body.to_s).to include(activation_url)
     end
-
   end
 end
