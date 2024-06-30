@@ -5,6 +5,10 @@ RSpec.describe UserMailer, type: :mailer do
     let(:user) { FactoryBot.create(:user) }
     let(:mail) { UserMailer.account_activation(user) }
 
+    before do
+      user.activation_token = User.new_token
+    end
+
     it "「アカウント有効化」というタイトルで送信されること" do
       expect(mail.subject).to eq('アカウント有効化')
     end
@@ -17,12 +21,11 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eq(['from@example.com'])
     end
 
-    it 'メール本文にユーザ名が表示されていること' do
+    it 'メール本文にユーザー名が表示されること' do
       expect(mail.html_part.body.to_s).to include(user.name)
     end
 
-    it 'メール本文にユーザのactivation_tokenが表示されていること' do
-      user.activation_token = User.new_token
+    it 'メール本文にURLが含まれること' do
       activation_url = edit_account_activation_url(user.activation_token, email: user.email)
       expect(mail.html_part.body.to_s).to include(activation_url)
     end
