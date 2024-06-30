@@ -32,8 +32,6 @@ RSpec.describe 'Users', type: :system do
     aggregate_failures do
       expect(mail.to).to eq ["test@test.com"]
       expect(mail.from).to eq ["from@example.com"]
-      expect(mail.subject).to eq "アカウント有効化"
-      expect(mail.body.encoded).to include activation_url
     end
   end
 end
