@@ -24,5 +24,20 @@ RSpec.describe 'AccountActivations', type: :request do
         expect(logged_in?).to be_truthy
       end
     end
+
+    
+    context 'トークンとemailが無効な場合' do
+      # TODO:エラーになる
+      it '有効化トークンが不正ならログイン状態にならないこと' do
+        get edit_account_activation_path('invalid token', email: @user.email)
+        expect(logged_in?).to be_falsey
+      end
+ 
+      # TODO:エラーになる
+      it 'メールアドレスが不正ならログイン状態にならないこと' do
+        get edit_account_activation_path(@user.activation_token, email: 'invalid@test.com')
+        expect(logged_in?).to be_falsey
+      end
+    end
   end
 end
