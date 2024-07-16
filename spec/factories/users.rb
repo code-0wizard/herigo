@@ -7,7 +7,7 @@ FactoryBot.define do
     activated { true }
   end
 
-  factory :not-activated-user do
+  factory :inactive_user do
     name { 'Test User' }
     email { 'not_activated@example.com' }
     password { 'password1' }
