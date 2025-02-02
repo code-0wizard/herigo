@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # http://localhost:3000/letter_opener
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
   root 'heritages#index'
   get '/login',  to: 'sessions#new'
   post '/login', to: 'sessions#create'
